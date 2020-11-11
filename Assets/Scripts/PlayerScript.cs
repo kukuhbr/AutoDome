@@ -41,7 +41,7 @@ public class PlayerScript : Character {
 
     new void Update() {
         if (isAlive) {
-            //Check Movement and Rotation
+            // Check Movement and Rotation
             moveDirection = cameraForward * joystickMove.Vertical + cameraRight * joystickMove.Horizontal;
             //moveDirection = Vector3.forward * joystickMove.Vertical + Vector3.right * joystickMove.Horizontal;
             //moveDirection = Quaternion.AngleAxis(-35, Vector3.up) * (Vector3.forward * joystickMove.Vertical + Vector3.right * joystickMove.Horizontal);
@@ -51,7 +51,7 @@ public class PlayerScript : Character {
                 transform.rotation = Quaternion.LookRotation(moveDirection.normalized);
             }
 
-            //Check for Shoot
+            // Check for Shoot
             shootDirection = cameraForward * joystickShoot.Vertical + cameraRight * joystickShoot.Horizontal;
             //shootDirection = Vector3.forward * joystickShoot.Vertical + Vector3.right * joystickShoot.Horizontal;
             if (Mathf.Abs(shootDirection.x) > 0.6 || Mathf.Abs(shootDirection.z) > 0.6) {
@@ -63,7 +63,7 @@ public class PlayerScript : Character {
                 isShooting = false;
             }
 
-            //Check Reload and Damage
+            // Check Reload and Damage
             base.Update();
         } else {
             moveDirection = new Vector3(0,0,0);
@@ -74,7 +74,6 @@ public class PlayerScript : Character {
         //this.transform.LookAt(direction * speed);
         LimitMovement(moveDirection);
         rb.velocity = moveDirection * moveSpeed;
-
     }
 
     void LateUpdate() {
@@ -84,30 +83,34 @@ public class PlayerScript : Character {
     //Limit player movement
     //Shooting ray downward from around the player to detect ground
     //Set axis velocity to zero if ray return null
+    private Vector3[] checkPoints = new Vector3[4];
+    private int[] hit = new int[4];
     void LimitMovement(Vector3 vInput) {
-        Vector3[] checkPoints = new Vector3[4];
-        bool[] hit = new bool[4];
         Vector3 res = new Vector3();
+        checkPoints[0] = this.transform.position + new Vector3(boxcol.size.x, .2f, 0);
+        checkPoints[1] = this.transform.position + new Vector3(0, .2f, boxcol.size.z);
+        checkPoints[2] = this.transform.position + new Vector3(-boxcol.size.x, .2f, 0);
+        checkPoints[3] = this.transform.position + new Vector3(0, .2f, -boxcol.size.z);
 
-        checkPoints[0] = this.transform.position + new Vector3(boxcol.size.x, 0, 0);
-        checkPoints[1] = this.transform.position + new Vector3(0, 0, boxcol.size.z);
-        checkPoints[2] = this.transform.position + new Vector3(-boxcol.size.x, 0, 0);
-        checkPoints[3] = this.transform.position + new Vector3(0, 0, -boxcol.size.z);
-
+        // Raycast to determine still in arena zone
         for (int i = 0; i < 4; i++) {
-            hit[i] = Physics.Raycast(checkPoints[i], Vector3.down, 5f);
+            if(Physics.Raycast(checkPoints[i], Vector3.down, 1f)) {
+                hit[i] = 1;
+            } else {
+                hit[i] = 0;
+            }
         }
 
         if (vInput.x > 0) {
-            res.x = vInput.x * System.Convert.ToInt32(hit[0]);
+            res.x = vInput.x * hit[0];
         } else {
-            res.x = vInput.x * System.Convert.ToInt32(hit[2]);
+            res.x = vInput.x * hit[2];
         }
 
         if (vInput.z > 0) {
-            res.z = vInput.z * System.Convert.ToInt32(hit[1]);
+            res.z = vInput.z * hit[1];
         } else {
-            res.z = vInput.z * System.Convert.ToInt32(hit[3]);
+            res.z = vInput.z * hit[3];
         }
         moveDirection = res;
     }

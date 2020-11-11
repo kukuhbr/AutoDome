@@ -3393,7 +3393,6 @@ MonoBehaviour:
   arena: {fileID: 1006667855}
   player: {fileID: 1553382575}
   playerSpawn: {fileID: 120200186}
-  enemySpawn: {fileID: 11716105}
   vehicleList:
   - {fileID: 11400000, guid: 94bc60f3c6d13234dbb343d004e34679, type: 2}
   - {fileID: 11400000, guid: 763e78500055c2149add7d7fa3b57516, type: 2}
