@@ -13,6 +13,7 @@ public class SceneLoader : MonoBehaviour
     public TextMeshProUGUI loadingText;
     public SceneIndex currentScene;
     public bool isLoaded;
+    public int selectedCharacterIndex;
     private void Awake()
     {
         sceneLoader = this;

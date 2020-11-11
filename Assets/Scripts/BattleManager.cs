@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour {
     public GameObject playerSpawn;
     public GameObject enemySpawn;
     private Vector3 arenaSize;
+    public List<VehicleScriptableObject> vehicleList;
     public float waveDelay;
     public float waveEnemyCount;
     private bool isNewWave;
@@ -16,6 +17,13 @@ public class BattleManager : MonoBehaviour {
     private bool gameOver = false;
 
     // Use this for initialization
+
+    void Awake() {
+        //Assign selected Vehicle Scriptable Object to character
+        if(SceneLoader.sceneLoader) {
+            player.GetComponent<PlayerScript>().vso = vehicleList[SceneLoader.sceneLoader.selectedCharacterIndex];
+        }
+    }
     void Start() {
         Screen.orientation = ScreenOrientation.Landscape;
 

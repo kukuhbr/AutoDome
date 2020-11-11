@@ -35,7 +35,7 @@ public class CharacterScrollScript : MonoBehaviour
         }
         selectedCharacter = characters[0];
         selectedIndex = 0;
-        selectedCharacter.localScale = new Vector3(15,15,15);
+        selectedCharacter.localScale = new Vector3(7,7,7);
         minPos = 0;
         maxPos = (characters.Count - 1) * 40;
         inverseRotation = 0;
@@ -60,12 +60,12 @@ public class CharacterScrollScript : MonoBehaviour
         int targetAlignment = Mathf.Clamp(Mathf.RoundToInt(posAlignment), 0, characters.Count-1);
         if (targetAlignment != selectedIndex)
         {
-            selectedCharacter.localScale = new Vector3(10,10,10);
+            selectedCharacter.localScale = new Vector3(5,5,5);
             selectedCharacter.Rotate(0, -inverseRotation, 0, Space.World);
             inverseRotation = 0;
             selectedIndex = targetAlignment;
             selectedCharacter = characters[selectedIndex];
-            selectedCharacter.localScale = new Vector3(15,15,15);
+            selectedCharacter.localScale = new Vector3(7,7,7);
         }
         // if(this.transform.position.x % 40 != 0)
         // {
@@ -77,7 +77,7 @@ public class CharacterScrollScript : MonoBehaviour
 
     private void Update()
     {
-
+        SceneLoader.sceneLoader.selectedCharacterIndex = selectedIndex;
         if(!dragHandler.isDrag)
         {
             //Snap

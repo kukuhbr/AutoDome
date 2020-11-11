@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerScript : Character {
+    public VehicleScriptableObject vso;
     public Slider playerHpBar;
     public Joystick joystickMove;
     public Joystick joystickShoot;
@@ -11,19 +12,31 @@ public class PlayerScript : Character {
     private Vector3 shootDirection;
     private Vector3 cameraForward;
     private Vector3 cameraRight;
+    private GameObject playerModel;
 
     void Start() {
+        // Get Components
         boxcol = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
-        currentHp = maxHp;
-        currentAmmo = maxAmmo;
-        playerHpBar.maxValue = maxHp;
-        playerHpBar.value = maxHp;
+
+        // Assign values from selected Vehicle Scriptable Object
+        maxHp = vso.maxHp;
+        maxAmmo = vso.maxAmmo;
+        moveSpeed = vso.moveSpeed;
+        bulletSpeed = vso.bulletSpeed;
+        currentHp = vso.maxHp;
+        currentAmmo = vso.maxAmmo;
+        playerHpBar.maxValue = vso.maxHp;
+        playerHpBar.value = vso.maxHp;
+        playerModel = Instantiate(vso.model, transform);
+        playerModel.transform.localScale = new Vector3(.5f, .5f, .5f);
+        playerModel.transform.position = new Vector3(0, .3f, 0);
+
         cameraForward = Camera.main.transform.forward;
         cameraForward.y = 0;
         cameraRight = Camera.main.transform.right;
-        Debug.Log("cam Forward" + cameraForward);
-        Debug.Log("cam Right" + cameraRight);
+        //Debug.Log("cam Forward" + cameraForward);
+        //Debug.Log("cam Right" + cameraRight);
     }
 
     new void Update() {
