@@ -16,8 +16,8 @@ public class BattleManager : MonoBehaviour {
     public float waveEnemyGrow;
     private bool isNewWave;
     private int waveNumber;
-    private bool gameStart = false;
-    private bool gameOver = false;
+    private bool isGameStart = false;
+    private bool isGameOver = false;
 
     // Use this for initialization
 
@@ -40,6 +40,7 @@ public class BattleManager : MonoBehaviour {
         isNewWave = true;
         waveNumber = 1;
         StartCoroutine(WaitForSceneLoad());
+        BattleEvents.battleEvents.onGameOver += GameOver;
     }
 
     void SpawnRandom(GameObject obj) {
@@ -52,7 +53,7 @@ public class BattleManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if(gameStart)
+        if(isGameStart)
         {
 
             if (isNewWave) {
@@ -60,18 +61,16 @@ public class BattleManager : MonoBehaviour {
             }
             if (!player.GetComponent<PlayerScript>().isAlive)
             {
-                gameOver = true;
-                gameStart = false;
+                BattleEvents.battleEvents.TriggerGameOver();
             }
         }
-        if(gameOver)
+        if(isGameOver)
         {
-            BattleEvents.battleEvents.TriggerGameOver();
             if (Time.timeScale > 0.2) {
                 Time.timeScale -= 0.1f;
                 Time.fixedDeltaTime = 0.02f * Time.timeScale;
             } else {
-                StartCoroutine(GameOver());
+                StartCoroutine(LoadMenu());
             }
         }
     }
@@ -101,16 +100,27 @@ public class BattleManager : MonoBehaviour {
         if (SceneLoader.sceneLoader.isLoaded) {
             // Animate Text
             yield return new WaitForSeconds(2f);
-            gameStart = true;
+            isGameStart = true;
         }
     }
 
-    IEnumerator GameOver()
+    private void GameOver()
     {
-        gameOver = false;
+        isGameOver = true;
+        isGameStart = false;
+    }
+
+    IEnumerator LoadMenu()
+    {
+        isGameOver = false;
         yield return new WaitForSecondsRealtime(3f);
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
         SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
+    }
+
+    void OnDestroy()
+    {
+        BattleEvents.battleEvents.onGameOver -= GameOver;
     }
 }

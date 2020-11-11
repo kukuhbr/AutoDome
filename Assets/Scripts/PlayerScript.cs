@@ -13,7 +13,12 @@ public class PlayerScript : Character {
     private Vector3 cameraForward;
     private Vector3 cameraRight;
     private GameObject playerModel;
+    private bool isGameOver=false;
 
+    void OnEnable()
+    {
+
+    }
     void Start() {
         // Get Components
         boxcol = GetComponent<BoxCollider>();
@@ -37,10 +42,11 @@ public class PlayerScript : Character {
         cameraRight = Camera.main.transform.right;
         //Debug.Log("cam Forward" + cameraForward);
         //Debug.Log("cam Right" + cameraRight);
+        BattleEvents.battleEvents.onGameOver += GameOver;
     }
 
     new void Update() {
-        if (isAlive) {
+        if (isAlive && !isGameOver) {
             // Check Movement and Rotation
             moveDirection = cameraForward * joystickMove.Vertical + cameraRight * joystickMove.Horizontal;
             //moveDirection = Vector3.forward * joystickMove.Vertical + Vector3.right * joystickMove.Horizontal;
@@ -67,6 +73,10 @@ public class PlayerScript : Character {
             base.Update();
         } else {
             moveDirection = new Vector3(0,0,0);
+            if(!isGameOver)
+            {
+                BattleEvents.battleEvents.TriggerGameOver();
+            }
         }
     }
 
@@ -133,5 +143,15 @@ public class PlayerScript : Character {
         currentAmmo -= 1;
         yield return new WaitForSeconds(0.5f);
         isCooldown = false;
+    }
+
+    void GameOver()
+    {
+        isGameOver = true;
+    }
+
+    void OnDestroy()
+    {
+        BattleEvents.battleEvents.onGameOver -= GameOver;
     }
 }

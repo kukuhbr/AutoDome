@@ -20,5 +20,13 @@ public class BattleEvents : MonoBehaviour
             onGameOver();
         }
     }
+    public event Action onGameStart;
+    public void TriggerGameStart()
+    {
+        if(onGameStart != null)
+        {
+            onGameStart();
+        }
+    }
 
 }

@@ -18,6 +18,10 @@ public class BattleUIScript : MonoBehaviour
     private Animator gameTextAnimator;
     public TextMeshProUGUI gameTextBottom;
 
+    void OnEnable()
+    {
+
+    }
     void Start()
     {
         ammoList = new List<Slider>();
@@ -67,6 +71,7 @@ public class BattleUIScript : MonoBehaviour
                 timeLeft -= Time.deltaTime;
                 timer.text = Mathf.RoundToInt(timeLeft).ToString();
                 if (timeLeft < 0) {
+                    BattleEvents.battleEvents.TriggerGameOver();
                     isTimeOver = true;
                 }
             }
@@ -96,5 +101,10 @@ public class BattleUIScript : MonoBehaviour
     {
         gameTextBottom.text = "OVER";
         gameTextAnimator.SetBool("GameOver", true);
+    }
+
+    void OnDestroy()
+    {
+        BattleEvents.battleEvents.onGameOver -= DisplayGameOverText;
     }
 }
