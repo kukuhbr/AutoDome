@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
+    [Header("Object References")]
     public GameObject arena;
     public GameObject player;
     public GameObject playerSpawn;
-    public GameObject enemySpawn;
     private Vector3 arenaSize;
     public List<VehicleScriptableObject> vehicleList;
+    [Header("Wave Settings")]
     public float waveDelay;
+    public float waveDelayDecay;
     public float waveEnemyCount;
+    public float waveEnemyGrow;
     private bool isNewWave;
     private int waveNumber;
     private bool gameStart = false;
@@ -85,8 +88,8 @@ public class BattleManager : MonoBehaviour {
         isNewWave = false;
         yield return new WaitForSeconds(waveDelay);
         waveNumber++;
-        waveDelay *= 0.98f;
-        waveEnemyCount += 5f;
+        waveDelay *= waveDelayDecay;
+        waveEnemyCount += waveEnemyGrow;
         isNewWave = true;
     }
 
@@ -104,6 +107,7 @@ public class BattleManager : MonoBehaviour {
 
     IEnumerator GameOver()
     {
+        gameOver = false;
         yield return new WaitForSecondsRealtime(3f);
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;

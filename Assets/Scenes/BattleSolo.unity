@@ -3398,8 +3398,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94bc60f3c6d13234dbb343d004e34679, type: 2}
   - {fileID: 11400000, guid: 763e78500055c2149add7d7fa3b57516, type: 2}
   - {fileID: 11400000, guid: 3fc255f9af63f1940956eaab9cffb20f, type: 2}
-  waveDelay: 3
+  waveDelay: 5
+  waveDelayDecay: 0.98
   waveEnemyCount: 1
+  waveEnemyGrow: 0.3
 --- !u!4 &1393273043
 Transform:
   m_ObjectHideFlags: 0

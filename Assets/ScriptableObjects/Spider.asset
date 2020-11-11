@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d374facdd3c7d741b5b8d7d48327ea3, type: 3}
   m_Name: Spider
   m_EditorClassIdentifier: 
-  vehicleName: Azure
-  maxHp: 150
-  maxAmmo: 5
-  moveSpeed: 10
-  bulletSpeed: 0.3
+  vehicleName: Spider
+  maxHp: 80
+  maxAmmo: 4
+  moveSpeed: 14
+  bulletSpeed: 7
   model: {fileID: -2253911629886400664, guid: bf839fbb8a3390e40a4a4ee2b129eef7, type: 3}
