@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    //public GameObject PlayerPlaceholder;
+    public TextMeshProUGUI currencyText;
     // Start is called before the first frame update
     void Start()
     {
         Screen.orientation = ScreenOrientation.Portrait;
+        currencyText.text = PlayerManager.playerManager.GetCurrency("bolt").ToString();
     }
 
     // Update is called once per frame

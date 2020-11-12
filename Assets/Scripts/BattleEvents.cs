@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleEvents : MonoBehaviour
@@ -26,6 +24,14 @@ public class BattleEvents : MonoBehaviour
         if(onGameStart != null)
         {
             onGameStart();
+        }
+    }
+    public event Action<int> onScoreChange;
+    public void TriggerScoreChange(int value)
+    {
+        if(onScoreChange != null)
+        {
+            onScoreChange(value);
         }
     }
 

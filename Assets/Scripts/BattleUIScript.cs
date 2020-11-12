@@ -17,11 +17,10 @@ public class BattleUIScript : MonoBehaviour
     public GameObject gameText;
     private Animator gameTextAnimator;
     public TextMeshProUGUI gameTextBottom;
+    [Header("Scoreboard")]
+    private int score;
+    public TextMeshProUGUI scoreText;
 
-    void OnEnable()
-    {
-
-    }
     void Start()
     {
         ammoList = new List<Slider>();
@@ -41,7 +40,9 @@ public class BattleUIScript : MonoBehaviour
         }
         gameTextAnimator = gameText.GetComponent<Animator>();
         StartCoroutine(WaitForSceneLoad());
+        score = 0;
         BattleEvents.battleEvents.onGameOver += DisplayGameOverText;
+        BattleEvents.battleEvents.onScoreChange += AdjustScore;
     }
 
     void LateUpdate()
@@ -75,13 +76,6 @@ public class BattleUIScript : MonoBehaviour
                     isTimeOver = true;
                 }
             }
-
-            // Game Over
-            if (isGameOver)
-            {
-                // gameTextBottom.text = "OVER";
-                // gameTextAnimator.SetBool("GameOver", true);
-            }
         }
     }
 
@@ -101,10 +95,24 @@ public class BattleUIScript : MonoBehaviour
     {
         gameTextBottom.text = "OVER";
         gameTextAnimator.SetBool("GameOver", true);
+        PlayerManager.playerManager.IncreaseCurrency("bolt", score / 10);
+    }
+
+    private void AdjustScore(int value)
+    {
+        if (score + value < 0) {
+            score = 0;
+        } else {
+            score += value;
+        }
+        Debug.Log(score);
+		var f = new System.Globalization.NumberFormatInfo{NumberGroupSeparator=",", NumberDecimalDigits=0};
+        scoreText.text = score.ToString("N", f);
     }
 
     void OnDestroy()
     {
         BattleEvents.battleEvents.onGameOver -= DisplayGameOverText;
+        BattleEvents.battleEvents.onScoreChange -= AdjustScore;
     }
 }

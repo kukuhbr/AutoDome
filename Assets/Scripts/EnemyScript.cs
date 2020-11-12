@@ -41,6 +41,7 @@ public class EnemyScript : Character {
             if (currentHp <= 0) {
                 //isAlive = false;
                 Kill();
+                BattleEvents.battleEvents.TriggerScoreChange(100);
             }
         } else if (col.tag == "Player") {
             col.GetComponent<PlayerScript>().damageBuffer += 10f;
