@@ -31,9 +31,10 @@ public class BattleManager : MonoBehaviour {
         Screen.orientation = ScreenOrientation.Landscape;
 
         //Get Arena Boundary information
-        Mesh _mesh = arena.GetComponent<MeshFilter>().mesh;
+        arenaSize = arena.transform.localScale;
+        /*Mesh _mesh = arena.GetComponent<MeshFilter>().mesh;
         arenaSize = _mesh.bounds.size;
-        //Debug.Log(arenaSize); //(10,0,10)
+        //Debug.Log(arenaSize); //(10,0,10)*/
 
         //Spawn Character Entities
         player.transform.position = playerSpawn.transform.position;
@@ -44,11 +45,14 @@ public class BattleManager : MonoBehaviour {
     }
 
     void SpawnRandom(GameObject obj) {
-        //Determine Spawn Boundary; xB == xBounds
+        /*//Determine Spawn Boundary; xB == xBounds
         float xB = arenaSize.x - 1.4f;
         float zB = arenaSize.z - 1.4f;
-        obj.transform.position = new Vector3(Random.Range(-xB, xB), 0, Random.Range(-zB, zB));
-        //Debug.Log(obj.transform.position);
+        obj.transform.position = new Vector3(Random.Range(-xB, xB), 0, Random.Range(-zB, zB));*/
+        float angle = Random.Range(0, 2f * Mathf.PI);
+        float r = arenaSize.x / 2 * Mathf.Sqrt(Random.Range(0f, 1f));
+        Vector3 random = new Vector3(r * Mathf.Cos(angle), 0, r * Mathf.Sin(angle));
+        obj.transform.position = random;
     }
 
     // Update is called once per frame
