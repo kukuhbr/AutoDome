@@ -59,7 +59,6 @@ public class BattleManager : MonoBehaviour {
     void Update() {
         if(isGameStart)
         {
-
             if (isNewWave) {
                 StartCoroutine(SpawnEnemy(Mathf.RoundToInt(waveEnemyCount)));
             }
@@ -81,10 +80,10 @@ public class BattleManager : MonoBehaviour {
 
     IEnumerator SpawnEnemy(int n) {
         for (int i = 0; i < n; i++) {
-            GameObject enemy = ObjectPooler.SharedInstance.GetPooledObject("Enemy");
+            GameObject enemy = ObjectPooler.SharedInstance.GetPooledObject(ObjectPooler.Pooled.FollowerEnemy);
             if (enemy != null) {
                 SpawnRandom(enemy);
-                enemy.SetActive(true);
+                enemy.GetComponent<EnemyScript>().Spawn();
             }
         }
         //Delay between waves

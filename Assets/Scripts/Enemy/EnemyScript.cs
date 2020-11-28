@@ -3,35 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyScript : Character {
-    private Transform target;
-    private Vector3 moveDirection;
+
+    protected Transform target;
+    protected Vector3 moveDirection;
 
     void Start() {
-        currentHp = maxHp;
         target = GameObject.FindGameObjectWithTag("Player").transform;
         boxcol = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
     }
 
     new void Update() {
-        if(target)
-        {
-            moveDirection = (target.position - transform.position).normalized;
-        }
         base.Update();
-    }
-
-    void FixedUpdate() {
-        if (isAlive) {
-            rb.velocity = moveDirection * moveSpeed;
-            transform.Rotate(0, 10, 0);
-        }
     }
 
     // Deactivate and Reset Game Object
     void Kill() {
+        isAlive = false;
         this.gameObject.SetActive(false);
+    }
+
+    public void Spawn() {
         currentHp = maxHp;
+        isAlive = true;
+        this.gameObject.SetActive(true);
     }
 
     void OnTriggerEnter(Collider col) {

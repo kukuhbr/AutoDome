@@ -8,7 +8,7 @@ public class PlayerScript : Character {
     public Slider playerHpBar;
     public Joystick joystickMove;
     public Joystick joystickShoot;
-    private Vector3 moveDirection;
+    public Vector3 moveDirection;
     private Vector3 shootDirection;
     private Vector3 cameraForward;
     private Vector3 cameraRight;
@@ -131,7 +131,7 @@ public class PlayerScript : Character {
 
     IEnumerator Fire(Vector3 vInput) {
         //Logic
-        GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
+        GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject(ObjectPooler.Pooled.Bullet);
         if (bullet != null) {
             bullet.transform.position = this.transform.position + new Vector3(0, 1, 0);
             bullet.transform.rotation = Quaternion.LookRotation(vInput + new Vector3(0, 90, 0));

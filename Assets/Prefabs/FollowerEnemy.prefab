@@ -90,9 +90,9 @@ GameObject:
   - component: {fileID: 5809872116111047024}
   - component: {fileID: 5809872116111047026}
   - component: {fileID: 5809872116111047025}
-  - component: {fileID: 5809872116111047027}
+  - component: {fileID: 477723831379613380}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: FollowerEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5809872116111047027
+--- !u!114 &477723831379613380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5809872116111047031}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 133b3851dcd4cdb499af4364f3564df2, type: 3}
+  m_Script: {fileID: 11500000, guid: 064731719716b93419fab5fa0ea59db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 30
