@@ -125,18 +125,21 @@ public class PlayerScript : Character {
         moveDirection = res;
     }
 
-    public void AddDamage(float damage) {
-        damageBuffer += damage;
+    void OnTriggerEnter(Collider col) {
+        if (col.tag == "BulletEnemy") {
+            col.gameObject.SetActive(false);
+            AddDamage(10f);
+        }
     }
 
-    IEnumerator Fire(Vector3 vInput) {
+    IEnumerator Fire(Vector3 input) {
         //Logic
         GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject(ObjectPooler.Pooled.Bullet);
         if (bullet != null) {
             bullet.transform.position = this.transform.position + new Vector3(0, 1, 0);
-            bullet.transform.rotation = Quaternion.LookRotation(vInput + new Vector3(0, 90, 0));
+            bullet.transform.rotation = Quaternion.LookRotation(input + new Vector3(0, 90, 0));
             bullet.SetActive(true);
-            bullet.GetComponent<BulletScript>().Shoot(vInput, bulletSpeed);
+            bullet.GetComponent<BulletScript>().Shoot(input, bulletSpeed);
         }
         //ApplyCooldown
         isCooldown = true;

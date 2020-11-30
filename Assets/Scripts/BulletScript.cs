@@ -26,7 +26,8 @@ public class BulletScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(this.transform.position + direction * speed * Time.deltaTime);
+        //rb.MovePosition(this.transform.position + direction * speed * Time.deltaTime);
+        rb.velocity = direction * speed;
     }
 
     public void Shoot(Vector3 vInput, float speed)

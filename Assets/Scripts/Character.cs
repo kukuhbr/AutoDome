@@ -34,6 +34,10 @@ public class Character : MonoBehaviour {
         }
     }
 
+    public void AddDamage(float damage) {
+        damageBuffer += damage;
+    }
+
     void TakeDamage() {
         currentHp -= damageBuffer;
         if (currentHp <= 0) {

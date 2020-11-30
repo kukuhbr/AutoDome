@@ -7,7 +7,8 @@ public class BattleManager : MonoBehaviour {
     public GameObject arena;
     public GameObject player;
     public GameObject playerSpawn;
-    private Vector3 arenaSize;
+    public float outerSummonOffset;
+    private float summonBounds;
     public List<VehicleScriptableObject> vehicleList;
     [Header("Wave Settings")]
     public float waveDelay;
@@ -31,7 +32,8 @@ public class BattleManager : MonoBehaviour {
         Screen.orientation = ScreenOrientation.Landscape;
 
         //Get Arena Boundary information
-        arenaSize = arena.transform.localScale;
+        summonBounds = arena.transform.localScale.x / 2;
+        summonBounds -= outerSummonOffset;
         /*Mesh _mesh = arena.GetComponent<MeshFilter>().mesh;
         arenaSize = _mesh.bounds.size;
         //Debug.Log(arenaSize); //(10,0,10)*/
@@ -50,7 +52,7 @@ public class BattleManager : MonoBehaviour {
         float zB = arenaSize.z - 1.4f;
         obj.transform.position = new Vector3(Random.Range(-xB, xB), 0, Random.Range(-zB, zB));*/
         float angle = Random.Range(0, 2f * Mathf.PI);
-        float r = arenaSize.x / 2 * Mathf.Sqrt(Random.Range(0f, 1f));
+        float r = summonBounds * Mathf.Sqrt(Random.Range(0f, 1f));
         Vector3 random = new Vector3(r * Mathf.Cos(angle), 0, r * Mathf.Sin(angle));
         obj.transform.position = random;
     }
@@ -80,7 +82,16 @@ public class BattleManager : MonoBehaviour {
 
     IEnumerator SpawnEnemy(int n) {
         for (int i = 0; i < n; i++) {
-            GameObject enemy = ObjectPooler.SharedInstance.GetPooledObject(ObjectPooler.Pooled.FollowerEnemy);
+
+            GameObject enemy;
+            int rand = Random.Range(0, 5);
+            if (rand == 4) {
+                enemy = ObjectPooler.SharedInstance.GetPooledObject(ObjectPooler.Pooled.DasherEnemy);
+            } else if  (rand == 3) {
+                enemy = ObjectPooler.SharedInstance.GetPooledObject(ObjectPooler.Pooled.ShooterEnemy);
+            } else {
+                enemy = ObjectPooler.SharedInstance.GetPooledObject(ObjectPooler.Pooled.FollowerEnemy);
+            }
             if (enemy != null) {
                 SpawnRandom(enemy);
                 enemy.GetComponent<EnemyScript>().Spawn();

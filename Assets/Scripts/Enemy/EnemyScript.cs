@@ -23,7 +23,8 @@ public class EnemyScript : Character {
         this.gameObject.SetActive(false);
     }
 
-    public void Spawn() {
+    public virtual void Spawn() {
+        Debug.Log("Base enemy spawn");
         currentHp = maxHp;
         isAlive = true;
         this.gameObject.SetActive(true);
@@ -39,7 +40,7 @@ public class EnemyScript : Character {
                 BattleEvents.battleEvents.TriggerScoreChange(100);
             }
         } else if (col.tag == "Player") {
-            col.GetComponent<PlayerScript>().damageBuffer += 10f;
+            col.GetComponent<PlayerScript>().AddDamage(10f);
             //rb.MovePosition(new Vector3(-4, 0, 4));
             Kill();
         }

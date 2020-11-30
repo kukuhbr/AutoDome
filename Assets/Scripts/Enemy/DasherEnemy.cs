@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class DasherEnemy : EnemyScript
 {
+    private int rotateSpeed;
     new void Update() {
         if(target)
         {
+            moveDirection = (target.position - transform.position).normalized;
             if(target.GetComponent<PlayerScript>().moveDirection != Vector3.zero) {
-                moveDirection = (target.position - transform.position).normalized;
+                rotateSpeed = 15;
             } else {
-                moveDirection = Vector3.zero;
+                moveDirection *= 0.2f;
+                rotateSpeed = 5;
             }
         }
         base.Update();
@@ -19,6 +22,7 @@ public class DasherEnemy : EnemyScript
     void FixedUpdate() {
         if (isAlive) {
             rb.velocity = moveDirection * moveSpeed;
+            transform.Rotate(0, rotateSpeed, 0);
         }
     }
 }

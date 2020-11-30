@@ -783,6 +783,7 @@ GameObject:
   - component: {fileID: 310955665}
   - component: {fileID: 310955664}
   - component: {fileID: 310955663}
+  - component: {fileID: 310955667}
   m_Layer: 0
   m_Name: Arena 1
   m_TagString: Untagged
@@ -868,6 +869,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &310955667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310955662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 359a2155e731d1046b77e17672ae7924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &312382348
 GameObject:
   m_ObjectHideFlags: 0
@@ -4713,6 +4726,7 @@ MonoBehaviour:
   arena: {fileID: 310955662}
   player: {fileID: 1553382575}
   playerSpawn: {fileID: 120200186}
+  outerSummonOffset: 3
   vehicleList:
   - {fileID: 11400000, guid: 94bc60f3c6d13234dbb343d004e34679, type: 2}
   - {fileID: 11400000, guid: 763e78500055c2149add7d7fa3b57516, type: 2}
@@ -4754,19 +4768,24 @@ MonoBehaviour:
     type: 0
     shouldExpand: 1
   - amountToPool: 3
-    objectToPool: {fileID: 5809872116111047031, guid: 2f90e6601e7472241abd21b50f431ead,
+    objectToPool: {fileID: 8034109273741278912, guid: 18375b846d65c31469c9de0dfadc59c0,
       type: 3}
     type: 1
     shouldExpand: 1
-  - amountToPool: 3
+  - amountToPool: 1
     objectToPool: {fileID: 5809872116111047031, guid: 2f90e6601e7472241abd21b50f431ead,
       type: 3}
     type: 2
     shouldExpand: 1
-  - amountToPool: 3
-    objectToPool: {fileID: 5809872116111047031, guid: 2f90e6601e7472241abd21b50f431ead,
+  - amountToPool: 1
+    objectToPool: {fileID: 2078502968470338, guid: f972dbb56df662d46940e87db8f10eaf,
       type: 3}
     type: 3
+    shouldExpand: 1
+  - amountToPool: 3
+    objectToPool: {fileID: 6504668657206487712, guid: 8c5f46f0542a9cf45a2c681b30ac72ed,
+      type: 3}
+    type: 4
     shouldExpand: 1
 --- !u!114 &1393273045
 MonoBehaviour:
@@ -7729,8 +7748,8 @@ Camera:
   m_GameObject: {fileID: 2120140438}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.050062295, g: 0.08562506, b: 0.14150941, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -7751,7 +7770,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4407
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

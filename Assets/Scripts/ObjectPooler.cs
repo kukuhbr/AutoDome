@@ -6,9 +6,10 @@ public class ObjectPooler : MonoBehaviour
 {
     public enum Pooled {
         Bullet,
+        BulletEnemy,
         FollowerEnemy,
         DasherEnemy,
-        ShooterEnemy
+        ShooterEnemy,
     }
 
     [System.Serializable]

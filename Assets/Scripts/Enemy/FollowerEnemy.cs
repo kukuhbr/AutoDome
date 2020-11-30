@@ -18,4 +18,10 @@ public class FollowerEnemy : EnemyScript
             transform.Rotate(0, 10, 0);
         }
     }
+
+    void OnTriggerStay(Collider col) {
+        if(col.tag == "Enemy") {
+            moveDirection += (transform.position - col.transform.position).normalized;
+        }
+    }
 }
