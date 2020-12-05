@@ -19,6 +19,11 @@ public class FollowerEnemy : EnemyScript
         }
     }
 
+    public override void BulletKill() {
+        base.BulletKill();
+        rb.velocity = Vector3.zero;
+    }
+
     void OnTriggerStay(Collider col) {
         if(col.tag == "Enemy") {
             moveDirection += (transform.position - col.transform.position).normalized;

@@ -25,4 +25,9 @@ public class DasherEnemy : EnemyScript
             transform.Rotate(0, rotateSpeed, 0);
         }
     }
+
+    public override void BulletKill() {
+        base.BulletKill();
+        rb.velocity = Vector3.zero;
+    }
 }

@@ -12,6 +12,7 @@ public class Character : MonoBehaviour {
     public float moveSpeed = 10;
     public float bulletSpeed = .1f;
     public float damageBuffer;
+    public Vector3 moveDirection;
     public bool isAlive = true;
     protected bool isCooldown = false;
     protected bool isReloading = false;

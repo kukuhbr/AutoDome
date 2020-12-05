@@ -8,7 +8,6 @@ public class PlayerScript : Character {
     public Slider playerHpBar;
     public Joystick joystickMove;
     public Joystick joystickShoot;
-    public Vector3 moveDirection;
     private Vector3 shootDirection;
     private Vector3 cameraForward;
     private Vector3 cameraRight;
