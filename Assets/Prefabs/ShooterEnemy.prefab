@@ -5091,7 +5091,12 @@ MonoBehaviour:
   damageBuffer: 0
   moveDirection: {x: 0, y: 0, z: 0}
   isAlive: 1
-  particleDeath: {fileID: 4453192575358402100}
+  deathParticle: {fileID: 4453192575358402100}
+  modelRenderer:
+  - {fileID: 6504668657423522928}
+  - {fileID: 6504668656857638433}
+  - {fileID: 6504668657139445648}
+  - {fileID: 6504668657343387683}
   maxBarrage: 3
 --- !u!95 &1651563363077399736
 Animator:

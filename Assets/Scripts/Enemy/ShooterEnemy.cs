@@ -38,7 +38,7 @@ public class ShooterEnemy : EnemyScript
     }
 
     IEnumerator Barrage() {
-        if (barrage > 0) {
+        if (barrage > 0 && isAlive) {
             if (!isCooldown) {
                 StartCoroutine(Fire((target.position - transform.position).normalized));
                 barrage -= 1;

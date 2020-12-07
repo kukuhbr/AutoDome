@@ -5058,7 +5058,8 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   isAlive: 1
   deathParticle: {fileID: 9193298391766775923}
-  modelRenderer: {fileID: 5809872114820731371}
+  modelRenderer:
+  - {fileID: 5809872114820731371}
 --- !u!95 &3308977279017567605
 Animator:
   serializedVersion: 3
