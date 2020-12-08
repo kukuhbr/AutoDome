@@ -18,7 +18,6 @@ public class ShooterEnemy : EnemyScript
 
     public override void Spawn() {
         base.Spawn();
-        Debug.Log("This is shooter enemy spawn");
         barrage = maxBarrage;
     }
 

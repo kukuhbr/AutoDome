@@ -5,16 +5,14 @@ using UnityEngine;
 public class DasherEnemy : EnemyScript
 {
     private int rotateSpeed;
+    private float maxSpeed;
     new void Update() {
         if(target)
         {
             moveDirection = (target.position - transform.position).normalized;
-            if(target.GetComponent<PlayerScript>().moveDirection != Vector3.zero) {
-                rotateSpeed = 15;
-            } else {
-                moveDirection *= 0.2f;
-                rotateSpeed = 5;
-            }
+            Vector3 targetDirection = target.GetComponent<PlayerScript>().moveDirection;
+            rotateSpeed = Mathf.RoundToInt(Mathf.Lerp(5f, 15f, targetDirection.magnitude));
+            moveDirection *= Mathf.Lerp(0.2f, maxSpeed, targetDirection.magnitude);
         }
         base.Update();
     }
@@ -26,8 +24,12 @@ public class DasherEnemy : EnemyScript
         }
     }
 
-    public override void BulletKill() {
-        base.BulletKill();
-        rb.velocity = Vector3.zero;
+    public override void Spawn() {
+        base.Spawn();
+        if (target) {
+            maxSpeed = 1f + (target.GetComponent<PlayerScript>().moveSpeed / 100);
+        } else {
+            maxSpeed = 1f;
+        }
     }
 }

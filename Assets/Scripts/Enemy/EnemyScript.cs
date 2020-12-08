@@ -33,11 +33,13 @@ public class EnemyScript : Character {
     // Deactivate and Reset Game Object
     void Kill() {
         isAlive = false;
+        rb.velocity = Vector3.zero;
         this.gameObject.SetActive(false);
     }
 
-    public virtual void BulletKill() {
+    void BulletKill() {
         isAlive = false;
+        rb.velocity = Vector3.zero;
         if(deathParticle) {
             deathParticle.Play();
         }
@@ -45,8 +47,8 @@ public class EnemyScript : Character {
     }
 
     public virtual void Spawn() {
-        Debug.Log("Base enemy spawn");
         currentHp = maxHp;
+        moveDirection = Vector3.zero;
         SetDissolve(-.1f);
         this.gameObject.SetActive(true);
         StartCoroutine(SpawnWithDelay(.4f));
@@ -73,7 +75,7 @@ public class EnemyScript : Character {
     void OnTriggerStay(Collider col) {
         if(isAlive) {
             if (col.tag == "Enemy") {
-                moveDirection += transform.position - col.transform.position;
+                moveDirection += (transform.position - col.transform.position).normalized * 2;
             } else if (col.tag == "Player") {
                 col.GetComponent<PlayerScript>().AddDamage(10f);
                 Kill();
