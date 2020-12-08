@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyScript : Character {
 
@@ -9,16 +10,24 @@ public class EnemyScript : Character {
     private ParticleSystem deathParticle;
     [SerializeField]
     private List<Renderer> modelRenderer;
+    [SerializeField]
+    private Slider hpBar;
 
     void Start() {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         boxcol = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
+        hpBar.minValue = 0;
+        hpBar.maxValue = maxHp;
         isAlive = false;
     }
 
     new void Update() {
         base.Update();
+    }
+
+    void LateUpdate() {
+        hpBar.value = currentHp;
     }
 
     // Deactivate and Reset Game Object
@@ -38,7 +47,7 @@ public class EnemyScript : Character {
     public virtual void Spawn() {
         Debug.Log("Base enemy spawn");
         currentHp = maxHp;
-        SetDissolve(0f);
+        SetDissolve(-.1f);
         this.gameObject.SetActive(true);
         StartCoroutine(SpawnWithDelay(.4f));
     }
@@ -55,7 +64,6 @@ public class EnemyScript : Character {
                 }
             } else if (col.tag == "Player") {
                 col.GetComponent<PlayerScript>().AddDamage(10f);
-                //rb.MovePosition(new Vector3(-4, 0, 4));
                 Kill();
             }
         }
@@ -66,6 +74,9 @@ public class EnemyScript : Character {
         if(isAlive) {
             if (col.tag == "Enemy") {
                 moveDirection += transform.position - col.transform.position;
+            } else if (col.tag == "Player") {
+                col.GetComponent<PlayerScript>().AddDamage(10f);
+                Kill();
             }
         }
     }

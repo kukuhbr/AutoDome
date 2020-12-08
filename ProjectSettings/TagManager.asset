@@ -19,7 +19,7 @@ TagManager:
   - 
   - 
   - Loading Screen
-  - Spawn
+  - 
   - 
   - 
   - CharacterPanel
@@ -46,9 +46,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Spawn
+  - name: UI
     uniqueID: 2388169529
     locked: 0
-  - name: New Layer
+  - name: 
     uniqueID: 3616448555
     locked: 0
