@@ -7,6 +7,7 @@ public class BulletScript : MonoBehaviour
     private Vector3 direction;
     private Rigidbody rb;
     public float speed;
+    public float damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +31,11 @@ public class BulletScript : MonoBehaviour
         rb.velocity = direction * speed;
     }
 
-    public void Shoot(Vector3 vInput, float speed)
+    public void Shoot(Vector3 vInput, float speed, float damage)
     {
         this.direction = vInput;
         this.speed = speed;
+        this.damage = damage;
     }
 
     void OnTriggerExit(Collider col)

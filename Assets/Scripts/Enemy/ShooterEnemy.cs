@@ -28,7 +28,7 @@ public class ShooterEnemy : EnemyScript
             bullet.transform.position = this.transform.position + new Vector3(0, 1, 0);
             bullet.transform.rotation = Quaternion.LookRotation(input + new Vector3(0, 90, 0));
             bullet.SetActive(true);
-            bullet.GetComponent<BulletScript>().Shoot(input, bulletSpeed);
+            bullet.GetComponent<BulletScript>().Shoot(input, bulletSpeed, damage);
         }
         //ApplyCooldown
         isCooldown = true;

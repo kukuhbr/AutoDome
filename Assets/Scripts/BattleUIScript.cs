@@ -38,6 +38,8 @@ public class BattleUIScript : MonoBehaviour
                 break;
             }
         }
+        hpBar.maxValue = player.maxHp;
+        hpBar.value = player.maxHp;
         gameTextAnimator = gameText.GetComponent<Animator>();
         StartCoroutine(WaitForSceneLoad());
         score = 0;
@@ -50,31 +52,37 @@ public class BattleUIScript : MonoBehaviour
         // If Scene Loaded
         if (SceneLoader.sceneLoader.isLoaded)
         {
-            // Update Player Ammo
-            float currentAmmo = player.GetAmmo(1);
-            for(int i = 0; i < ammoList.Count; i++)
-            {
-                if (i == Mathf.FloorToInt(currentAmmo)) {
-                    ammoList[i].value = currentAmmo % 1;
-                } else if (i < currentAmmo) {
-                    ammoList[i].value = 1;
-                } else {
-                    ammoList[i].value = 0;
-                }
-            }
+            UpdatePlayerAmmo();
 
             // Update Player HP
             hpBar.value = player.GetHp(1);
 
-            // Update Timer
-            if (!isTimeOver)
-            {
-                timeLeft -= Time.deltaTime;
-                timer.text = Mathf.RoundToInt(timeLeft).ToString();
-                if (timeLeft < 0) {
-                    BattleEvents.battleEvents.TriggerGameOver();
-                    isTimeOver = true;
-                }
+            UpdateTimer();
+        }
+    }
+
+    void UpdatePlayerAmmo() {
+        float currentAmmo = player.GetAmmo(1);
+        for(int i = 0; i < ammoList.Count; i++)
+        {
+            if (i == Mathf.FloorToInt(currentAmmo)) {
+                ammoList[i].value = currentAmmo % 1;
+            } else if (i < currentAmmo) {
+                ammoList[i].value = 1;
+            } else {
+                ammoList[i].value = 0;
+            }
+        }
+    }
+
+    void UpdateTimer() {
+        if (!isTimeOver)
+        {
+            timeLeft -= Time.deltaTime;
+            timer.text = Mathf.RoundToInt(timeLeft).ToString();
+            if (timeLeft < 0) {
+                BattleEvents.battleEvents.TriggerGameOver();
+                isTimeOver = true;
             }
         }
     }

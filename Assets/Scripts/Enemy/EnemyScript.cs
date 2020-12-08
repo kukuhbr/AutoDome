@@ -12,6 +12,8 @@ public class EnemyScript : Character {
     private List<Renderer> modelRenderer;
     [SerializeField]
     private Slider hpBar;
+    [SerializeField]
+    private List<Loot> lootTable;
 
     void Start() {
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -58,14 +60,14 @@ public class EnemyScript : Character {
         if(isAlive) {
             if (col.tag == "Bullet") {
                 col.gameObject.SetActive(false);
-                currentHp -= 10;
+                currentHp -= col.GetComponent<BulletScript>().damage;
                 if (currentHp <= 0) {
                     //isAlive = false;
                     BulletKill();
                     BattleEvents.battleEvents.TriggerScoreChange(100);
                 }
             } else if (col.tag == "Player") {
-                col.GetComponent<PlayerScript>().AddDamage(10f);
+                col.GetComponent<PlayerScript>().AddDamage(damage);
                 Kill();
             }
         }

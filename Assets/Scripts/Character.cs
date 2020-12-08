@@ -11,6 +11,9 @@ public class Character : MonoBehaviour {
     protected float currentAmmo;
     public float moveSpeed = 10;
     public float bulletSpeed = .1f;
+    public float damage = 10f;
+    public float fireRate = .5f;
+    public float reloadRate = .06f;
     public float damageBuffer;
     public Vector3 moveDirection;
     public bool isAlive = true;

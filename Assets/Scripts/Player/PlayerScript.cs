@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerScript : Character {
     public VehicleScriptableObject vso;
-    public Slider playerHpBar;
     public Joystick joystickMove;
     public Joystick joystickShoot;
     private Vector3 shootDirection;
@@ -16,13 +15,6 @@ public class PlayerScript : Character {
 
     void OnEnable()
     {
-
-    }
-    void Start() {
-        // Get Components
-        boxcol = GetComponent<BoxCollider>();
-        rb = GetComponent<Rigidbody>();
-
         // Assign values from selected Vehicle Scriptable Object
         maxHp = vso.maxHp;
         maxAmmo = vso.maxAmmo;
@@ -30,8 +22,11 @@ public class PlayerScript : Character {
         bulletSpeed = vso.bulletSpeed;
         currentHp = vso.maxHp;
         currentAmmo = vso.maxAmmo;
-        playerHpBar.maxValue = vso.maxHp;
-        playerHpBar.value = vso.maxHp;
+    }
+    void Start() {
+        // Get Components
+        boxcol = GetComponent<BoxCollider>();
+        rb = GetComponent<Rigidbody>();
         playerModel = Instantiate(vso.model, transform);
         playerModel.transform.localScale = new Vector3(.5f, .5f, .5f);
         playerModel.transform.position = new Vector3(0, .3f, 0);
@@ -85,10 +80,6 @@ public class PlayerScript : Character {
         rb.velocity = moveDirection * moveSpeed;
     }
 
-    void LateUpdate() {
-        //playerHpBar.value = currentHp;
-    }
-
     //Limit player movement
     //Shooting ray downward from around the player to detect ground
     //Set axis velocity to zero if ray return null
@@ -127,7 +118,7 @@ public class PlayerScript : Character {
     void OnTriggerEnter(Collider col) {
         if (col.tag == "BulletEnemy") {
             col.gameObject.SetActive(false);
-            AddDamage(10f);
+            AddDamage(col.GetComponent<BulletScript>().damage);
         }
     }
 
@@ -138,7 +129,7 @@ public class PlayerScript : Character {
             bullet.transform.position = this.transform.position + new Vector3(0, 1, 0);
             bullet.transform.rotation = Quaternion.LookRotation(input + new Vector3(0, 90, 0));
             bullet.SetActive(true);
-            bullet.GetComponent<BulletScript>().Shoot(input, bulletSpeed);
+            bullet.GetComponent<BulletScript>().Shoot(input, bulletSpeed, damage);
         }
         //ApplyCooldown
         isCooldown = true;

@@ -1965,8 +1965,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a135d6c6af3157a40a6881c3e48b3f55, type: 2}
+  m_sharedMaterial: {fileID: -3133451503361351786, guid: a135d6c6af3157a40a6881c3e48b3f55,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2811,7 +2812,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 8.287598, y: 7.69738}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &755522581
 MonoBehaviour:
@@ -2826,7 +2827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.504, g: 0.14983784, b: 0.14983784, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3915,8 +3916,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a135d6c6af3157a40a6881c3e48b3f55, type: 2}
+  m_sharedMaterial: {fileID: -3133451503361351786, guid: a135d6c6af3157a40a6881c3e48b3f55,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4705,6 +4707,7 @@ GameObject:
   - component: {fileID: 1393273044}
   - component: {fileID: 1393273045}
   - component: {fileID: 1393273046}
+  - component: {fileID: 1393273047}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -4822,6 +4825,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f211cf9f921884bbb3def5b562502c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1393273047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393273041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d06e7ead4d59da4f9f6ffeff17cf1af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemHolder: {fileID: 1005148961119800986, guid: eadded032fef93949bd143079a1f5ff0,
+    type: 3}
+  dropChance: 1
+  regularLootTable:
+  - lootObject: {fileID: 11400000, guid: b3a2527300518684993d4795af405c92, type: 2}
+    chance: 0.25
+  - lootObject: {fileID: 11400000, guid: c2e2a64c13f466f4c9a412b9b93c0ac0, type: 2}
+    chance: 0.5
+  - lootObject: {fileID: 11400000, guid: dbab6325f2a9aae47a2d4c1344d2379b, type: 2}
+    chance: 0.75
+  - lootObject: {fileID: 11400000, guid: 91aed4fcc374a034d87724d1405597db, type: 2}
+    chance: 1
 --- !u!1 &1401776934
 GameObject:
   m_ObjectHideFlags: 0
@@ -5415,6 +5442,7 @@ GameObject:
   - component: {fileID: 1553382577}
   - component: {fileID: 1553382578}
   - component: {fileID: 1553382579}
+  - component: {fileID: 1553382580}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5478,22 +5506,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 1553382575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c81e20e9745ef4e9eed1368eeda4b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 40eff7ec1bd548e4d8ca53a3d368d7f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
-  maxAmmo: 10
+  maxHp: 0
+  maxAmmo: 0
   currentHp: 0
   currentAmmo: 0
   moveSpeed: 10
-  bulletSpeed: 20
+  bulletSpeed: 0.1
+  damage: 10
+  fireRate: 0.5
+  reloadRate: 0.06
   damageBuffer: 0
   moveDirection: {x: 0, y: 0, z: 0}
   isAlive: 1
-  vso: {fileID: 11400000, guid: 94bc60f3c6d13234dbb343d004e34679, type: 2}
-  playerHpBar: {fileID: 723349269}
+  vso: {fileID: 0}
   joystickMove: {fileID: 823467892}
   joystickShoot: {fileID: 1657801372}
+--- !u!114 &1553382580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553382575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a7fa64f7456fb45ab91170bc167bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1557470376
 GameObject:
   m_ObjectHideFlags: 0
@@ -6799,8 +6841,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: START
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a135d6c6af3157a40a6881c3e48b3f55, type: 2}
+  m_sharedMaterial: {fileID: -3133451503361351786, guid: a135d6c6af3157a40a6881c3e48b3f55,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7573,7 +7616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.90588236, g: 0.32156864, b: 0.34901962, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

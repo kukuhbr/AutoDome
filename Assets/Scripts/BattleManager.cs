@@ -57,6 +57,13 @@ public class BattleManager : MonoBehaviour {
         obj.transform.position = random;
     }
 
+    public Vector3 SpawnRandomPosition() {
+        float angle = Random.Range(0, 2f * Mathf.PI);
+        float r = summonBounds * Mathf.Sqrt(Random.Range(0f, 1f));
+        Vector3 random = new Vector3(r * Mathf.Cos(angle), 0, r * Mathf.Sin(angle));
+        return random;
+    }
+
     // Update is called once per frame
     void Update() {
         if(isGameStart)
