@@ -35,4 +35,22 @@ public class BattleEvents : MonoBehaviour
         }
     }
 
+    public event Action onItemPickup;
+    public void TriggerItemPickup()
+    {
+        if(onItemPickup != null)
+        {
+            onItemPickup();
+        }
+    }
+
+    public event Action onItemUsed;
+    public void TriggerItemUsed()
+    {
+        if(onItemUsed != null)
+        {
+            onItemUsed();
+        }
+    }
+
 }

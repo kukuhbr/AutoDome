@@ -45,6 +45,9 @@ public class EnemyScript : Character {
         if(deathParticle) {
             deathParticle.Play();
         }
+        if(lootTable.Count > 0) {
+            ItemDropManager.instance.CalculateDrop(transform.position, lootTable);
+        }
         StartCoroutine(DeactivateEnemy(1f));
     }
 

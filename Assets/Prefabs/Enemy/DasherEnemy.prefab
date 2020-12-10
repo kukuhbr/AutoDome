@@ -84,6 +84,9 @@ MonoBehaviour:
   currentAmmo: 0
   moveSpeed: 10
   bulletSpeed: 0
+  damage: 10
+  fireRate: 0.5
+  reloadRate: 0.06
   damageBuffer: 0
   moveDirection: {x: 0, y: 0, z: 0}
   isAlive: 1
@@ -91,6 +94,15 @@ MonoBehaviour:
   modelRenderer:
   - {fileID: 2078504098268126}
   hpBar: {fileID: 6815254611407937743}
+  lootTable:
+  - lootObject: {fileID: 11400000, guid: fbdf6c6fbd2ac644aa1e3b01520439ff, type: 2}
+    chance: 0.05
+  - lootObject: {fileID: 11400000, guid: 68b5ef7d2aca98a49a3da6a412f9df74, type: 2}
+    chance: 0.3
+  - lootObject: {fileID: 11400000, guid: 52172ee9977feba43a38ab7d122a35e4, type: 2}
+    chance: 0.7
+  - lootObject: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
+    chance: 1
 --- !u!95 &5491974064638807593
 Animator:
   serializedVersion: 3

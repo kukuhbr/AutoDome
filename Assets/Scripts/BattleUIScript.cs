@@ -113,7 +113,6 @@ public class BattleUIScript : MonoBehaviour
         } else {
             score += value;
         }
-        Debug.Log(score);
 		var f = new System.Globalization.NumberFormatInfo{NumberGroupSeparator=",", NumberDecimalDigits=0};
         scoreText.text = score.ToString("N", f);
     }

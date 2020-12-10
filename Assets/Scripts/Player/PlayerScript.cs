@@ -11,6 +11,7 @@ public class PlayerScript : Character {
     private Vector3 cameraForward;
     private Vector3 cameraRight;
     private GameObject playerModel;
+    private GameObject playerModelBody;
     private bool isGameOver=false;
 
     void OnEnable()
@@ -28,6 +29,12 @@ public class PlayerScript : Character {
         boxcol = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
         playerModel = Instantiate(vso.model, transform);
+        foreach (Transform child in playerModel.transform) {
+            if (child.name == "Body") {
+                playerModelBody = child.gameObject;
+                break;
+            }
+        }
         playerModel.transform.localScale = new Vector3(.5f, .5f, .5f);
         playerModel.transform.position = new Vector3(0, .3f, 0);
 
@@ -59,8 +66,10 @@ public class PlayerScript : Character {
                 if (!isCooldown && currentAmmo >= 1) {
                     StartCoroutine(Fire(shootDirection.normalized));
                 }
+            playerModelBody.transform.rotation = Quaternion.LookRotation(shootDirection.normalized) * Quaternion.Euler(0,180,0);
             } else {
                 isShooting = false;
+                playerModelBody.transform.localRotation = Quaternion.Euler(0,180,0);
             }
 
             // Check Reload and Damage
@@ -119,6 +128,22 @@ public class PlayerScript : Character {
         if (col.tag == "BulletEnemy") {
             col.gameObject.SetActive(false);
             AddDamage(col.GetComponent<BulletScript>().damage);
+        }
+    }
+
+    public void Heal(int n) {
+        if (currentHp + n < maxHp) {
+            currentHp += n;
+        } else {
+            currentHp = maxHp;
+        }
+    }
+
+    public void Reload(int n) {
+        if (currentAmmo + n < maxAmmo) {
+            currentAmmo += n;
+        } else {
+            currentAmmo = maxAmmo;
         }
     }
 

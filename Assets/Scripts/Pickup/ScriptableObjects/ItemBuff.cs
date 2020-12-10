@@ -14,7 +14,7 @@ public class ItemBuff : ItemBase {
         Use();
     }
     public override void Use() {
-        handler.Buff(buffType, strength, duration);
+        handler.Buff(this);//buffType, strength, duration);
     }
 
 }

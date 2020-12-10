@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public abstract class ItemBase : ScriptableObject {//, IPickable {
+public abstract class ItemBase : ScriptableObject {
+    public int id;
     public string itemName;
     [Multiline]
     public string description;

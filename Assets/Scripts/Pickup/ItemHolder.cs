@@ -22,7 +22,16 @@ public class ItemHolder : MonoBehaviour {
     }
 
     IEnumerator DeleteAfter(float seconds) {
-        yield return new WaitForSeconds(seconds);
+        float timeLeft = seconds;
+        float shrinkTime = 2f;
+        while (timeLeft >= 0) {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < shrinkTime) {
+                float shrink = Mathf.Lerp(0f, 1f, timeLeft / shrinkTime);
+                transform.localScale = new Vector3(shrink, shrink, shrink);
+            }
+            yield return null;
+        }
         Destroy(this.gameObject);
     }
 

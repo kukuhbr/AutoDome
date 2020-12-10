@@ -5403,6 +5403,9 @@ MonoBehaviour:
   currentAmmo: 0
   moveSpeed: 5
   bulletSpeed: 0
+  damage: 10
+  fireRate: 0.5
+  reloadRate: 0.06
   damageBuffer: 0
   moveDirection: {x: 0, y: 0, z: 0}
   isAlive: 1
@@ -5411,10 +5414,14 @@ MonoBehaviour:
   - {fileID: 5809872114820731371}
   hpBar: {fileID: 5877829433213148819}
   lootTable:
-  - lootObject: {fileID: 11400000, guid: dbab6325f2a9aae47a2d4c1344d2379b, type: 2}
-    chance: 0
-  - lootObject: {fileID: 11400000, guid: c2e2a64c13f466f4c9a412b9b93c0ac0, type: 2}
-    chance: 0
+  - lootObject: {fileID: 11400000, guid: e796cc64237a0c1499474843a2e599b5, type: 2}
+    chance: 0.05
+  - lootObject: {fileID: 11400000, guid: 0152e90a2e08d5343a244233bdb19921, type: 2}
+    chance: 0.3
+  - lootObject: {fileID: 11400000, guid: 99981ad21e93cc64aa2a97ac5b4c69d7, type: 2}
+    chance: 0.7
+  - lootObject: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
+    chance: 1
 --- !u!95 &3308977279017567605
 Animator:
   serializedVersion: 3
