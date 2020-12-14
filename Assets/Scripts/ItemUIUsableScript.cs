@@ -8,7 +8,6 @@ using TMPro;
 public class ItemUIUsableScript : MonoBehaviour, IPointerClickHandler
 {
     InventoryEntry inventoryEntry;
-    bool isCooldown = false;
     private bool isGameOver = false;
     [SerializeField]
     private RectTransform cooldownImage;
@@ -21,36 +20,37 @@ public class ItemUIUsableScript : MonoBehaviour, IPointerClickHandler
     {
         isGameOver = true;
     }
+
+    void LateUpdate()
+    {
+        if(inventoryEntry != null) {
+            float height = Mathf.Lerp(0f, 100f, inventoryEntry.cooldown / 4f);
+            cooldownImage.sizeDelta = new Vector2(100f, height);
+        }
+    }
+
     public void AssignItem(InventoryEntry entry)
     {
         inventoryEntry = entry;
-        GetComponent<Image>().sprite = entry.item.icon;
-        GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}/{1}", entry.quantity, entry.maxQuantity);
-        gameObject.SetActive(true);
+        if(entry != null) {
+            GetComponent<Image>().sprite = entry.item.icon;
+            GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0}/{1}", entry.quantity, entry.maxQuantity);
+            gameObject.SetActive(true);
+        } else {
+            GetComponent<Image>().sprite = null;
+            cooldownImage.sizeDelta = new Vector2(100f, 0f);
+            GetComponentInChildren<TextMeshProUGUI>().text = null;
+            gameObject.SetActive(false);
+        }
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (!isCooldown && !isGameOver) {
-            isCooldown = true;
-            StartCoroutine(Cooldown(4f));
+        if(inventoryEntry != null) {
+            if (!isGameOver && inventoryEntry.cooldown == 0f) {
+                inventoryEntry.item.Use();
+            }
         }
-    }
-
-    IEnumerator Cooldown(float seconds) {
-        float timeLeft = seconds;
-        //Image cooldownImage = GetComponentInChildren<Image>();
-        //RectTransform cooldownRect = cooldownImage.gameObject.GetComponent<RectTransform>();
-        while(timeLeft > 0) {
-            timeLeft -= Time.deltaTime;
-            float height = Mathf.Lerp(0f, 100f, timeLeft / seconds);
-            Debug.Log(height);
-            cooldownImage.sizeDelta = new Vector2(100f, height);
-            Debug.Log(cooldownImage.name + " " + cooldownImage.sizeDelta);
-            yield return null;
-        }
-        Debug.Log("Cooldown is done!");
-        isCooldown = false;
     }
 
     void OnDestroy()

@@ -27,12 +27,13 @@ public class ItemUIScript : MonoBehaviour
         // Bad if item number > GameObject List length
         int i = 0;
         foreach(KeyValuePair<int, InventoryEntry> entry in handler.battleInventory) {
-            itemIcons[i].GetComponent<ItemUIUsableScript>().AssignItem(entry.Value);
-            // itemIcons[i].GetComponent<Image>().sprite = entry.Value.item.icon;
-            // TextMeshProUGUI itemAmount = itemIcons[i].GetComponentInChildren<TextMeshProUGUI>();
-            // itemAmount.text = string.Format("{0}/{1}", entry.Value.quantity, entry.Value.maxQuantity);
-            // itemIcons[i].SetActive(true);
-            i += 1;
+            if (i < 6 && entry.Value.quantity > 0) {
+                itemIcons[i].GetComponent<ItemUIUsableScript>().AssignItem(entry.Value);
+                i += 1;
+            }
+        }
+        for (; i < 6; i++) {
+            itemIcons[i].GetComponent<ItemUIUsableScript>().AssignItem(null);
         }
     }
 

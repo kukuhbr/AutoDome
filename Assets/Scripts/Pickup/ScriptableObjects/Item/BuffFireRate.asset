@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd07a7087558f444a700ba397001589, type: 3}
   m_Name: BuffFireRate
   m_EditorClassIdentifier: 
+  id: 0
   itemName: 
   description: 
   icon: {fileID: 0}
   model: {fileID: 8177466755534914142, guid: e8730b7c66c9ca146ab6f0334a9230fa, type: 3}
-  buffType: 0
+  buffType: 2
   duration: 5
   strength: 0.1

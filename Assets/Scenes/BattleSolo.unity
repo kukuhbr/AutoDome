@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 310955663}
   - component: {fileID: 310955667}
   m_Layer: 0
-  m_Name: Arena 1
+  m_Name: Arena
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3525,9 +3525,10 @@ MonoBehaviour:
   itemHolder: {fileID: 1005148961119800986, guid: eadded032fef93949bd143079a1f5ff0,
     type: 3}
   dropChance: 0.5
+  regularDropInterval: 3
   regularLootTable:
-  - lootObject: {fileID: 11400000, guid: 68b5ef7d2aca98a49a3da6a412f9df74, type: 2}
-    chance: 1
+  - lootObject: {fileID: 11400000, guid: b3a2527300518684993d4795af405c92, type: 2}
+    chance: 0.25
   - lootObject: {fileID: 11400000, guid: c2e2a64c13f466f4c9a412b9b93c0ac0, type: 2}
     chance: 0.5
   - lootObject: {fileID: 11400000, guid: dbab6325f2a9aae47a2d4c1344d2379b, type: 2}
@@ -4146,6 +4147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a7fa64f7456fb45ab91170bc167bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffVisualPrefab:
+  - {fileID: 7840785598755734894, guid: b4bf2137d5b79fe49b2a9bf888185962, type: 3}
+  - {fileID: 7089933186479389615, guid: 330882c6116bf8c49ae422caad7e9fc3, type: 3}
+  - {fileID: 5850638486203651510, guid: dfaa1dac54de78247b9f9052a9686205, type: 3}
 --- !u!1 &1557470376
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,10 +13,10 @@ public class ItemUsable : ItemBase {
     public bool battleUsable;
     public override void Pickup() {
         if(!handler.Pickup(this)) {
-            Use();
+            handler.Use(this, false);
         }
     }
     public override void Use() {
-        handler.Use(this);
+        handler.Use(this, true);
     }
 }

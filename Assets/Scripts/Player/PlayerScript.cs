@@ -132,19 +132,23 @@ public class PlayerScript : Character {
     }
 
     public void Heal(int n) {
+        Debug.Log("Heal before " + currentHp + " " + n);
         if (currentHp + n < maxHp) {
             currentHp += n;
         } else {
             currentHp = maxHp;
         }
+        Debug.Log("Heal after " + currentHp);
     }
 
     public void Reload(int n) {
+        Debug.Log("Heal before " + currentAmmo + " " + n);
         if (currentAmmo + n < maxAmmo) {
             currentAmmo += n;
         } else {
             currentAmmo = maxAmmo;
         }
+        Debug.Log("Heal after " + currentAmmo);
     }
 
     IEnumerator Fire(Vector3 input) {

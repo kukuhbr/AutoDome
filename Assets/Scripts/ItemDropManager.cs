@@ -9,6 +9,8 @@ public class ItemDropManager : MonoBehaviour
     private GameObject itemHolder;
     public float dropChance = .2f;
     [SerializeField]
+    private float regularDropInterval;
+    [SerializeField]
     private List<Loot> regularLootTable;
     void Start()
     {
@@ -40,7 +42,7 @@ public class ItemDropManager : MonoBehaviour
 
     IEnumerator RegularDrop() {
         while(true) {
-            float timeLeft = 3f;
+            float timeLeft = regularDropInterval;
             while(timeLeft >= 0) {
                 timeLeft -= Time.deltaTime;
                 yield return null;
