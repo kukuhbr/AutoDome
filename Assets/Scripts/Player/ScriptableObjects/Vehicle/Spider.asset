@@ -12,9 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d374facdd3c7d741b5b8d7d48327ea3, type: 3}
   m_Name: Spider
   m_EditorClassIdentifier: 
-  vehicleName: Spider
-  maxHp: 80
-  maxAmmo: 4
-  moveSpeed: 14
-  bulletSpeed: 7
-  model: {fileID: -2253911629886400664, guid: bf839fbb8a3390e40a4a4ee2b129eef7, type: 3}
+  id: 1
+  grade:
+  - vehicleName: Spider
+    maxHp: 70
+    maxAmmo: 3
+    damage: 12
+    moveSpeed: 12
+    bulletSpeed: 7
+    reloadRate: 0.06
+    fireRate: 0.5
+    model: {fileID: -2253911629886400664, guid: bf839fbb8a3390e40a4a4ee2b129eef7,
+      type: 3}
+  - vehicleName: Spider Mk. II
+    maxHp: 75
+    maxAmmo: 4
+    damage: 14
+    moveSpeed: 12
+    bulletSpeed: 7
+    reloadRate: 0.06
+    fireRate: 0.5
+    model: {fileID: -2253911629886400664, guid: bf839fbb8a3390e40a4a4ee2b129eef7,
+      type: 3}
+  - vehicleName: Arachnid
+    maxHp: 80
+    maxAmmo: 5
+    damage: 16
+    moveSpeed: 13
+    bulletSpeed: 8
+    reloadRate: 0.06
+    fireRate: 0.45
+    model: {fileID: -2253911629886400664, guid: bf839fbb8a3390e40a4a4ee2b129eef7,
+      type: 3}
+  - vehicleName: Veno Arachnid
+    maxHp: 90
+    maxAmmo: 6
+    damage: 20
+    moveSpeed: 14
+    bulletSpeed: 9
+    reloadRate: 0.06
+    fireRate: 0.4
+    model: {fileID: -2253911629886400664, guid: bf839fbb8a3390e40a4a4ee2b129eef7,
+      type: 3}

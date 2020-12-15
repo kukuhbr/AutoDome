@@ -24,9 +24,9 @@ public class BattleManager : MonoBehaviour {
 
     void Awake() {
         //Assign selected Vehicle Scriptable Object to character
-        if(SceneLoader.sceneLoader) {
-            player.GetComponent<PlayerScript>().vso = vehicleList[SceneLoader.sceneLoader.selectedCharacterIndex];
-        }
+        // if(SceneLoader.sceneLoader) {
+        //     player.GetComponent<PlayerScript>().vehicleData = vehicleList[SceneLoader.sceneLoader.selectedCharacterIndex].grade[0];
+        // }
     }
     void Start() {
         Screen.orientation = ScreenOrientation.Landscape;

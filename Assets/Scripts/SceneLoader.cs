@@ -13,7 +13,6 @@ public class SceneLoader : MonoBehaviour
     public TextMeshProUGUI loadingText;
     public SceneIndex currentScene;
     public bool isLoaded;
-    public int selectedCharacterIndex;
     private void Awake()
     {
         sceneLoader = this;
@@ -72,6 +71,13 @@ public class SceneLoader : MonoBehaviour
     }
 
 
+    public int selectedCharacterIndex;
+    public VehicleData GetVehicle() {
+        DatabaseVehicle databaseVehicle = (DatabaseVehicle)Resources.Load("DatabaseVehicle");
+        int id = selectedCharacterIndex;
+        int grade = PlayerManager.playerManager.playerData.GetVehicleGrade(id);
+        return databaseVehicle.GetVehicleByIdGrade(id, grade);
+    }
 }
 
 public enum SceneIndex

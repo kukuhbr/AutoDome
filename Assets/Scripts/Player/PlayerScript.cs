@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerScript : Character {
-    public VehicleScriptableObject vso;
+    public VehicleData vehicleData;
     public Joystick joystickMove;
     public Joystick joystickShoot;
     private Vector3 shootDirection;
@@ -14,21 +14,24 @@ public class PlayerScript : Character {
     private GameObject playerModelBody;
     private bool isGameOver=false;
 
-    void OnEnable()
+    void Awake()
     {
         // Assign values from selected Vehicle Scriptable Object
-        maxHp = vso.maxHp;
-        maxAmmo = vso.maxAmmo;
-        moveSpeed = vso.moveSpeed;
-        bulletSpeed = vso.bulletSpeed;
-        currentHp = vso.maxHp;
-        currentAmmo = vso.maxAmmo;
+        vehicleData = SceneLoader.sceneLoader.GetVehicle();
+        maxHp = vehicleData.maxHp;
+        maxAmmo = vehicleData.maxAmmo;
+        moveSpeed = vehicleData.moveSpeed;
+        bulletSpeed = vehicleData.bulletSpeed;
+        reloadRate = vehicleData.reloadRate;
+        fireRate = vehicleData.fireRate;
+        currentHp = vehicleData.maxHp;
+        currentAmmo = vehicleData.maxAmmo;
     }
     void Start() {
         // Get Components
         boxcol = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
-        playerModel = Instantiate(vso.model, transform);
+        playerModel = Instantiate(vehicleData.model, transform);
         foreach (Transform child in playerModel.transform) {
             if (child.name == "Body") {
                 playerModelBody = child.gameObject;
@@ -163,7 +166,7 @@ public class PlayerScript : Character {
         //ApplyCooldown
         isCooldown = true;
         currentAmmo -= 1;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(fireRate);
         isCooldown = false;
     }
 
