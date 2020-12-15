@@ -20,6 +20,7 @@ public class PlayerScript : Character {
         vehicleData = SceneLoader.sceneLoader.GetVehicle();
         maxHp = vehicleData.maxHp;
         maxAmmo = vehicleData.maxAmmo;
+        damage = vehicleData.damage;
         moveSpeed = vehicleData.moveSpeed;
         bulletSpeed = vehicleData.bulletSpeed;
         reloadRate = vehicleData.reloadRate;
