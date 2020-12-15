@@ -2,18 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryEntry {
-    public ItemBase item;
-    public int quantity;
-    public int maxQuantity = 99;
-    public float cooldown;
-    public InventoryEntry(ItemBase _item, int _quantity, int _maxQuantity = 5) {
-        item = _item;
-        quantity = _quantity;
-        maxQuantity = _maxQuantity;
-    }
-}
-
 public class PlayerItemHandler : MonoBehaviour
 {
     public Dictionary<int, InventoryEntry> battleInventory;
@@ -67,7 +55,7 @@ public class PlayerItemHandler : MonoBehaviour
             }
             return false;
         } else {
-            InventoryEntry entry = new InventoryEntry(item, quantity);
+            InventoryEntry entry = new InventoryEntry(item, quantity, 5);
             battleInventory.Add(item.id, entry);
             BattleEvents.battleEvents.TriggerItemPickup();
             return true;

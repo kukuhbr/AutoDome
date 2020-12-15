@@ -25,12 +25,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public static BinaryFormatter GetBinaryFormatter()
     {
         return new BinaryFormatter();
@@ -95,27 +89,6 @@ public class PlayerManager : MonoBehaviour
     }
 }
 
-[Serializable]
-public class PlayerSave
-{
-    public List<int> vehicleGrades;
-    public List<int> itemInventoryId;
-    public List<int> itemInventoryQuantity;
-    public PlayerSave(PlayerData playerData) {
-        ClearSaveData();
-        vehicleGrades = playerData.vehicleGrades;
-        foreach(KeyValuePair<int, InventoryEntry> entry in playerData.myInventory) {
-            itemInventoryId.Add(entry.Key);
-            itemInventoryQuantity.Add(entry.Value.quantity);
-        }
-    }
-    void ClearSaveData() {
-        vehicleGrades.Clear();
-        itemInventoryId.Clear();
-        itemInventoryQuantity.Clear();
-    }
-}
-
 public class PlayerData
 {
     private List<string> currencyList = new List<string>(new string[] {"bolt", "stars", "gems"});
@@ -162,5 +135,26 @@ public class PlayerData
             return vehicleGrades[id];
         }
         return 0;
+    }
+}
+
+[Serializable]
+public class PlayerSave
+{
+    public List<int> vehicleGrades;
+    public List<int> itemInventoryId;
+    public List<int> itemInventoryQuantity;
+    public PlayerSave(PlayerData playerData) {
+        ClearSaveData();
+        vehicleGrades = playerData.vehicleGrades;
+        foreach(KeyValuePair<int, InventoryEntry> entry in playerData.myInventory) {
+            itemInventoryId.Add(entry.Key);
+            itemInventoryQuantity.Add(entry.Value.quantity);
+        }
+    }
+    void ClearSaveData() {
+        vehicleGrades.Clear();
+        itemInventoryId.Clear();
+        itemInventoryQuantity.Clear();
     }
 }

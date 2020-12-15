@@ -27,4 +27,14 @@ public class MainMenu : MonoBehaviour
     {
         SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
     }
+
+    public void Garage()
+    {
+
+    }
+
+    public void Inventory()
+    {
+
+    }
 }
