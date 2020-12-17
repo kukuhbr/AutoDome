@@ -13,4 +13,20 @@ MonoBehaviour:
   m_Name: EagleUpgrade
   m_EditorClassIdentifier: 
   id: 0
-  grade: []
+  grade:
+  - requirements: []
+  - requirements:
+    - item: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
+      quantity: 2000
+  - requirements:
+    - item: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
+      quantity: 5000
+    - item: {fileID: 11400000, guid: e796cc64237a0c1499474843a2e599b5, type: 2}
+      quantity: 3
+  - requirements:
+    - item: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
+      quantity: 7500
+    - item: {fileID: 11400000, guid: e796cc64237a0c1499474843a2e599b5, type: 2}
+      quantity: 5
+    - item: {fileID: 11400000, guid: 0152e90a2e08d5343a244233bdb19921, type: 2}
+      quantity: 5

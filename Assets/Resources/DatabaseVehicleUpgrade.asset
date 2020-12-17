@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c2ce570dc648c4c81adb585835a3ec, type: 3}
   m_Name: DatabaseVehicleUpgrade
   m_EditorClassIdentifier: 
-  vehicleUpgradeDB: []
+  vehicleUpgradeDB:
+  - {fileID: 11400000, guid: 1ff8ddaf76d12ce4ab7405eab01ff2e5, type: 2}
+  - {fileID: 11400000, guid: ee379938fe4c44b41b7812b9c1aab3e6, type: 2}
+  - {fileID: 11400000, guid: e3f4568852cfd344eac9aff062f37ddf, type: 2}

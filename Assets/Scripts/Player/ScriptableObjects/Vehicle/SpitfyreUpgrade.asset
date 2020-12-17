@@ -12,5 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57be2df79d459d4bacc717501e798f9, type: 3}
   m_Name: SpitfyreUpgrade
   m_EditorClassIdentifier: 
-  id: 0
-  grade: []
+  id: 2
+  grade:
+  - requirements:
+    - item: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
+      quantity: 3000
+  - requirements:
+    - item: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
+      quantity: 5000
+  - requirements:
+    - item: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
+      quantity: 7500
+    - item: {fileID: 11400000, guid: b62ba06fe903ce64eabac87e009ffdcb, type: 2}
+      quantity: 3
+  - requirements:
+    - item: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
+      quantity: 10000
+    - item: {fileID: 11400000, guid: b62ba06fe903ce64eabac87e009ffdcb, type: 2}
+      quantity: 5
+    - item: {fileID: 11400000, guid: 48928cb97eb5b8d46bab682b460bdee4, type: 2}
+      quantity: 5
