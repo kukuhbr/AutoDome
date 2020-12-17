@@ -93,7 +93,7 @@ public class PlayerData
 {
     private List<string> currencyList = new List<string>(new string[] {"bolt", "stars", "gems"});
     private Dictionary<string, int> currencies = new Dictionary<string, int>(); // Bolts, Stars, Gems
-    public Dictionary<int, InventoryEntry> myInventory;
+    public Inventory inventory;
     public List<int> vehicleGrades;
 
     public PlayerData()
@@ -103,18 +103,16 @@ public class PlayerData
             currencies.Add(currency, 0);
         }
         vehicleGrades = new List<int>(new int[] {0, 0, 0});
-        myInventory = new Dictionary<int, InventoryEntry>();
+        inventory = new Inventory();
     }
 
     public PlayerData(PlayerSave save) {
         DatabaseItem databaseItem = Resources.Load<DatabaseItem>("DatabaseItem");
         vehicleGrades = save.vehicleGrades;
-        foreach(int id in save.itemInventoryId) {
-            ItemBase item = databaseItem.GetItemById(id);
-            InventoryEntry entry = new InventoryEntry(item, save.itemInventoryQuantity[id], 99);
-            myInventory.Add(item.id, entry);
-        }
+        inventory = new Inventory();
+        inventory.Add(save.itemInventoryId, save.itemInventoryQuantity);
     }
+
     public int GetCurrencies(string type)
     {
         if(currencies.ContainsKey(type)) {
@@ -147,7 +145,7 @@ public class PlayerSave
     public PlayerSave(PlayerData playerData) {
         ClearSaveData();
         vehicleGrades = playerData.vehicleGrades;
-        foreach(KeyValuePair<int, InventoryEntry> entry in playerData.myInventory) {
+        foreach(KeyValuePair<int, InventoryEntry> entry in playerData.inventory.items) {
             itemInventoryId.Add(entry.Key);
             itemInventoryQuantity.Add(entry.Value.quantity);
         }

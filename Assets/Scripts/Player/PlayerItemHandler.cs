@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerItemHandler : MonoBehaviour
 {
-    public Dictionary<int, InventoryEntry> battleInventory;
+    public Inventory battleInventory;
     [SerializeField]
     private List<GameObject> buffVisualPrefab;
     void Start() {
-        battleInventory = new Dictionary<int, InventoryEntry>();
+        battleInventory = new Inventory();
     }
     public void Buff(ItemBuff buff) {//ItemBuff.BuffType buffType, float strength, float duration) {
         //List<float> buff = new float {0f, 0f, 0f};
@@ -16,7 +16,7 @@ public class PlayerItemHandler : MonoBehaviour
         buffAmount[(int)buff.buffType] += buff.strength;
         GameObject buffVisual = null;
         if(buffVisualPrefab[(int)buff.buffType]) {
-            Debug.Log("Call Buff " + buff.buffType + " " + (int)buff.buffType);
+            //Debug.Log("Call Buff " + buff.buffType + " " + (int)buff.buffType);
             buffVisual = Instantiate(buffVisualPrefab[(int)buff.buffType], this.transform);
         }
         GetComponent<PlayerScript>().damage += buffAmount[0];
@@ -41,36 +41,15 @@ public class PlayerItemHandler : MonoBehaviour
             ItemCollectable collectable = (ItemCollectable)item;
             quantity = collectable.quantity;
         }
-        // Check if exist in inventory
-        if(battleInventory.ContainsKey(item.id)) {
-            InventoryEntry entry = battleInventory[item.id];
-            if (entry.quantity < entry.maxQuantity) {
-                entry.quantity += quantity;
-                if (entry.quantity > entry.maxQuantity) {
-                    entry.quantity = entry.maxQuantity;
-                }
-                battleInventory[item.id] = entry;
-                BattleEvents.battleEvents.TriggerItemPickup();
-                return true;
-            }
-            return false;
-        } else {
-            InventoryEntry entry = new InventoryEntry(item, quantity, 5);
-            battleInventory.Add(item.id, entry);
-            BattleEvents.battleEvents.TriggerItemPickup();
-            return true;
-        }
-    }
-
-    public void ReduceItem(ItemBase item) {
-        if(battleInventory.ContainsKey(item.id)) {
-            battleInventory[item.id].quantity -= 1;
-        }
+        Debug.Log("get " + item.name);
+        bool isSuccessful = battleInventory.Add(item.id, quantity);
+        BattleEvents.battleEvents.TriggerItemPickup();
+        return(isSuccessful);
     }
 
     public void Use(ItemUsable item, bool fromInventory) {
         if(item.battleUsable) {
-            if(battleInventory[item.id].cooldown == 0f) {
+            if(battleInventory.GetEntry(item.id).cooldown == 0f) {
                 PlayerScript player = GetComponent<PlayerScript>();
                 switch(item.usableType) {
                     case (ItemUsable.UsableType.medkit) :
@@ -84,9 +63,9 @@ public class PlayerItemHandler : MonoBehaviour
                     break;
                 }
                 if (fromInventory) {
-                    ReduceItem(item);
+                    battleInventory.Remove(new List<int> {item.id}, new List<int> {1});
                 }
-                StartCoroutine(Cooldown(4f, battleInventory[item.id]));
+                StartCoroutine(Cooldown(4f, battleInventory.GetEntry(item.id)));
                 BattleEvents.battleEvents.TriggerItemUsed();
             }
         }

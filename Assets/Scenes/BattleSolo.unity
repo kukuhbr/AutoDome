@@ -437,6 +437,7 @@ GameObject:
   - component: {fileID: 118490973}
   - component: {fileID: 118490972}
   - component: {fileID: 118490975}
+  - component: {fileID: 118490976}
   m_Layer: 5
   m_Name: UIBattleInventory
   m_TagString: Untagged
@@ -533,12 +534,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 118490970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b11ebeb01e3ea754990f60ee59deae8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f0462d0dcb5d644e9f2ccee51bf4557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemIconPrefab: {fileID: 5751252093011737708, guid: c6663471ec6d2614a91b60c4ace6fc47,
+    type: 3}
+--- !u!114 &118490976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118490970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80129d2785fc4d740888b72b1a830f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 1553382580}
-  itemIconPrefab: {fileID: 5751252093011737708, guid: c6663471ec6d2614a91b60c4ace6fc47,
-    type: 3}
 --- !u!1 &120200186
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,7 +2723,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1205567789}
   - component: {fileID: 1205567792}
-  - component: {fileID: 1205567791}
   - component: {fileID: 1205567790}
   m_Layer: 5
   m_Name: Timer
@@ -2850,18 +2862,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1205567791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205567788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c1e4f60c76fe140aaf37948a113d01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &1205567792
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4132,7 +4132,16 @@ MonoBehaviour:
   damageBuffer: 0
   moveDirection: {x: 0, y: 0, z: 0}
   isAlive: 1
-  vso: {fileID: 0}
+  vehicleData:
+    vehicleName: 
+    maxHp: 0
+    maxAmmo: 0
+    damage: 0
+    moveSpeed: 10
+    bulletSpeed: 0.1
+    reloadRate: 0.06
+    fireRate: 0.5
+    model: {fileID: 0}
   joystickMove: {fileID: 823467892}
   joystickShoot: {fileID: 1657801372}
 --- !u!114 &1553382580

@@ -7,6 +7,7 @@ public abstract class ItemBase : ScriptableObject {
     public string description;
     public Sprite icon;
     public GameObject model;
+    public int maxQuantity;
     protected PlayerItemHandler handler;
     public void SetHandler(GameObject obj) {
         handler = obj.GetComponent<PlayerItemHandler>();

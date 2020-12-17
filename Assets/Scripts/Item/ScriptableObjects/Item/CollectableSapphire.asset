@@ -17,4 +17,5 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: 6a013077e6917744dbd908d5e26f5191, type: 3}
   model: {fileID: 4489967853371811151, guid: e52ad1a6cf79f79409c6eb0b745e371b, type: 3}
+  maxQuantity: 50
   quantity: 1
