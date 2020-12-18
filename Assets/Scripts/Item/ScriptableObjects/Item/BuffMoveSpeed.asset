@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd07a7087558f444a700ba397001589, type: 3}
   m_Name: BuffMoveSpeed
   m_EditorClassIdentifier: 
+  id: -1
   itemName: 
   description: 
   icon: {fileID: 0}
   model: {fileID: 4904905280188076017, guid: 02cecfddeb6d36441acbfa6c2536b645, type: 3}
+  maxQuantity: 0
   buffType: 1
   duration: 5
   strength: 3

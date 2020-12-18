@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd07a7087558f444a700ba397001589, type: 3}
   m_Name: BuffDamageBig
   m_EditorClassIdentifier: 
+  id: -1
   itemName: Buff Damage Big
   description: 
   icon: {fileID: 0}
   model: {fileID: 2954097442411871115, guid: f1a5725a902424f4abbea9c75c07f6c9, type: 3}
+  maxQuantity: 0
   buffType: 0
   duration: 5
   strength: 10

@@ -10,7 +10,7 @@ public class ItemUICollection : MonoBehaviour
     [SerializeField]
     private GameObject itemIconPrefab;
 
-    void Start() {
+    void Awake() {
         itemIcons = new List<GameObject>();
         for(int i = 0; i < 10; i++) {
             GameObject temp = Instantiate(itemIconPrefab, this.transform);

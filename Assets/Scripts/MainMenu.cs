@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
+using System;
 
 public class MainMenu : MonoBehaviour
 {
+    public static MainMenu mainMenu;
     public TextMeshProUGUI currencyText;
-    // Start is called before the first frame update
+    public GameObject garage;
+    public GameObject inventory;
+    private void Awake()
+    {
+        mainMenu = this;
+    }
     void Start()
     {
         Screen.orientation = ScreenOrientation.Portrait;
@@ -28,13 +34,34 @@ public class MainMenu : MonoBehaviour
         SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
     }
 
-    public void Garage()
+    public void GarageOpen()
     {
-
+        garage.SetActive(true);
     }
 
-    public void Inventory()
+    public void GarageClose()
     {
+        garage.SetActive(false);
+    }
 
+    public void InventoryOpen()
+    {
+        inventory.SetActive(true);
+        ItemUICollection coll = inventory.GetComponentInChildren<ItemUICollection>();
+        coll.AdjustItemCollectionUI(PlayerManager.playerManager.playerData.inventory);
+    }
+
+    public void InventoryClose()
+    {
+        inventory.SetActive(false);
+    }
+
+    public event Action<int> onItemFocusChange;
+    public void TriggerItemFocusChange(int id)
+    {
+        if(onItemFocusChange != null)
+        {
+            onItemFocusChange(id);
+        }
     }
 }

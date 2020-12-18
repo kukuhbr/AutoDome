@@ -104,6 +104,11 @@ public class PlayerData
         }
         vehicleGrades = new List<int>(new int[] {0, 0, 0});
         inventory = new Inventory();
+        // playground
+        for(int i = 1; i < 8; i++) {
+            inventory.Add(i, i*i-1);
+        }
+        Debug.Log("player inventory size: " + inventory.items.Count);
     }
 
     public PlayerData(PlayerSave save) {
