@@ -55,6 +55,13 @@ public class MainMenu : MonoBehaviour
         UnlockScroll();
     }
 
+    public void GarageUpgrade()
+    {
+        int id = SceneLoader.sceneLoader.selectedCharacterIndex;
+        PlayerManager.playerManager.playerData.UpgradeVehicleGrade(id);
+        TriggerUpgradeVehicle();
+    }
+
     public void InventoryOpen()
     {
         inventory.SetActive(true);
@@ -75,6 +82,15 @@ public class MainMenu : MonoBehaviour
         if(onItemFocusChange != null)
         {
             onItemFocusChange(id);
+        }
+    }
+
+    public event Action onUpgradeVehicle;
+    public void TriggerUpgradeVehicle()
+    {
+        if(onUpgradeVehicle != null)
+        {
+            onUpgradeVehicle();
         }
     }
 }

@@ -12,6 +12,7 @@ public class VehicleScriptableObject : ScriptableObject
 
 [System.Serializable]
 public class VehicleData {
+    [Multiline]
     public string vehicleName;
     public float maxHp;
     public float maxAmmo;

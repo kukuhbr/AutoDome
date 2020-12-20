@@ -139,6 +139,16 @@ public class PlayerData
         }
         return 0;
     }
+
+    public void UpgradeVehicleGrade(int id) {
+        if(id < vehicleGrades.Count) {
+            DatabaseVehicle databaseVehicle = Resources.Load<DatabaseVehicle>("DatabaseVehicle");
+            VehicleScriptableObject vehicleInfo = databaseVehicle.GetVehicleInfoById(id);
+            if(vehicleGrades[id] < vehicleInfo.grade.Count - 1) {
+                vehicleGrades[id] += 1;
+            }
+        }
+    }
 }
 
 [Serializable]
