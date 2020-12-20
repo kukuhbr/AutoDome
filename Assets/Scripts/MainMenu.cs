@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -34,14 +35,24 @@ public class MainMenu : MonoBehaviour
         SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
     }
 
+    void LockScroll() {
+        GetComponentInChildren<ScrollRect>().horizontal = false;
+    }
+
+    void UnlockScroll() {
+        GetComponentInChildren<ScrollRect>().horizontal = true;
+    }
+
     public void GarageOpen()
     {
         garage.SetActive(true);
+        LockScroll();
     }
 
     public void GarageClose()
     {
         garage.SetActive(false);
+        UnlockScroll();
     }
 
     public void InventoryOpen()
@@ -49,11 +60,13 @@ public class MainMenu : MonoBehaviour
         inventory.SetActive(true);
         ItemUICollection coll = inventory.GetComponentInChildren<ItemUICollection>();
         coll.AdjustItemCollectionUI(PlayerManager.playerManager.playerData.inventory);
+        LockScroll();
     }
 
     public void InventoryClose()
     {
         inventory.SetActive(false);
+        UnlockScroll();
     }
 
     public event Action<int> onItemFocusChange;
