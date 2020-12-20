@@ -11,4 +11,8 @@ public class DatabaseVehicleUpgrade : ScriptableObject
     public VehicleUpgradeData GetUpgradeRequirement(int id, int grade) {
         return vehicleUpgradeDB[id].grade[grade];
     }
+
+    public VehicleUpgrade GetVehicleUpgrades(int id) {
+        return vehicleUpgradeDB[id];
+    }
 }
