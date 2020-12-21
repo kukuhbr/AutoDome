@@ -2250,8 +2250,9 @@ GameObject:
   - component: {fileID: 400724319}
   - component: {fileID: 400724318}
   - component: {fileID: 400724317}
+  - component: {fileID: 400724320}
   m_Layer: 5
-  m_Name: Button
+  m_Name: UpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2368,6 +2369,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400724315}
   m_CullTransparentMesh: 0
+--- !u!114 &400724320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400724315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c2cca8eb883a249a51e147fe5d197e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &404510200
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,8 +3452,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1859143828}
   m_HandleRect: {fileID: 1859143827}
   m_Direction: 0
-  m_Value: 0.00000013399021
-  m_Size: 0.057279237
+  m_Value: -0.00000008932681
+  m_Size: 0.40482834
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5321,8 +5334,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 182.379, y: -367.01}
-  m_SizeDelta: {x: 364.758, y: 190}
+  m_AnchoredPosition: {x: 182.379, y: -357.01}
+  m_SizeDelta: {x: 364.758, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1021443356
 MonoBehaviour:
@@ -5340,7 +5353,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 190
+  m_PreferredHeight: 170
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -5995,7 +6008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 574.01855, y: 0}
+  m_AnchoredPosition: {x: 574.0187, y: 0}
   m_SizeDelta: {x: 1148.0372, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1052010759
@@ -8559,7 +8572,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 182.379, y: -642.01}
-  m_SizeDelta: {x: 364.758, y: 170}
+  m_SizeDelta: {x: 364.758, y: 190}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1610292510
 MonoBehaviour:
@@ -8614,7 +8627,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 170
+  m_PreferredHeight: 190
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1

@@ -104,9 +104,13 @@ public class PlayerData
         }
         vehicleGrades = new List<int>(new int[] {0, 0, 0});
         inventory = new Inventory();
-        // playground
-        for(int i = 1; i < 8; i++) {
-            inventory.Add(i, i*i-1);
+        // Debug Inventory
+        for(int i = 1; i < 10; i++) {
+            if (i == 9) {
+                inventory.Add(i, 90000);
+            } else {
+                inventory.Add(i, 20);
+            }
         }
         Debug.Log("player inventory size: " + inventory.items.Count);
     }
@@ -148,6 +152,32 @@ public class PlayerData
                 vehicleGrades[id] += 1;
             }
         }
+    }
+
+    public bool VehicleUpgradeAvailable(int id) {
+        int grade = vehicleGrades[id];
+        bool isUpgradeAvailable = Database.database.databaseVehicleUpgrade.IsUpgradeAvailable(id, grade+1);
+        return isUpgradeAvailable;
+    }
+
+    public bool VehicleUpgradeHaveItems(int id) {
+        int grade = vehicleGrades[id];
+        VehicleUpgradeData vehicleUpgradeData = Database.database.databaseVehicleUpgrade.GetUpgradeRequirement(id, grade+1);
+        List<int> itemIds = new List<int>();
+        List<int> itemQuantities = new List<int>();
+        foreach (ItemRequirement req in vehicleUpgradeData.requirements) {
+            itemIds.Add(req.item.id);
+            itemQuantities.Add(req.quantity);
+        }
+        bool haveItems = PlayerManager.playerManager.playerData.inventory.HaveItems(itemIds, itemQuantities);
+        return (haveItems);
+    }
+
+    public void VehicleUpgradeRemoveItems(int id) {
+        int grade = vehicleGrades[id];
+        VehicleUpgradeData vehicleUpgradeData = Database.database.databaseVehicleUpgrade.GetUpgradeRequirement(id, grade+1);
+        Tuple<List<int>, List<int>> reqs = vehicleUpgradeData.makeTuple();
+        inventory.Remove(reqs.Item1, reqs.Item2);
     }
 }
 

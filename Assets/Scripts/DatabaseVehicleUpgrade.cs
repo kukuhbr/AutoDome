@@ -15,4 +15,9 @@ public class DatabaseVehicleUpgrade : ScriptableObject
     public VehicleUpgrade GetVehicleUpgrades(int id) {
         return vehicleUpgradeDB[id];
     }
+
+    public bool IsUpgradeAvailable(int id, int grade) {
+        int maxGrade = GetVehicleUpgrades(id).grade.Count - 1;
+        return (grade <= maxGrade);
+    }
 }

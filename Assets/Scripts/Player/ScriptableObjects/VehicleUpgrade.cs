@@ -14,6 +14,15 @@ public class VehicleUpgrade : ScriptableObject
 [Serializable]
 public class VehicleUpgradeData {
     public List<ItemRequirement> requirements;
+    public Tuple<List<int>, List<int>> makeTuple() {
+        List<int> ids = new List<int>();
+        List<int> quantities = new List<int>();
+        foreach(ItemRequirement req in requirements) {
+            ids.Add(req.item.id);
+            quantities.Add(req.quantity);
+        }
+        return new Tuple<List<int>, List<int>>(ids, quantities);
+    }
 }
 
 [Serializable]

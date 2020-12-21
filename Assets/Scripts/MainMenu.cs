@@ -57,9 +57,20 @@ public class MainMenu : MonoBehaviour
 
     public void GarageUpgrade()
     {
+        PlayerData player = PlayerManager.playerManager.playerData;
         int id = SceneLoader.sceneLoader.selectedCharacterIndex;
-        PlayerManager.playerManager.playerData.UpgradeVehicleGrade(id);
-        TriggerUpgradeVehicle();
+        bool isUpgradeAvailable = player.VehicleUpgradeAvailable(id);
+        if(isUpgradeAvailable) {
+            bool haveItems = player.VehicleUpgradeHaveItems(id);
+            if (haveItems) {
+                player.VehicleUpgradeRemoveItems(id);
+                player.UpgradeVehicleGrade(id);
+                TriggerUpgradeVehicle();
+            } else {
+                TriggerUpgradeVehicleFail();
+            }
+        }
+
     }
 
     public void InventoryOpen()
@@ -91,6 +102,16 @@ public class MainMenu : MonoBehaviour
         if(onUpgradeVehicle != null)
         {
             onUpgradeVehicle();
+        }
+    }
+
+    public event Action onUpgradeVehicleFail;
+    public void TriggerUpgradeVehicleFail()
+    {
+        if(onUpgradeVehicleFail != null)
+        {
+            onUpgradeVehicleFail();
+            Debug.Log("Upgrade vehicle fail!");
         }
     }
 }
