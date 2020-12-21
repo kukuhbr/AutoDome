@@ -107,7 +107,7 @@ public class PlayerData
         // Debug Inventory
         for(int i = 1; i < 10; i++) {
             if (i == 9) {
-                inventory.Add(i, 90000);
+                inventory.Add(i, 5000);
             } else {
                 inventory.Add(i, 20);
             }
@@ -138,15 +138,22 @@ public class PlayerData
         }
     }
     public int GetVehicleGrade(int id) {
-        if(id < vehicleGrades.Count) {
-            return vehicleGrades[id];
-        }
-        return 0;
+        return vehicleGrades[id];
+    }
+
+    public int GetVehicleUpgradeGrade(int id) {
+        int vehicleGrade = vehicleGrades[id] + 1 > GetVehicleMaxGrade(id) ? vehicleGrades[id] : vehicleGrades[id] + 1;
+        return vehicleGrade;
+    }
+
+    public int GetVehicleMaxGrade(int id) {
+        int maxGrade = Database.database.databaseVehicleUpgrade.GetVehicleUpgrades(id).grade.Count - 1;
+        return maxGrade;
     }
 
     public void UpgradeVehicleGrade(int id) {
         if(id < vehicleGrades.Count) {
-            DatabaseVehicle databaseVehicle = Resources.Load<DatabaseVehicle>("DatabaseVehicle");
+            DatabaseVehicle databaseVehicle = Database.database.databaseVehicle;
             VehicleScriptableObject vehicleInfo = databaseVehicle.GetVehicleInfoById(id);
             if(vehicleGrades[id] < vehicleInfo.grade.Count - 1) {
                 vehicleGrades[id] += 1;

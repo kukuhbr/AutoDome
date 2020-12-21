@@ -20,7 +20,7 @@ public class UpgradeButton : MonoBehaviour
     {
         int id = SceneLoader.sceneLoader.selectedCharacterIndex;
         int grade = PlayerManager.playerManager.playerData.GetVehicleGrade(id);
-        DatabaseVehicle databaseVehicle = Resources.Load<DatabaseVehicle>("DatabaseVehicle");
+        DatabaseVehicle databaseVehicle = Database.database.databaseVehicle;
         VehicleScriptableObject vehicleInfo = databaseVehicle.GetVehicleInfoById(id);
         if(grade < vehicleInfo.grade.Count - 1) {
             GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade";

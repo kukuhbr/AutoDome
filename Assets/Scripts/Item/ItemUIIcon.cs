@@ -13,7 +13,7 @@ public class ItemUIIcon : MonoBehaviour
     {
         inventoryEntry = entry;
         if(entry != null) {
-            DatabaseItem databaseItem = Resources.Load<DatabaseItem>("DatabaseItem");
+            DatabaseItem databaseItem = Database.database.databaseItem;
             GetComponent<Image>().sprite = databaseItem.GetItemById(entry.id).icon;
             GetComponentInChildren<TextMeshProUGUI>().text = string.Format(displayFormat, entry.quantity, entry.maxQuantity);
             gameObject.SetActive(true);

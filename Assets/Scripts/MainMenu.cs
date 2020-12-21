@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         Screen.orientation = ScreenOrientation.Portrait;
-        currencyText.text = PlayerManager.playerManager.GetCurrency("bolt").ToString();
+        currencyText.text = PlayerManager.playerManager.playerData.inventory.GetEntry(9).quantity.ToString();
     }
 
     // Update is called once per frame

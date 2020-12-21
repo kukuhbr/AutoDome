@@ -25,7 +25,7 @@ public class Inventory {
 
     public bool Add(int id, int quantity) {
         bool inventoryEnough = true;
-        DatabaseItem databaseItem = Resources.Load<DatabaseItem>("DatabaseItem");
+        DatabaseItem databaseItem = Database.database.databaseItem;
         if(items.ContainsKey(id)) {
             items[id].quantity += quantity;
             if (items[id].quantity > items[id].maxQuantity) {

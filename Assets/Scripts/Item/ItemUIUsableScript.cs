@@ -37,7 +37,7 @@ public class ItemUIUsableScript : MonoBehaviour, IPointerClickHandler
         InventoryEntry inventoryEntry = GetComponent<ItemUIIcon>().inventoryEntry;
         if(inventoryEntry != null) {
             if (!isGameOver && inventoryEntry.cooldown == 0f) {
-                DatabaseItem databaseItem = Resources.Load<DatabaseItem>("DatabaseItem");
+                DatabaseItem databaseItem = Database.database.databaseItem;
                 databaseItem.GetItemById(inventoryEntry.id).Use();
                 //inventoryEntry.item.Use();
             }

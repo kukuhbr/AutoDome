@@ -47,7 +47,7 @@ public class ItemUIDetails : MonoBehaviour
     }
 
     void SetDetailsValues(int id) {
-        DatabaseItem databaseItem = Resources.Load<DatabaseItem>("DatabaseItem");
+        DatabaseItem databaseItem = Database.database.databaseItem;
         ItemBase item = databaseItem.GetItemById(id);
         TextMeshProUGUI[] textDetails = GetComponentsInChildren<TextMeshProUGUI>();
         if(textDetails.Length == 2) {

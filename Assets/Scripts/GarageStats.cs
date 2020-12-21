@@ -31,15 +31,13 @@ public class GarageStats : MonoBehaviour
 
     void CollectData()
     {
-        //selected index == ID
-        int vehicleIndex = SceneLoader.sceneLoader.selectedCharacterIndex;
-        int currentGrade = PlayerManager.playerManager.playerData.vehicleGrades[vehicleIndex];
-        DatabaseVehicle databaseVehicle = Resources.Load<DatabaseVehicle>("DatabaseVehicle");
-        vehicleInfo = databaseVehicle.GetVehicleInfoById(vehicleIndex);
-
-        current = vehicleInfo.grade[currentGrade];
-        currentGrade = currentGrade + 1 > (vehicleInfo.grade.Count - 1) ? currentGrade : currentGrade + 1;
-        upgrade = vehicleInfo.grade[currentGrade];
+        int id = SceneLoader.sceneLoader.selectedCharacterIndex;
+        int grade = PlayerManager.playerManager.playerData.GetVehicleGrade(id);
+        int nextGrade = PlayerManager.playerManager.playerData.GetVehicleUpgradeGrade(id);
+        DatabaseVehicle databaseVehicle = Database.database.databaseVehicle;
+        vehicleInfo = databaseVehicle.GetVehicleInfoById(id);
+        current = vehicleInfo.grade[grade];
+        upgrade = vehicleInfo.grade[nextGrade];
     }
 
     void BuildData()

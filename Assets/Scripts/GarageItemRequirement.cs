@@ -30,25 +30,21 @@ public class GarageItemRequirement : MonoBehaviour
     {
         int id = SceneLoader.sceneLoader.selectedCharacterIndex;
         int grade = PlayerManager.playerManager.playerData.GetVehicleGrade(id);
-        DatabaseVehicleUpgrade databaseVehicleUpgrade = Resources.Load<DatabaseVehicleUpgrade>("DatabaseVehicleUpgrade");
-        int maxGrade = databaseVehicleUpgrade.GetVehicleUpgrades(id).grade.Count - 1;
-        //grade = grade + 1 > maxGrade ? grade : grade + 1;
-        if (grade + 1 <= maxGrade) {
-            grade += 1;
+        int nextGrade = PlayerManager.playerManager.playerData.GetVehicleUpgradeGrade(id);
+        DatabaseVehicleUpgrade databaseVehicleUpgrade = Database.database.databaseVehicleUpgrade;
+        if (grade != nextGrade) {
             vehicleUpgradeData = databaseVehicleUpgrade.GetUpgradeRequirement(id, grade);
             foreach (ItemRequirement req in vehicleUpgradeData.requirements) {
                 int itemId = req.item.id;
                 int haveQuantity = PlayerManager.playerManager.playerData.inventory.GetEntry(itemId).quantity;
                 haveQuantity = haveQuantity > 0 ? haveQuantity : 0;
                 int requiredQuantity = req.quantity;
-                Debug.Log(req.item.itemName + " " + itemId + " " + haveQuantity + "/" + requiredQuantity);
                 InventoryEntry entry = new InventoryEntry(itemId, haveQuantity, requiredQuantity);
                 itemRequirement.items.Add(itemId, entry);
             }
         } else {
             itemRequirement.items.Clear();
         }
-
     }
 
     void ShowRequirements()

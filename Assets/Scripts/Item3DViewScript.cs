@@ -11,7 +11,7 @@ public class Item3DViewScript : MonoBehaviour
     }
 
     void ChangeModel(int id) {
-        DatabaseItem databaseItem = Resources.Load<DatabaseItem>("DatabaseItem");
+        DatabaseItem databaseItem = Database.database.databaseItem;
         GameObject newModel = databaseItem.GetItemById(id).model;
         newModel.transform.localScale = new Vector3(8, 8, 8);
         newModel.layer = LayerMask.NameToLayer("ItemPanel");

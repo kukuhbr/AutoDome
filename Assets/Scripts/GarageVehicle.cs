@@ -16,9 +16,10 @@ public class GarageVehicle : MonoBehaviour
 
     void UpdateInfo() {
         TextMeshProUGUI vehicleName = GetComponentInChildren<TextMeshProUGUI>();
-        DatabaseVehicle databaseVehicle = Resources.Load<DatabaseVehicle>("DatabaseVehicle");
+        DatabaseVehicle databaseVehicle = Database.database.databaseVehicle;
         int id = SceneLoader.sceneLoader.selectedCharacterIndex;
-        VehicleData vehicleData = databaseVehicle.GetVehicleByIdGrade(id, PlayerManager.playerManager.playerData.vehicleGrades[id]);
+        int grade = PlayerManager.playerManager.playerData.GetVehicleGrade(id);
+        VehicleData vehicleData = databaseVehicle.GetVehicleByIdGrade(id, grade);
         vehicleName.text = vehicleData.vehicleName;
     }
 
