@@ -40,6 +40,16 @@ public class Inventory {
         return inventoryEnough;
     }
 
+    public bool Add(InventoryEntry entry) {
+        bool inventoryEnough = true;
+        if(items.ContainsKey(entry.id)) {
+            inventoryEnough = Add(entry.id, entry.quantity);
+        } else {
+            items.Add(entry.id, entry);
+        }
+        return inventoryEnough;
+    }
+
     public bool Add(List<int> itemIds, List<int> itemQuantities) {
         bool inventoryEnough = true;
         for(int i = 0; i < itemIds.Count; i++) {
@@ -55,6 +65,15 @@ public class Inventory {
                 int id = itemIds[i];
                 items[id].quantity -= itemQuantities[i];
             }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool Remove(int id, int quantity) {
+        if(HaveItems(new List<int>{id}, new List<int>{quantity})) {
+            items[id].quantity -= quantity;
             return true;
         } else {
             return false;

@@ -18,6 +18,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: b86a2a9b88919bc408597f2c02dbbec1, type: 3}
   model: {fileID: 3552674772212801233, guid: 26ec0278286dfe243930c54d82b06a9b, type: 3}
   maxQuantity: 5
+  inInventory: 1
   usableType: 2
   strength: 20
   battleUsable: 1

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adf7afa4c2655784894b65e585a1da04, type: 3}
-  m_Name: CollectableSapphire
+  m_Name: CollectableEnergy
   m_EditorClassIdentifier: 
-  id: 2
-  itemName: Sapphire
+  id: 10
+  itemName: Energy
   description: 
-  icon: {fileID: 21300000, guid: 6a013077e6917744dbd908d5e26f5191, type: 3}
-  model: {fileID: 4489967853371811151, guid: e52ad1a6cf79f79409c6eb0b745e371b, type: 3}
-  maxQuantity: 50
-  inInventory: 1
-  dropQuantity: 1
+  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  model: {fileID: 7542308843826100610, guid: 5dc1d5fbe63c0ca49bddc0cf58ca1509, type: 3}
+  maxQuantity: 5
+  inInventory: 0
+  dropQuantity: 0

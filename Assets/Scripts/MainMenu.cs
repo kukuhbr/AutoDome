@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     public static MainMenu mainMenu;
+    public TextMeshProUGUI energyText;
     public TextMeshProUGUI currencyText;
     public GameObject garage;
     public GameObject inventory;
@@ -18,21 +19,23 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         Screen.orientation = ScreenOrientation.Portrait;
-        currencyText.text = PlayerManager.playerManager.playerData.inventory.GetEntry(9).quantity.ToString();
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        // if (PlayerPlaceholder)
-        // {
-        //     PlayerPlaceholder.transform.Rotate(0, 20*Time.deltaTime, 0, Space.World);
-        // }
+        currencyText.text = PlayerManager.playerManager.playerData.inventory.GetEntry(9).quantity.ToString();
+        energyText.text = PlayerManager.playerManager.playerData.inventory.GetEntry(10).quantity.ToString();
     }
 
     public void Deploy()
     {
-        SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
+        bool energyEnough = PlayerManager.playerManager.playerData.inventory.Remove(10, 1);
+        if (energyEnough) {
+            SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
+        } else {
+            // Notice. Ads?
+        }
     }
 
     void LockScroll() {
@@ -77,7 +80,7 @@ public class MainMenu : MonoBehaviour
     {
         inventory.SetActive(true);
         ItemUICollection coll = inventory.GetComponentInChildren<ItemUICollection>();
-        coll.AdjustItemCollectionUI(PlayerManager.playerManager.playerData.inventory);
+        coll.AdjustItemCollectionUI(PlayerManager.playerManager.playerData.DisplayInventory());
         LockScroll();
     }
 

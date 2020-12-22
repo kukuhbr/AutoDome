@@ -104,7 +104,6 @@ public class BattleUIScript : MonoBehaviour
         gameTextBottom.text = "OVER";
         gameTextAnimator.SetBool("GameOver", true);
         PlayerManager.playerManager.playerData.inventory.Add(9, score / 10);
-        //PlayerManager.playerManager.IncreaseCurrency("bolt", score / 10);
     }
 
     private void AdjustScore(int value)

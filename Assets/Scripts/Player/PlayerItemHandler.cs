@@ -39,7 +39,7 @@ public class PlayerItemHandler : MonoBehaviour
         int quantity = 1;
         if(item is ItemCollectable) {
             ItemCollectable collectable = (ItemCollectable)item;
-            quantity = collectable.quantity;
+            quantity = collectable.dropQuantity;
         }
         Debug.Log("get " + item.name);
         bool isSuccessful = battleInventory.Add(item.id, quantity);

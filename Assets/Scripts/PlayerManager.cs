@@ -66,48 +66,23 @@ public class PlayerManager : MonoBehaviour
             return null;
         }
     }
-
-    public void IncreaseCurrency(string type, int value)
-    {
-        int total = playerData.GetCurrencies(type) + value;
-        playerData.SetCurrencies(type, total);
-    }
-
-    public bool DecreaseCurrency(string type, int value)
-    {
-        int remainder = playerData.GetCurrencies(type) - value;
-        if (remainder < 0) {
-            return false;
-        }
-        playerData.SetCurrencies(type, remainder);
-        return true;
-    }
-
-    public int GetCurrency(string type)
-    {
-        return playerData.GetCurrencies(type);
-    }
 }
 
 public class PlayerData
 {
-    private List<string> currencyList = new List<string>(new string[] {"bolt", "stars", "gems"});
-    private Dictionary<string, int> currencies = new Dictionary<string, int>(); // Bolts, Stars, Gems
     public Inventory inventory;
     public List<int> vehicleGrades;
 
     public PlayerData()
     {
-        foreach (string currency in currencyList) {
-
-            currencies.Add(currency, 0);
-        }
         vehicleGrades = new List<int>(new int[] {0, 0, 0});
         inventory = new Inventory();
         // Debug Inventory
-        for(int i = 1; i < 10; i++) {
+        for(int i = 1; i < 11; i++) {
             if (i == 9) {
                 inventory.Add(i, 5000);
+            } else if (i == 10) {
+                inventory.Add(i, 3);
             } else {
                 inventory.Add(i, 20);
             }
@@ -122,21 +97,6 @@ public class PlayerData
         inventory.Add(save.itemInventoryId, save.itemInventoryQuantity);
     }
 
-    public int GetCurrencies(string type)
-    {
-        if(currencies.ContainsKey(type)) {
-            return currencies[type];
-        }
-        return 0;
-    }
-    public void SetCurrencies(string type, int value)
-    {
-        if(currencies.ContainsKey(type)) {
-            currencies[type] = value;
-        } else {
-            currencies.Add(type, value);
-        }
-    }
     public int GetVehicleGrade(int id) {
         return vehicleGrades[id];
     }
@@ -187,6 +147,17 @@ public class PlayerData
         VehicleUpgradeData vehicleUpgradeData = Database.database.databaseVehicleUpgrade.GetUpgradeRequirement(id, grade+1);
         Tuple<List<int>, List<int>> reqs = vehicleUpgradeData.makeTuple();
         inventory.Remove(reqs.Item1, reqs.Item2);
+    }
+
+    public Inventory DisplayInventory() {
+        Inventory visible = new Inventory();
+        foreach(KeyValuePair<int, InventoryEntry> entry in inventory.items) {
+            ItemBase item = Database.database.databaseItem.GetItemById(entry.Value.id);
+            if(item.inInventory) {
+                visible.Add(entry.Value);
+            }
+        }
+        return visible;
     }
 }
 
