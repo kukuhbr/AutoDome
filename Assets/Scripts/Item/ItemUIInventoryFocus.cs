@@ -7,9 +7,10 @@ using TMPro;
 
 public class ItemUIInventoryFocus : MonoBehaviour, IPointerClickHandler
 {
-    void Start()
+    void OnEnable()
     {
         MainMenu.mainMenu.onItemFocusChange += UpdateFocus;
+        GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
     }
 
     void UpdateFocus(int id)
@@ -26,7 +27,7 @@ public class ItemUIInventoryFocus : MonoBehaviour, IPointerClickHandler
         MainMenu.mainMenu.TriggerItemFocusChange(GetComponent<ItemUIIcon>().inventoryEntry.id);
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
         MainMenu.mainMenu.onItemFocusChange -= UpdateFocus;
     }

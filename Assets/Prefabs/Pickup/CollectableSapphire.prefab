@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4489967853371811150}
   - component: {fileID: 4489967853371811155}
   - component: {fileID: 4489967853371811148}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CollectableSapphire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,9 +25,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4489967853371811151}
-  m_LocalRotation: {x: 0, y: 0, z: 0.2164396, w: 0.97629607}
+  m_LocalRotation: {x: 0.20234147, y: 0.9126378, z: 0.07687888, w: 0.3467562}
   m_LocalPosition: {x: 0, y: 0.86, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.4, z: 0.6}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

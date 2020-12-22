@@ -33,7 +33,7 @@ public class GarageItemRequirement : MonoBehaviour
         int nextGrade = PlayerManager.playerManager.playerData.GetVehicleUpgradeGrade(id);
         DatabaseVehicleUpgrade databaseVehicleUpgrade = Database.database.databaseVehicleUpgrade;
         if (grade != nextGrade) {
-            vehicleUpgradeData = databaseVehicleUpgrade.GetUpgradeRequirement(id, grade);
+            vehicleUpgradeData = databaseVehicleUpgrade.GetUpgradeRequirement(id, nextGrade);
             foreach (ItemRequirement req in vehicleUpgradeData.requirements) {
                 int itemId = req.item.id;
                 int haveQuantity = PlayerManager.playerManager.playerData.inventory.GetEntry(itemId).quantity;

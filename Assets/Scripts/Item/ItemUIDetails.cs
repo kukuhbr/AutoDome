@@ -9,12 +9,14 @@ public class ItemUIDetails : MonoBehaviour
     bool initialized = false;
     LayoutElement layoutElement;
     public float targetHeight;
-    void Start() {
+    Coroutine InitUI;
+    void OnEnable() {
         MainMenu.mainMenu.onItemFocusChange += UpdateDetails;
         layoutElement = GetComponent<LayoutElement>();
         layoutElement.preferredHeight = 0f;
-        children = GetComponentsInChildren<Transform>();
-        foreach (Transform child in children) {
+        initialized = false;
+        children = GetComponentsInChildren<Transform>(true);
+        foreach (Transform child in children[0]) {
             if(child != transform) {
                 child.gameObject.SetActive(false);
             }
@@ -41,7 +43,7 @@ public class ItemUIDetails : MonoBehaviour
     void UpdateDetails(int id) {
         if (!initialized) {
             initialized = true;
-            StartCoroutine(InitUIDetails(id));
+            InitUI = StartCoroutine(InitUIDetails(id));
         }
         SetDetailsValues(id);
     }
@@ -56,7 +58,8 @@ public class ItemUIDetails : MonoBehaviour
         }
     }
 
-    void OnDestroy() {
+    void OnDisable() {
+        StopAllCoroutines();
         MainMenu.mainMenu.onItemFocusChange -= UpdateDetails;
     }
 }

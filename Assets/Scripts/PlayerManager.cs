@@ -143,11 +143,13 @@ public class PlayerData
 
     public int GetVehicleUpgradeGrade(int id) {
         int vehicleGrade = vehicleGrades[id] + 1 > GetVehicleMaxGrade(id) ? vehicleGrades[id] : vehicleGrades[id] + 1;
+        Debug.Log("Upgrade grade " + vehicleGrade);
         return vehicleGrade;
     }
 
     public int GetVehicleMaxGrade(int id) {
         int maxGrade = Database.database.databaseVehicleUpgrade.GetVehicleUpgrades(id).grade.Count - 1;
+        Debug.Log("Max grade " + maxGrade);
         return maxGrade;
     }
 

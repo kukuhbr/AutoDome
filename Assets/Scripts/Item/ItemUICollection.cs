@@ -9,6 +9,7 @@ public class ItemUICollection : MonoBehaviour
     private List<GameObject> itemIcons = new List<GameObject>();
     [SerializeField]
     private GameObject itemIconPrefab;
+    public bool showZero = false;
 
     void Awake() {
         for(int i = 0; i < 10; i++) {
@@ -27,8 +28,11 @@ public class ItemUICollection : MonoBehaviour
                 temp.SetActive(false);
                 itemIcons.Add(temp);
             }
-            itemIcons[i].GetComponent<ItemUIIcon>().AssignItem(entry.Value);
-            i += 1;
+            bool notZero = entry.Value.quantity > 0;
+            if (notZero || showZero) {
+                itemIcons[i].GetComponent<ItemUIIcon>().AssignItem(entry.Value);
+                i += 1;
+            }
         }
         for (; i < itemIcons.Count; i++) {
             itemIcons[i].GetComponent<ItemUIIcon>().AssignItem(null);
