@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager playerManager;
+    public static TimeSpan energyFillTime = TimeSpan.FromMinutes(5);
     public PlayerData playerData;
     string saveName = "save";
     void Awake()
@@ -72,6 +73,7 @@ public class PlayerData
 {
     public Inventory inventory;
     public List<int> vehicleGrades;
+    public DateTime lastEnergyFill;
 
     public PlayerData()
     {
@@ -82,11 +84,15 @@ public class PlayerData
             if (i == 9) {
                 inventory.Add(i, 5000);
             } else if (i == 10) {
-                inventory.Add(i, 3);
+                inventory.Add(i, 0);
             } else {
                 inventory.Add(i, 20);
             }
         }
+        lastEnergyFill = DateTime.Now;//.Subtract(TimeSpan.FromSeconds(127));
+        // Load Test
+        // DateTime test = DateTime.Now - TimeSpan.FromMinutes(12);
+        // RefillEnergyFrom(test.Ticks);
         Debug.Log("player inventory size: " + inventory.items.Count);
     }
 
@@ -95,6 +101,20 @@ public class PlayerData
         vehicleGrades = save.vehicleGrades;
         inventory = new Inventory();
         inventory.Add(save.itemInventoryId, save.itemInventoryQuantity);
+        lastEnergyFill = new DateTime(save.lastEnergyFill);
+    }
+
+    void RefillEnergyFrom(long time) {
+        DateTime fromTime = new DateTime(time);
+        TimeSpan diff = DateTime.Now - fromTime;
+        int passedCycle = diff.Minutes / 5;
+        while(!isEnergyMax() && passedCycle > 0) {
+            passedCycle -= 1;
+            IncreaseEnergy();
+        }
+        if(!isEnergyMax()) {
+            lastEnergyFill = DateTime.Now - TimeSpan.FromTicks(diff.Ticks % PlayerManager.energyFillTime.Ticks);
+        }
     }
 
     public int GetVehicleGrade(int id) {
@@ -103,13 +123,11 @@ public class PlayerData
 
     public int GetVehicleUpgradeGrade(int id) {
         int vehicleGrade = vehicleGrades[id] + 1 > GetVehicleMaxGrade(id) ? vehicleGrades[id] : vehicleGrades[id] + 1;
-        Debug.Log("Upgrade grade " + vehicleGrade);
         return vehicleGrade;
     }
 
     public int GetVehicleMaxGrade(int id) {
         int maxGrade = Database.database.databaseVehicleUpgrade.GetVehicleUpgrades(id).grade.Count - 1;
-        Debug.Log("Max grade " + maxGrade);
         return maxGrade;
     }
 
@@ -159,6 +177,34 @@ public class PlayerData
         }
         return visible;
     }
+
+    public bool IncreaseEnergy() {
+        if(!isEnergyMax()) {
+            inventory.Add(10, 1);
+            lastEnergyFill = DateTime.Now;
+            Debug.Log("Increased to "+inventory.GetEntry(10).quantity);
+            return true;
+        }
+        return false;
+    }
+
+    public bool DecreaseEnergy() {
+        if(isEnergyEnough()) {
+            inventory.Remove(10, 1);
+            Debug.Log("Decreased to "+inventory.GetEntry(10).quantity);
+            return true;
+        }
+        return false;
+    }
+
+    public bool isEnergyEnough() {
+        return inventory.GetEntry(10).quantity > 0;
+    }
+
+    public bool isEnergyMax() {
+        InventoryEntry energyEntry = inventory.GetEntry(10);
+        return energyEntry.quantity == energyEntry.maxQuantity;
+    }
 }
 
 [Serializable]
@@ -167,6 +213,7 @@ public class PlayerSave
     public List<int> vehicleGrades;
     public List<int> itemInventoryId;
     public List<int> itemInventoryQuantity;
+    public long lastEnergyFill;
     public PlayerSave(PlayerData playerData) {
         ClearSaveData();
         vehicleGrades = playerData.vehicleGrades;
@@ -174,6 +221,7 @@ public class PlayerSave
             itemInventoryId.Add(entry.Key);
             itemInventoryQuantity.Add(entry.Value.quantity);
         }
+        lastEnergyFill = playerData.lastEnergyFill.Ticks;
     }
     void ClearSaveData() {
         vehicleGrades.Clear();

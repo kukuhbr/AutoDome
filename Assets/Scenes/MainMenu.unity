@@ -3565,8 +3565,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1859143828}
   m_HandleRect: {fileID: 1859143827}
   m_Direction: 0
-  m_Value: 0.00000013399021
-  m_Size: 0.40482834
+  m_Value: 0.00000018966752
+  m_Size: 0.71969485
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10412,6 +10412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energyText: {fileID: 1858402329}
+  energyFillText: {fileID: 829693695}
   currencyText: {fileID: 1481979953}
   garage: {fileID: 1053038255}
   inventory: {fileID: 1566702529}

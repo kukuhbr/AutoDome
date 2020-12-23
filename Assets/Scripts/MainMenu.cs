@@ -9,12 +9,15 @@ public class MainMenu : MonoBehaviour
 {
     public static MainMenu mainMenu;
     public TextMeshProUGUI energyText;
+    public TextMeshProUGUI energyFillText;
     public TextMeshProUGUI currencyText;
     public GameObject garage;
     public GameObject inventory;
+    private PlayerData player;
     private void Awake()
     {
         mainMenu = this;
+        player = PlayerManager.playerManager.playerData;
     }
     void Start()
     {
@@ -24,14 +27,34 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        currencyText.text = PlayerManager.playerManager.playerData.inventory.GetEntry(9).quantity.ToString();
-        energyText.text = PlayerManager.playerManager.playerData.inventory.GetEntry(10).quantity.ToString();
+        currencyText.text = player.inventory.GetEntry(9).quantity.ToString();
+        energyText.text = player.inventory.GetEntry(10).quantity.ToString();
+        energyFillText.text = RefillEnergyLive();
+    }
+
+    public string RefillEnergyLive() {
+        string timeToFill = "";
+        if (!player.isEnergyMax()) {
+            TimeSpan diff = DateTime.Now - player.lastEnergyFill;
+            TimeSpan fillTime = PlayerManager.energyFillTime;
+            bool timeCheck = TimeSpan.Compare(diff, fillTime) != -1;
+            if(timeCheck) {
+                player.IncreaseEnergy();
+                player.lastEnergyFill = DateTime.Now;
+            }
+            diff = DateTime.Now - player.lastEnergyFill;
+            timeToFill = "Energy\n" + (fillTime - diff).ToString(@"mm\:ss");
+        } else {
+            player.lastEnergyFill = DateTime.Now;
+            timeToFill = "Energy Full";
+        }
+        return timeToFill;
     }
 
     public void Deploy()
     {
-        bool energyEnough = PlayerManager.playerManager.playerData.inventory.Remove(10, 1);
-        if (energyEnough) {
+        //bool energyEnough = PlayerManager.playerManager.playerData.inventory.Remove(10, 1);
+        if (player.DecreaseEnergy()) {
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
         } else {
             // Notice. Ads?
@@ -60,7 +83,6 @@ public class MainMenu : MonoBehaviour
 
     public void GarageUpgrade()
     {
-        PlayerData player = PlayerManager.playerManager.playerData;
         int id = SceneLoader.sceneLoader.selectedCharacterIndex;
         bool isUpgradeAvailable = player.VehicleUpgradeAvailable(id);
         if(isUpgradeAvailable) {
@@ -80,7 +102,7 @@ public class MainMenu : MonoBehaviour
     {
         inventory.SetActive(true);
         ItemUICollection coll = inventory.GetComponentInChildren<ItemUICollection>();
-        coll.AdjustItemCollectionUI(PlayerManager.playerManager.playerData.DisplayInventory());
+        coll.AdjustItemCollectionUI(player.DisplayInventory());
         LockScroll();
     }
 
