@@ -17,8 +17,7 @@ public class BattleManager : MonoBehaviour {
     public float waveEnemyGrow;
     private bool isNewWave;
     private int waveNumber;
-    private bool isGameStart = false;
-    private bool isGameOver = false;
+    private bool isGameStarted = false;
 
     // Use this for initialization
 
@@ -66,7 +65,7 @@ public class BattleManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if(isGameStart)
+        if(isGameStarted)
         {
             if (isNewWave) {
                 StartCoroutine(SpawnEnemy(Mathf.RoundToInt(waveEnemyCount)));
@@ -76,15 +75,15 @@ public class BattleManager : MonoBehaviour {
                 BattleEvents.battleEvents.TriggerGameOver();
             }
         }
-        if(isGameOver)
-        {
-            if (Time.timeScale > 0.2) {
-                Time.timeScale -= 0.1f;
-                Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            } else {
-                StartCoroutine(LoadMenu());
-            }
-        }
+        // if(isGameOver)
+        // {
+        //     if (Time.timeScale > 0.2) {
+        //         Time.timeScale -= 0.1f;
+        //         Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        //     } else {
+        //         StartCoroutine(LoadMenu());
+        //     }
+        // }
     }
 
     IEnumerator SpawnEnemy(int n) {
@@ -121,23 +120,26 @@ public class BattleManager : MonoBehaviour {
         if (SceneLoader.sceneLoader.isLoaded) {
             // Animate Text
             yield return new WaitForSeconds(2f);
-            isGameStart = true;
+            isGameStarted = true;
         }
     }
 
     private void GameOver()
     {
-        isGameOver = true;
-        isGameStart = false;
+        isGameStarted = false;
+        StartCoroutine(SlowMotionEffect());
     }
 
-    IEnumerator LoadMenu()
+    IEnumerator SlowMotionEffect()
     {
-        isGameOver = false;
+        while (Time.timeScale > 0.2) {
+            Time.timeScale -= 0.1f;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        }
         yield return new WaitForSecondsRealtime(3f);
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
-        SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
+        //SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
     }
 
     void OnDestroy()

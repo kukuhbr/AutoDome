@@ -84,9 +84,9 @@ public class PlayerData
             if (i == 9) {
                 inventory.Add(i, 5000);
             } else if (i == 10) {
-                inventory.Add(i, 0);
+                inventory.Add(i, 5);
             } else {
-                inventory.Add(i, 20);
+                //inventory.Add(i, 20);
             }
         }
         lastEnergyFill = DateTime.Now;//.Subtract(TimeSpan.FromSeconds(127));
@@ -217,10 +217,13 @@ public class PlayerSave
     public PlayerSave(PlayerData playerData) {
         ClearSaveData();
         vehicleGrades = playerData.vehicleGrades;
-        foreach(KeyValuePair<int, InventoryEntry> entry in playerData.inventory.items) {
-            itemInventoryId.Add(entry.Key);
-            itemInventoryQuantity.Add(entry.Value.quantity);
-        }
+        Tuple<List<int>, List<int>> itemTuple = playerData.inventory.makeTuple();
+        itemInventoryId = itemTuple.Item1;
+        itemInventoryId = itemTuple.Item2;
+        // foreach(KeyValuePair<int, InventoryEntry> entry in playerData.inventory.items) {
+        //     itemInventoryId.Add(entry.Key);
+        //     itemInventoryQuantity.Add(entry.Value.quantity);
+        // }
         lastEnergyFill = playerData.lastEnergyFill.Ticks;
     }
     void ClearSaveData() {

@@ -13,8 +13,9 @@ public class BattleUIScript : MonoBehaviour
     public float timeLeft = 99f;
     public bool isTimeOver = false;
     private List<Slider> ammoList;
-    public bool isGameOver;
+    public bool isGameOver = false;
     public GameObject gameText;
+    public GameObject rewardScreen;
     private Animator gameTextAnimator;
     public TextMeshProUGUI gameTextBottom;
     [Header("Scoreboard")]
@@ -43,7 +44,7 @@ public class BattleUIScript : MonoBehaviour
         gameTextAnimator = gameText.GetComponent<Animator>();
         StartCoroutine(WaitForSceneLoad());
         score = 0;
-        BattleEvents.battleEvents.onGameOver += DisplayGameOverText;
+        BattleEvents.battleEvents.onGameOver += BattleUIGameOver;
         BattleEvents.battleEvents.onScoreChange += AdjustScore;
     }
 
@@ -76,7 +77,7 @@ public class BattleUIScript : MonoBehaviour
     }
 
     void UpdateTimer() {
-        if (!isTimeOver)
+        if (!isTimeOver && !isGameOver)
         {
             timeLeft -= Time.deltaTime;
             timer.text = Mathf.RoundToInt(timeLeft).ToString();
@@ -99,11 +100,22 @@ public class BattleUIScript : MonoBehaviour
         }
     }
 
-    private void DisplayGameOverText()
+    private void BattleUIGameOver()
     {
+        isGameOver = true;
         gameTextBottom.text = "OVER";
         gameTextAnimator.SetBool("GameOver", true);
-        PlayerManager.playerManager.playerData.inventory.Add(9, score / 10);
+        //after 3 seconds show reward screen
+        StartCoroutine(ShowRewardScreen());
+    }
+
+    IEnumerator ShowRewardScreen()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        rewardScreen.SetActive(true);
+        rewardScreen.GetComponent<RewardScreen>().AddBonusParts(score / 10);
+        rewardScreen.GetComponent<RewardScreen>().Display();
+        //PlayerManager.playerManager.playerData.inventory.Add(9, score / 10);
     }
 
     private void AdjustScore(int value)
@@ -119,7 +131,7 @@ public class BattleUIScript : MonoBehaviour
 
     void OnDestroy()
     {
-        BattleEvents.battleEvents.onGameOver -= DisplayGameOverText;
+        BattleEvents.battleEvents.onGameOver -= BattleUIGameOver;
         BattleEvents.battleEvents.onScoreChange -= AdjustScore;
     }
 }

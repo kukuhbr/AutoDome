@@ -28,7 +28,7 @@ public class Character : MonoBehaviour {
     }
     public virtual void Update() {
         //Auto reload bullet
-        if (currentAmmo < maxAmmo && !isReloading && !isShooting) {
+        if (currentAmmo < maxAmmo && !isReloading) { //&& !isShooting) {
             StartCoroutine(ReloadAmmo());
         }
 

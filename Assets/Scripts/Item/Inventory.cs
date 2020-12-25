@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Inventory {
@@ -103,6 +104,16 @@ public class Inventory {
             return items[id];
         }
         return new InventoryEntry(-1, -1, -1);
+    }
+
+    public Tuple<List<int>, List<int>> makeTuple() {
+        List<int> ids = new List<int>();
+        List<int> quantities = new List<int>();
+        foreach(KeyValuePair<int, InventoryEntry> entry in items) {
+            ids.Add(entry.Key);
+            quantities.Add(entry.Value.quantity);
+        }
+        return new Tuple<List<int>, List<int>>(ids, quantities);
     }
 }
 
