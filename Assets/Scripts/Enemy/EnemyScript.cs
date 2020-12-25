@@ -22,6 +22,7 @@ public class EnemyScript : Character {
         hpBar.minValue = 0;
         hpBar.maxValue = maxHp;
         isAlive = false;
+        BattleEvents.battleEvents.onGameOver += GameOver;
     }
 
     new void Update() {
@@ -88,6 +89,10 @@ public class EnemyScript : Character {
         }
     }
 
+    void GameOver() {
+        StartCoroutine(SetAliveFalse(1f));
+    }
+
     IEnumerator DeactivateEnemy(float time) {
         while (time - Time.deltaTime >= 0) {
             time -= Time.deltaTime;
@@ -104,11 +109,22 @@ public class EnemyScript : Character {
         isAlive = true;
     }
 
+    IEnumerator SetAliveFalse(float time) {
+        yield return new WaitForSeconds(time);
+        isAlive = false;
+    }
+
     void SetDissolve(float amount) {
         foreach(Renderer r in modelRenderer) {
             if(r) {
                 r.material.SetFloat("_Dissolve", amount);
             }
         }
+    }
+
+    void OnDisable()
+    {
+
+        BattleEvents.battleEvents.onGameOver -= GameOver;
     }
 }

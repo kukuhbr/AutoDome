@@ -7,17 +7,21 @@ public class ShooterEnemy : EnemyScript
     [SerializeField]
     private int maxBarrage;
     private int barrage;
+    private bool coroutineStarted;
     new void Update() {
-        if(target)
+        if(target && isAlive)
         {
             transform.LookAt(target);
-            StartCoroutine(Barrage());
+            if(!coroutineStarted) {
+                StartCoroutine(Barrage());
+            }
         }
         base.Update();
     }
 
     public override void Spawn() {
         base.Spawn();
+        coroutineStarted = false;
         barrage = maxBarrage;
     }
 
@@ -37,18 +41,22 @@ public class ShooterEnemy : EnemyScript
     }
 
     IEnumerator Barrage() {
-        if (barrage > 0 && isAlive) {
-            if (!isCooldown) {
-                StartCoroutine(Fire((target.position - transform.position).normalized));
-                barrage -= 1;
+        coroutineStarted = true;
+        while(isAlive) {
+            if (barrage > 0) {
+                if (!isCooldown) {
+                    StartCoroutine(Fire((target.position - transform.position).normalized));
+                    barrage -= 1;
+                }
+            } else {
+                if(!isReloading) {
+                    isReloading = true;
+                    yield return new WaitForSeconds(3f);
+                    isReloading = false;
+                    barrage = maxBarrage;
+                }
             }
-        } else {
-            if(!isReloading) {
-                isReloading = true;
-                yield return new WaitForSeconds(3f);
-                isReloading = false;
-                barrage = maxBarrage;
-            }
+            yield return null;
         }
     }
 }
