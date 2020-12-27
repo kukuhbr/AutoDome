@@ -13,13 +13,15 @@ public class Item3DViewScript : MonoBehaviour
     void ChangeModel(int id) {
         DatabaseItem databaseItem = Database.database.databaseItem;
         GameObject newModel = databaseItem.GetItemById(id).model;
-        newModel.transform.localScale = new Vector3(8, 8, 8);
-        newModel.layer = LayerMask.NameToLayer("ItemPanel");
+        Quaternion modelRotation = newModel.transform.rotation;
         if (model) {
-            newModel.transform.rotation = model.transform.rotation;
+            modelRotation = model.transform.rotation;
             Destroy(model);
         }
         model = Instantiate(newModel, this.transform);
+        model.transform.rotation = modelRotation;
+        model.transform.localScale = new Vector3(8, 8, 8);
+        model.layer = LayerMask.NameToLayer("ItemPanel");
     }
 
     void LateUpdate() {
