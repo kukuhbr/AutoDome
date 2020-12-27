@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InstantNotification : MonoBehaviour
+public class NotificationInstant : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

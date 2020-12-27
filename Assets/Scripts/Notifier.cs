@@ -13,21 +13,35 @@ public class Notifier : MonoBehaviour
     {
         notificationPrefab = Resources.Load<GameObject>("Notification");
         instantNotificationPrefab = Resources.Load<GameObject>("InstantNotification");
-        Debug.Log(notificationPrefab);
-        Debug.Log(instantNotificationPrefab);
     }
 
-    public static void Notify(string message, bool instant)
+    public static void Notify(string message)
+    {
+        if (Notification.isInstanced) return;
+        Transform mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Transform>();
+        GameObject notification;
+        notification = Instantiate(notificationPrefab, mainCanvas);
+        TextMeshProUGUI textMesh = notification.GetComponentInChildren<TextMeshProUGUI>();
+        textMesh.text = message;
+    }
+
+    public static void Notify(string message, string message2)
+    {
+        if (Notification.isInstanced) return;
+        Transform mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Transform>();
+        GameObject notification;
+        notification = Instantiate(notificationPrefab, mainCanvas);
+        TextMeshProUGUI textMesh = notification.GetComponentInChildren<TextMeshProUGUI>();
+        textMesh.text = message;
+        notification.GetComponent<Notification>().SetupSecondButton(message2);
+    }
+
+    public static void NotifyInstant(string message)
     {
         Transform mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Transform>();
         GameObject notification;
-        if (instant) {
-            notification = Instantiate(instantNotificationPrefab, mainCanvas);
-        } else {
-            notification = Instantiate(notificationPrefab, mainCanvas);
-        }
+        notification = Instantiate(instantNotificationPrefab, mainCanvas);
         TextMeshProUGUI textMesh = notification.GetComponentInChildren<TextMeshProUGUI>();
         textMesh.text = message;
-
     }
 }
