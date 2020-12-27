@@ -57,7 +57,7 @@ public class MainMenu : MonoBehaviour
         if (player.DecreaseEnergy()) {
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
         } else {
-            // Notice. Ads?
+            Notifier.Notify("You don't have enough energy", true);
         }
     }
 
@@ -92,8 +92,10 @@ public class MainMenu : MonoBehaviour
                 player.UpgradeVehicleGrade(id);
                 TriggerUpgradeVehicle();
             } else {
-                TriggerUpgradeVehicleFail();
+                Notifier.Notify("Not Enough Materials", true);
             }
+        } else {
+            Notifier.Notify("Vehicle Max Upgrade", true);
         }
 
     }
@@ -130,13 +132,13 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public event Action onUpgradeVehicleFail;
-    public void TriggerUpgradeVehicleFail()
-    {
-        if(onUpgradeVehicleFail != null)
-        {
-            onUpgradeVehicleFail();
-            Debug.Log("Upgrade vehicle fail!");
-        }
-    }
+    // public event Action onUpgradeVehicleFail;
+    // public void TriggerUpgradeVehicleFail()
+    // {
+    //     if(onUpgradeVehicleFail != null)
+    //     {
+    //         onUpgradeVehicleFail();
+    //         Debug.Log("Upgrade vehicle fail!");
+    //     }
+    // }
 }

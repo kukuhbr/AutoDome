@@ -82,11 +82,11 @@ public class PlayerData
         // Debug Inventory
         for(int i = 1; i < 11; i++) {
             if (i == 9) {
-                inventory.Add(i, 5000);
+                inventory.Add(i, 15000);
             } else if (i == 10) {
-                inventory.Add(i, 5);
+                inventory.Add(i, 0);
             } else {
-                //inventory.Add(i, 20);
+                inventory.Add(i, 20);
             }
         }
         lastEnergyFill = DateTime.Now;//.Subtract(TimeSpan.FromSeconds(127));
