@@ -14,10 +14,12 @@ public class MainMenu : MonoBehaviour
     public GameObject garage;
     public GameObject inventory;
     private PlayerData player;
+    private bool isMenuInFocus;
     private void Awake()
     {
         mainMenu = this;
         player = PlayerManager.playerManager.playerData;
+        isMenuInFocus = false;
     }
     void Start()
     {
@@ -53,6 +55,7 @@ public class MainMenu : MonoBehaviour
 
     public void Deploy()
     {
+        if(isMenuInFocus) return;
         //bool energyEnough = PlayerManager.playerManager.playerData.inventory.Remove(10, 1);
         if (player.DecreaseEnergy()) {
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
@@ -72,12 +75,15 @@ public class MainMenu : MonoBehaviour
 
     public void GarageOpen()
     {
+        if(isMenuInFocus) return;
+        isMenuInFocus = true;
         garage.SetActive(true);
         LockScroll();
     }
 
     public void GarageClose()
     {
+        isMenuInFocus = false;
         garage.SetActive(false);
         UnlockScroll();
     }
@@ -104,6 +110,8 @@ public class MainMenu : MonoBehaviour
 
     public void InventoryOpen()
     {
+        if(isMenuInFocus) return;
+        isMenuInFocus = true;
         inventory.SetActive(true);
         ItemUICollection coll = inventory.GetComponentInChildren<ItemUICollection>();
         coll.AdjustItemCollectionUI(player.DisplayInventory());
@@ -112,6 +120,7 @@ public class MainMenu : MonoBehaviour
 
     public void InventoryClose()
     {
+        isMenuInFocus = false;
         inventory.SetActive(false);
         UnlockScroll();
     }
