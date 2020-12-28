@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using GoogleMobileAds.Api;
 
 public class MainMenu : MonoBehaviour
 {
@@ -61,8 +62,24 @@ public class MainMenu : MonoBehaviour
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
         } else {
             //Notifier.NotifyInstant("You don't have enough energy");
-            Notifier.Notify("You don't have enough energy", "Watch Ad");
+            Notifier.Notify("You don't have enough energy", "Watch Ad", WatchAd);
         }
+    }
+
+    void WatchAd()
+    {
+        string energyAdId = GoogleMobileAdsScript.adUnitTest;
+        RewardedAd energyRewardedAd = GoogleMobileAdsScript.instance.CreateAndLoadRewardedAd(energyAdId);
+        if (energyRewardedAd.IsLoaded()) {
+            energyRewardedAd.Show();
+        }
+        energyRewardedAd.OnUserEarnedReward += EnergyAdReward;
+    }
+
+    void EnergyAdReward(object sender, EventArgs args)
+    {
+        player.IncreaseEnergy();
+        Notifier.Notify("Thank you for supporting!");
     }
 
     void LockScroll() {

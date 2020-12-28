@@ -9,6 +9,8 @@ public class Notifier : MonoBehaviour
     private static GameObject notificationPrefab;
     private static GameObject instantNotificationPrefab;
     private Canvas mainCanvas;
+    public delegate void ButtonMethod();
+    //public ButtonMethod method;
     void Awake()
     {
         notificationPrefab = Resources.Load<GameObject>("Notification");
@@ -25,7 +27,7 @@ public class Notifier : MonoBehaviour
         textMesh.text = message;
     }
 
-    public static void Notify(string message, string message2)
+    public static void Notify(string message, string message2, ButtonMethod method)
     {
         if (Notification.isInstanced) return;
         Transform mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Transform>();
@@ -33,7 +35,7 @@ public class Notifier : MonoBehaviour
         notification = Instantiate(notificationPrefab, mainCanvas);
         TextMeshProUGUI textMesh = notification.GetComponentInChildren<TextMeshProUGUI>();
         textMesh.text = message;
-        notification.GetComponent<Notification>().SetupSecondButton(message2);
+        notification.GetComponent<Notification>().SetupSecondButton(message2, method);
     }
 
     public static void NotifyInstant(string message)

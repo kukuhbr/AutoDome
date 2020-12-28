@@ -7,15 +7,17 @@ using GoogleMobileAds.Api;
 
 public class GoogleMobileAdsScript : MonoBehaviour
 {
+    public static GoogleMobileAdsScript instance;
     private RewardedAd energyRewardedAd;
     private RewardedAd gameOverRewardedAd;
 
     //test ad
-    private string appId = "";
-    private string adUnitTest = "ca-app-pub-3940256099942544/5224354917";
+    private string appId = "ca-app-pub-8471432327502017~5389357621";
+    public static string adUnitTest = "ca-app-pub-3940256099942544/5224354917";
     void Start()
     {
-        //MobileAds.Initialize(initStatus => { });
+        MobileAds.Initialize(initStatus => { });
+        instance = this;
     }
 
     public RewardedAd CreateAndLoadRewardedAd(string adUnitId)
@@ -42,7 +44,8 @@ public class GoogleMobileAdsScript : MonoBehaviour
 
     }
 
-    void HandleUserEarnedReward(object sender, EventArgs args) {
+    void HandleUserEarnedReward(object sender, EventArgs args)
+    {
 
     }
 
