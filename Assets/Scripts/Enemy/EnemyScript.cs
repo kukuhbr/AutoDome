@@ -90,7 +90,7 @@ public class EnemyScript : Character {
     }
 
     void GameOver() {
-        StartCoroutine(SetAliveFalse(1f));
+        StartCoroutine(SetAliveFalse(2f));
     }
 
     IEnumerator DeactivateEnemy(float time) {
