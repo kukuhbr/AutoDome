@@ -41,6 +41,18 @@ public class Inventory {
         return inventoryEnough;
     }
 
+    public void ForceAdd(int id, int quantity) {
+        DatabaseItem databaseItem = Database.database.databaseItem;
+        if(items.ContainsKey(id)) {
+            items[id].quantity += quantity;
+        } else {
+            int maxQuantity = databaseItem.GetItemById(id).maxQuantity;
+            InventoryEntry entry = new InventoryEntry(id, quantity, maxQuantity);
+            items.Add(id, entry);
+            items[id].quantity = quantity;
+        }
+    }
+
     public bool Add(InventoryEntry entry) {
         bool inventoryEnough = true;
         if(items.ContainsKey(entry.id)) {
@@ -58,6 +70,13 @@ public class Inventory {
             inventoryEnough = inventoryEnough & Add(id, itemQuantities[i]);
         }
         return inventoryEnough;
+    }
+
+    public void ForceAdd(List<int> itemIds, List<int> itemQuantities) {
+        for(int i = 0; i < itemIds.Count; i++) {
+            int id = itemIds[i];
+            ForceAdd(id, itemQuantities[i]);
+        }
     }
 
     public bool Remove(List<int> itemIds, List<int> itemQuantities) {

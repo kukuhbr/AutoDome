@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5751252093011737709}
   - component: {fileID: 5751252093011737711}
   - component: {fileID: 5751252093011737710}
-  - component: {fileID: 2382515026391753221}
   - component: {fileID: 7753898185640904938}
+  - component: {fileID: 2382515026391753221}
   m_Layer: 5
   m_Name: UIItemIcon
   m_TagString: Untagged
@@ -78,19 +78,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2382515026391753221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5751252093011737708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2cc6f2ac779ee47a6eb0e45ef1e60d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownImage: {fileID: 3409376026959268555}
 --- !u!114 &7753898185640904938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +91,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayFormat: '{0}/{1}'
+--- !u!114 &2382515026391753221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5751252093011737708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2cc6f2ac779ee47a6eb0e45ef1e60d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownImage: {fileID: 3409376026959268555}
 --- !u!1 &5751252094516924903
 GameObject:
   m_ObjectHideFlags: 0

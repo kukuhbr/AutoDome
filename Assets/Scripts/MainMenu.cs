@@ -131,7 +131,7 @@ public class MainMenu : MonoBehaviour
         isMenuInFocus = true;
         inventory.SetActive(true);
         ItemUICollection coll = inventory.GetComponentInChildren<ItemUICollection>();
-        coll.AdjustItemCollectionUI(player.DisplayInventory());
+        coll.AdjustItemCollectionUI(player.inventory);
         LockScroll();
     }
 

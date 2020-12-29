@@ -2644,6 +2644,7 @@ MonoBehaviour:
   itemIconPrefab: {fileID: 1081588237183694736, guid: e2ef1d4d68f2ec84893403eb93fd2b23,
     type: 3}
   showZero: 0
+  inInventoryOnly: 1
 --- !u!114 &415182539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3566,7 +3567,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1859143827}
   m_Direction: 0
   m_Value: -0.00000008932681
-  m_Size: 0.34859836
+  m_Size: 0.34840176
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4276,6 +4277,7 @@ MonoBehaviour:
   itemIconPrefab: {fileID: 7663446927826757060, guid: 1f8e2e9f8fbeabd4aa4b5b3ee84c0bae,
     type: 3}
   showZero: 1
+  inInventoryOnly: 0
 --- !u!114 &794511324
 MonoBehaviour:
   m_ObjectHideFlags: 0

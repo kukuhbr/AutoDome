@@ -9,6 +9,16 @@ public class PlayerItemHandler : MonoBehaviour
     private List<GameObject> buffVisualPrefab;
     void Start() {
         battleInventory = new Inventory();
+        //Debug
+        for(int i = 1; i < 9; i++) {
+            if (i == 9) {
+                battleInventory.Add(i, 15000);
+            } else if (i == 10) {
+                battleInventory.Add(i, 0);
+            } else {
+                battleInventory.Add(i, 3);
+            }
+        }
     }
     public void Buff(ItemBuff buff) {//ItemBuff.BuffType buffType, float strength, float duration) {
         //List<float> buff = new float {0f, 0f, 0f};

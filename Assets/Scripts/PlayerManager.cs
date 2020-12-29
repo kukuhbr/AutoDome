@@ -84,7 +84,7 @@ public class PlayerData
             if (i == 9) {
                 inventory.Add(i, 15000);
             } else if (i == 10) {
-                inventory.Add(i, 0);
+                inventory.Add(i, 1);
             } else {
                 inventory.Add(i, 20);
             }

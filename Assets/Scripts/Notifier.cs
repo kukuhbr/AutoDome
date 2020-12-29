@@ -27,6 +27,17 @@ public class Notifier : MonoBehaviour
         textMesh.text = message;
     }
 
+    public static void NotifyBig(string message, int scale)
+    {
+        if (Notification.isInstanced) return;
+        Transform mainCanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Transform>();
+        GameObject notification;
+        notification = Instantiate(notificationPrefab, mainCanvas);
+        TextMeshProUGUI textMesh = notification.GetComponentInChildren<TextMeshProUGUI>();
+        notification.transform.localScale = new Vector3(scale, scale, scale);
+        textMesh.text = message;
+    }
+
     public static void Notify(string message, string message2, ButtonMethod method)
     {
         if (Notification.isInstanced) return;

@@ -10,6 +10,7 @@ public class ItemUICollection : MonoBehaviour
     [SerializeField]
     private GameObject itemIconPrefab;
     public bool showZero = false;
+    public bool inInventoryOnly = false;
 
     void Awake() {
         for(int i = 0; i < 10; i++) {
@@ -29,10 +30,11 @@ public class ItemUICollection : MonoBehaviour
                 itemIcons.Add(temp);
             }
             bool notZero = entry.Value.quantity > 0;
-            if (notZero || showZero) {
-                itemIcons[i].GetComponent<ItemUIIcon>().AssignItem(entry.Value);
-                i += 1;
-            }
+            bool inInventory = Database.database.databaseItem.GetItemById(entry.Key).inInventory;
+            if (!(notZero || showZero)) continue;
+            if (!(!inInventoryOnly || inInventory)) continue;
+            itemIcons[i].GetComponent<ItemUIIcon>().AssignItem(entry.Value);
+            i += 1;
         }
         for (; i < itemIcons.Count; i++) {
             itemIcons[i].GetComponent<ItemUIIcon>().AssignItem(null);
