@@ -72,6 +72,7 @@ public class PlayerManager : MonoBehaviour
 public class PlayerData
 {
     public Inventory inventory;
+    public Inventory battleInventory;
     public List<int> vehicleGrades;
     public DateTime lastEnergyFill;
 
@@ -79,6 +80,7 @@ public class PlayerData
     {
         vehicleGrades = new List<int>(new int[] {0, 0, 0});
         inventory = new Inventory(20, 50, 99999, 5);
+        battleInventory = new Inventory(3, 5, 2000);
         // Debug Inventory
         for(int i = 1; i < 11; i++) {
             if (i == 9) {
@@ -114,6 +116,22 @@ public class PlayerData
         }
         if(!isEnergyMax()) {
             lastEnergyFill = DateTime.Now - TimeSpan.FromTicks(diff.Ticks % PlayerManager.energyFillTime.Ticks);
+        }
+    }
+
+    public void SetupBattleInventory() {
+        int repetition = 0;
+        foreach(KeyValuePair<int, InventoryEntry> entry in inventory.items) {
+            if (repetition > 5) break;
+            int id = entry.Key;
+            //Get all itemusable, should be editable
+            if(Database.database.databaseItem.GetItemById(id) is ItemUsable) {
+                int quantity = Math.Min(entry.Value.quantity, battleInventory.maxUsable);
+                if(inventory.Remove(id, quantity)) {
+                    battleInventory.Add(id, quantity);
+                    repetition++;
+                }
+            }
         }
     }
 

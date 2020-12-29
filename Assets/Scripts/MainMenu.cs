@@ -59,6 +59,7 @@ public class MainMenu : MonoBehaviour
         if(isMenuInFocus) return;
         //bool energyEnough = PlayerManager.playerManager.playerData.inventory.Remove(10, 1);
         if (player.DecreaseEnergy()) {
+            PlayerManager.playerManager.playerData.SetupBattleInventory();
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
         } else {
             //Notifier.NotifyInstant("You don't have enough energy");

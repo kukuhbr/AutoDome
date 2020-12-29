@@ -36,6 +36,7 @@ public class RewardScreen : MonoBehaviour
     {
         Tuple<List<int>, List<int>> rewards = playerItemHandler.battleInventory.makeTuple();
         PlayerManager.playerManager.playerData.inventory.Add(rewards.Item1, rewards.Item2);
+        playerItemHandler.battleInventory.Clear();
         SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
     }
 

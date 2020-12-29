@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Inventory {
     public Dictionary<int, InventoryEntry> items;
-    private int maxUsable = 99;
+    public int maxUsable = 99;
     private int maxCollectable = 99;
     private int maxParts = 99999;
     private int maxEnergy = 5;
@@ -143,6 +143,10 @@ public class Inventory {
             quantities.Add(entry.Value.quantity);
         }
         return new Tuple<List<int>, List<int>>(ids, quantities);
+    }
+
+    public void Clear() {
+        items.Clear();
     }
 }
 
