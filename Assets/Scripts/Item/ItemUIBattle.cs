@@ -22,7 +22,7 @@ public class ItemUIBattle : MonoBehaviour
     void AdjustItemUI()
     {
         backgroundImage.enabled = true;
-        itemUICollection.AdjustItemCollectionUI(handler.battleInventory);
+        itemUICollection.AdjustItemCollectionUI(handler.battleInventory.GetItemOnlyType("usable"));
     }
 
     void OnDestroy()

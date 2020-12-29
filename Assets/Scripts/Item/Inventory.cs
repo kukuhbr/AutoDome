@@ -22,6 +22,17 @@ public class Inventory {
         items = new Dictionary<int, InventoryEntry>();
     }
 
+    public Inventory(Inventory copy) {
+        maxUsable = copy.maxUsable;
+        maxCollectable = copy.maxCollectable;
+        maxParts = copy.maxParts;
+        maxEnergy = copy.maxEnergy;
+        items = new Dictionary<int, InventoryEntry>();
+        foreach(var entry in copy.items.Values) {
+            Add(new InventoryEntry(entry));
+        }
+    }
+
     int GetMaxQuantity(int id) {
         if (id == 9) return maxParts;
         if (id == 10) return maxEnergy;
@@ -145,6 +156,27 @@ public class Inventory {
         return new Tuple<List<int>, List<int>>(ids, quantities);
     }
 
+    public Inventory GetItemOnlyType(string type) {
+        Inventory clone = new Inventory(this);
+        foreach (var entry in clone.items) {
+            ItemBase item = Database.database.databaseItem.GetItemById(entry.Key);
+            bool isTypeMismatch = false;
+            switch(type)
+            {
+                case "usable":
+                isTypeMismatch = (item is ItemUsable == false);
+                break;
+                case "collectable":
+                isTypeMismatch = (item is ItemCollectable == false);
+                break;
+            }
+            if (isTypeMismatch) {
+                clone.Remove(entry.Key, entry.Value.quantity);
+            }
+        }
+        return clone;
+    }
+
     public void Clear() {
         items.Clear();
     }
@@ -160,6 +192,13 @@ public class InventoryEntry {
         quantity = _quantity;
         maxQuantity = _maxQuantity;
         cooldown = 0f;
+    }
+
+    public InventoryEntry(InventoryEntry copy) {
+        id = copy.id;
+        quantity = copy.quantity;
+        maxQuantity = copy.maxQuantity;
+        cooldown = copy.cooldown;
     }
 }
 
