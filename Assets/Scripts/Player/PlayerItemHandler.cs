@@ -20,6 +20,10 @@ public class PlayerItemHandler : MonoBehaviour
         //     }
         // }
         battleInventory = PlayerManager.playerManager.playerData.battleInventory;
+        foreach(KeyValuePair<int, InventoryEntry> entry in battleInventory.items) {
+            int id = entry.Key;
+            Database.database.databaseItem.GetItemById(id).SetHandler(this.gameObject);
+        }
         BattleEvents.battleEvents.TriggerItemPickup();
     }
     public void Buff(ItemBuff buff) {//ItemBuff.BuffType buffType, float strength, float duration) {

@@ -13,7 +13,7 @@ public class ItemUIUsableScript : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         BattleEvents.battleEvents.onGameOver += GameOver;
-        cooldownImage.sizeDelta = new Vector2(100f, 0f);
+        cooldownImage.sizeDelta = new Vector2(0f, 0f);
     }
 
     void GameOver()
@@ -26,9 +26,9 @@ public class ItemUIUsableScript : MonoBehaviour, IPointerClickHandler
         InventoryEntry inventoryEntry = GetComponent<ItemUIIcon>().inventoryEntry;
         if(inventoryEntry != null) {
             float height = Mathf.Lerp(0f, 100f, inventoryEntry.cooldown / 4f);
-            cooldownImage.sizeDelta = new Vector2(100f, height);
+            cooldownImage.sizeDelta = new Vector2(0f, height);
         } else {
-            cooldownImage.sizeDelta = new Vector2(100f, 0f);
+            cooldownImage.sizeDelta = new Vector2(0f, 0f);
         }
     }
 
