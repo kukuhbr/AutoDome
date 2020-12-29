@@ -5,23 +5,33 @@ using UnityEngine;
 
 public class Inventory {
     public Dictionary<int, InventoryEntry> items;
+    private int maxUsable = 99;
+    private int maxCollectable = 99;
+    private int maxParts = 99999;
+    private int maxEnergy = 5;
 
     public Inventory() {
         items = new Dictionary<int, InventoryEntry>();
     }
 
-    public void SetMaxQuantity(List<int> itemIds, List<int> maxQuantities) {
-        for(int i = 0; i < itemIds.Count; i++) {
-            int id = itemIds[i];
-            if(items.ContainsKey(id)) {
-                items[id].maxQuantity = maxQuantities[i];
-                if(items[id].quantity > items[id].maxQuantity)
-                    items[id].quantity = items[id].maxQuantity;
-            } else {
-                InventoryEntry entry = new InventoryEntry(id, 0, maxQuantities[i]);
-                items.Add(id, entry);
-            }
+    public Inventory(int usable, int collectable, int parts = 99999, int energy = 5) {
+        maxUsable = usable;
+        maxCollectable = collectable;
+        maxParts = parts;
+        maxEnergy = energy;
+        items = new Dictionary<int, InventoryEntry>();
+    }
+
+    int GetMaxQuantity(int id) {
+        if (id == 9) return maxParts;
+        if (id == 10) return maxEnergy;
+        ItemBase item = Database.database.databaseItem.GetItemById(id);
+        if(item is ItemCollectable) {
+            return maxCollectable;
+        } else if (item is ItemUsable) {
+            return maxUsable;
         }
+        return 0;
     }
 
     public bool Add(int id, int quantity) {
@@ -34,7 +44,7 @@ public class Inventory {
                 inventoryEnough = false;
             }
         } else {
-            int maxQuantity = databaseItem.GetItemById(id).maxQuantity;
+            int maxQuantity = GetMaxQuantity(id);
             InventoryEntry entry = new InventoryEntry(id, quantity, maxQuantity);
             items.Add(id, entry);
         }
@@ -46,7 +56,7 @@ public class Inventory {
         if(items.ContainsKey(id)) {
             items[id].quantity += quantity;
         } else {
-            int maxQuantity = databaseItem.GetItemById(id).maxQuantity;
+            int maxQuantity = GetMaxQuantity(id);
             InventoryEntry entry = new InventoryEntry(id, quantity, maxQuantity);
             items.Add(id, entry);
             items[id].quantity = quantity;

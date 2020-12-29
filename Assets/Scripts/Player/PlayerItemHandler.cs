@@ -8,7 +8,7 @@ public class PlayerItemHandler : MonoBehaviour
     [SerializeField]
     private List<GameObject> buffVisualPrefab;
     void Start() {
-        battleInventory = new Inventory();
+        battleInventory = new Inventory(3, 5, 2000);
         //Debug
         for(int i = 1; i < 9; i++) {
             if (i == 9) {
@@ -19,6 +19,7 @@ public class PlayerItemHandler : MonoBehaviour
                 battleInventory.Add(i, 3);
             }
         }
+        BattleEvents.battleEvents.TriggerItemPickup();
     }
     public void Buff(ItemBuff buff) {//ItemBuff.BuffType buffType, float strength, float duration) {
         //List<float> buff = new float {0f, 0f, 0f};

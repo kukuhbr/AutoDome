@@ -7,7 +7,6 @@ public abstract class ItemBase : ScriptableObject {
     public string description;
     public Sprite icon;
     public GameObject model;
-    public int maxQuantity;
     public bool inInventory;
     protected PlayerItemHandler handler;
     public void SetHandler(GameObject obj) {

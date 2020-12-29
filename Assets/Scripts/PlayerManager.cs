@@ -78,7 +78,7 @@ public class PlayerData
     public PlayerData()
     {
         vehicleGrades = new List<int>(new int[] {0, 0, 0});
-        inventory = new Inventory();
+        inventory = new Inventory(20, 50, 99999, 5);
         // Debug Inventory
         for(int i = 1; i < 11; i++) {
             if (i == 9) {
@@ -99,7 +99,7 @@ public class PlayerData
     public PlayerData(PlayerSave save) {
         DatabaseItem databaseItem = Resources.Load<DatabaseItem>("DatabaseItem");
         vehicleGrades = save.vehicleGrades;
-        inventory = new Inventory();
+        inventory = new Inventory(20, 50, 99999, 5);
         inventory.Add(save.itemInventoryId, save.itemInventoryQuantity);
         lastEnergyFill = new DateTime(save.lastEnergyFill);
     }
@@ -167,16 +167,16 @@ public class PlayerData
         inventory.Remove(reqs.Item1, reqs.Item2);
     }
 
-    public Inventory DisplayInventory() {
-        Inventory visible = new Inventory();
-        foreach(KeyValuePair<int, InventoryEntry> entry in inventory.items) {
-            ItemBase item = Database.database.databaseItem.GetItemById(entry.Value.id);
-            if(item.inInventory) {
-                visible.Add(entry.Value);
-            }
-        }
-        return visible;
-    }
+    // public Inventory DisplayInventory() {
+    //     Inventory visible = new Inventory();
+    //     foreach(KeyValuePair<int, InventoryEntry> entry in inventory.items) {
+    //         ItemBase item = Database.database.databaseItem.GetItemById(entry.Value.id);
+    //         if(item.inInventory) {
+    //             visible.Add(entry.Value);
+    //         }
+    //     }
+    //     return visible;
+    // }
 
     public bool IncreaseEnergy() {
         if(!isEnergyMax()) {
