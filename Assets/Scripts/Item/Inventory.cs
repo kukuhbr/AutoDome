@@ -157,24 +157,28 @@ public class Inventory {
     }
 
     public Inventory GetItemOnlyType(string type) {
-        Inventory clone = new Inventory(this);
-        foreach (var entry in clone.items) {
+        int usable = this.maxUsable;
+        int collectable = this.maxCollectable;
+        int parts = this.maxParts;
+        Inventory clone = new Inventory(usable, collectable, parts);
+        foreach (var entry in items) {
             ItemBase item = Database.database.databaseItem.GetItemById(entry.Key);
-            bool isTypeMismatch = false;
+            bool isTypeMatch = false;
             switch(type)
             {
                 case "usable":
-                isTypeMismatch = (item is ItemUsable == false);
+                isTypeMatch = (item is ItemUsable);
                 break;
                 case "collectable":
-                isTypeMismatch = (item is ItemCollectable == false);
+                isTypeMatch = (item is ItemCollectable);
                 break;
             }
-            if (isTypeMismatch) {
-                clone.Remove(entry.Key, entry.Value.quantity);
+            if (isTypeMatch) {
+                clone.Add(entry.Value);
             }
         }
         return clone;
+
     }
 
     public void Clear() {
