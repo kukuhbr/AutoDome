@@ -54,22 +54,14 @@ public class RewardScreen : MonoBehaviour
     void AdReward(object sender, EventArgs args)
     {
         int[] items = playerItemHandler.battleInventory.items.Keys.ToArray();
-        // Debug.Log("My Items");
-        // Debug.Log(items.Length);
-        // for(int i = 0; i < items.Length; i++) {
-        //     Debug.Log(items[i]);
-        // }
-        //Debug.Log(items);
         int repetition = UnityEngine.Random.Range(1, 4);
-        //Debug.Log(repetition);
         int[] choice = new int[repetition];
         int[] quantity = new int[repetition];
         string notificationText = "You have gained bonus ";
         for(int i = 0; i < repetition; i++) {
             bool inventoryItem = false;
             while(!inventoryItem) {
-                choice[i] = UnityEngine.Random.Range(1, items.Length);
-                //Debug.Log(choice[i]);
+                choice[i] = items[UnityEngine.Random.Range(0, items.Length)];
                 ItemBase itemData = Database.database.databaseItem.GetItemById(choice[i]);
                 inventoryItem = itemData.inInventory;
                 if(i < repetition - 1) {
@@ -77,13 +69,10 @@ public class RewardScreen : MonoBehaviour
                 } else {
                     notificationText += itemData.itemName + ".";
                 }
-                //Debug.Log(inventoryItem);
             }
             quantity[i] = playerItemHandler.battleInventory.GetEntry(choice[i]).quantity;
         }
-        //Debug.Log(playerItemHandler.battleInventory.makeTuple());
         playerItemHandler.battleInventory.ForceAdd(new List<int>(choice), new List<int>(quantity));
-        //Debug.Log(playerItemHandler.battleInventory.makeTuple());
         Display();
         Destroy(adButton.gameObject);
         Notifier.NotifyBig(notificationText, 2);
