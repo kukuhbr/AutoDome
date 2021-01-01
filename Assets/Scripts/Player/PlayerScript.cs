@@ -160,7 +160,8 @@ public class PlayerScript : Character {
     }
 
     public void SpawnBomb(GameObject effector, int strength) {
-        GameObject obj = Instantiate(effector, this.transform.position, Quaternion.identity);
+        Vector3 spawnLocation = new Vector3(transform.position.x, 0, transform.position.z);
+        GameObject obj = Instantiate(effector, spawnLocation, Quaternion.identity);
         obj.GetComponent<Effector>().Setup("Enemy", 12f);
         obj.GetComponent<BombScript>().SetDamage(strength);
     }
