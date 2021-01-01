@@ -135,6 +135,10 @@ public class PlayerScript : Character {
         }
     }
 
+    public override void DamageKill() {
+        isAlive = false;
+    }
+
     public void Heal(int n) {
         Debug.Log("Heal before " + currentHp + " " + n);
         if (currentHp + n < maxHp) {
@@ -146,13 +150,19 @@ public class PlayerScript : Character {
     }
 
     public void Reload(int n) {
-        Debug.Log("Heal before " + currentAmmo + " " + n);
+        Debug.Log("Reload before " + currentAmmo + " " + n);
         if (currentAmmo + n < maxAmmo) {
             currentAmmo += n;
         } else {
             currentAmmo = maxAmmo;
         }
-        Debug.Log("Heal after " + currentAmmo);
+        Debug.Log("Reload after " + currentAmmo);
+    }
+
+    public void SpawnBomb(GameObject effector, int strength) {
+        GameObject obj = Instantiate(effector, this.transform.position, Quaternion.identity);
+        obj.GetComponent<Effector>().Setup("Enemy", 12f);
+        obj.GetComponent<BombScript>().SetDamage(strength);
     }
 
     IEnumerator Fire(Vector3 input) {

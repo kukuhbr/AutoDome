@@ -40,8 +40,9 @@ public class EnemyScript : Character {
         this.gameObject.SetActive(false);
     }
 
-    void BulletKill() {
+    public override void DamageKill() {
         isAlive = false;
+        BattleEvents.battleEvents.TriggerScoreChange(100);
         rb.velocity = Vector3.zero;
         if(deathParticle) {
             deathParticle.Play();
@@ -64,12 +65,13 @@ public class EnemyScript : Character {
         if(isAlive) {
             if (col.tag == "Bullet") {
                 col.gameObject.SetActive(false);
-                currentHp -= col.GetComponent<BulletScript>().damage;
-                if (currentHp <= 0) {
-                    //isAlive = false;
-                    BulletKill();
-                    BattleEvents.battleEvents.TriggerScoreChange(100);
-                }
+                AddDamage(col.GetComponent<BulletScript>().damage);
+                // currentHp -= col.GetComponent<BulletScript>().damage;
+                // if (currentHp <= 0) {
+                //     //isAlive = false;
+                //     BulletKill();
+                //     BattleEvents.battleEvents.TriggerScoreChange(100);
+                // }
             } else if (col.tag == "Player") {
                 col.GetComponent<PlayerScript>().AddDamage(damage);
                 Kill();

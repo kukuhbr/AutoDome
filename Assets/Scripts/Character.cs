@@ -23,8 +23,8 @@ public class Character : MonoBehaviour {
     protected Rigidbody rb;
     protected BoxCollider boxcol;
 
-    void Start() {
-
+    void OnEnable() {
+        damageBuffer = 0;
     }
     public virtual void Update() {
         //Auto reload bullet
@@ -45,10 +45,14 @@ public class Character : MonoBehaviour {
     void TakeDamage() {
         currentHp -= damageBuffer;
         if (currentHp <= 0) {
-            isAlive = false;
+            DamageKill();
             currentHp = 0;
         }
         damageBuffer = 0;
+    }
+
+    public virtual void DamageKill() {
+
     }
 
     public float GetHp(int i)

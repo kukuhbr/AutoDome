@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000002, guid: be35e9a2caec1fd48b549628b3a50fdf,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4982,6 +4982,8 @@ MonoBehaviour:
   - {fileID: 7840785598755734894, guid: b4bf2137d5b79fe49b2a9bf888185962, type: 3}
   - {fileID: 7089933186479389615, guid: 330882c6116bf8c49ae422caad7e9fc3, type: 3}
   - {fileID: 5850638486203651510, guid: dfaa1dac54de78247b9f9052a9686205, type: 3}
+  bombEffector: {fileID: 379578511307898936, guid: ded84d13ba5607243a030ae93a81dd15,
+    type: 3}
 --- !u!1 &1557470376
 GameObject:
   m_ObjectHideFlags: 0

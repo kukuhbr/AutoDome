@@ -7,6 +7,8 @@ public class PlayerItemHandler : MonoBehaviour
     public Inventory battleInventory;
     [SerializeField]
     private List<GameObject> buffVisualPrefab;
+    [SerializeField]
+    private GameObject bombEffector;
     void Start() {
         // battleInventory = new Inventory(3, 5, 2000);
         // //Debug
@@ -75,7 +77,7 @@ public class PlayerItemHandler : MonoBehaviour
                     player.Reload(item.strength);
                     break;
                     case (ItemUsable.UsableType.bomb) :
-                    //Bomb behavior
+                    player.SpawnBomb(bombEffector, item.strength);
                     break;
                 }
                 if (fromInventory) {

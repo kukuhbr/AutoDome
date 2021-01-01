@@ -22,17 +22,6 @@ public class Inventory {
         items = new Dictionary<int, InventoryEntry>();
     }
 
-    public Inventory(Inventory copy) {
-        maxUsable = copy.maxUsable;
-        maxCollectable = copy.maxCollectable;
-        maxParts = copy.maxParts;
-        maxEnergy = copy.maxEnergy;
-        items = new Dictionary<int, InventoryEntry>();
-        foreach(var entry in copy.items.Values) {
-            Add(new InventoryEntry(entry));
-        }
-    }
-
     int GetMaxQuantity(int id) {
         if (id == 9) return maxParts;
         if (id == 10) return maxEnergy;
