@@ -42,7 +42,7 @@ public class MainMenu : MonoBehaviour
             TimeSpan fillTime = PlayerManager.energyFillTime;
             bool timeCheck = TimeSpan.Compare(diff, fillTime) != -1;
             if(timeCheck) {
-                player.IncreaseEnergy();
+                player.IncreaseEnergy(true);
                 player.lastEnergyFill = DateTime.Now;
             }
             diff = DateTime.Now - player.lastEnergyFill;
@@ -79,7 +79,7 @@ public class MainMenu : MonoBehaviour
 
     void EnergyAdReward(object sender, EventArgs args)
     {
-        player.IncreaseEnergy();
+        player.IncreaseEnergy(true);
         Notifier.Notify("Thank you for supporting!");
     }
 
@@ -116,6 +116,7 @@ public class MainMenu : MonoBehaviour
                 player.VehicleUpgradeRemoveItems(id);
                 player.UpgradeVehicleGrade(id);
                 TriggerUpgradeVehicle();
+                PlayerManager.SavePlayerData(player);
             } else {
                 Notifier.NotifyInstant("Not Enough Materials");
             }

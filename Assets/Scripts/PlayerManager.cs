@@ -19,10 +19,11 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         //Load or create new player data
-        if(Directory.Exists(Application.persistentDataPath + "/saves" + saveName + ".sav")) {
+        if(File.Exists(Application.persistentDataPath + "/saves/" + saveName + ".sav")) {
             playerData = LoadPlayerData(saveName);
         } else {
             playerData = new PlayerData();
+            Debug.Log("Creating new profile");
         }
     }
 
@@ -31,8 +32,9 @@ public class PlayerManager : MonoBehaviour
         return new BinaryFormatter();
     }
 
-    public static bool SavePlayerData(PlayerData playerData, string saveName)
+    public static bool SavePlayerData(PlayerData playerData)
     {
+        string saveName = "save";
         BinaryFormatter formatter = GetBinaryFormatter();
         if (!Directory.Exists(Application.persistentDataPath + "/saves")) {
             Directory.CreateDirectory(Application.persistentDataPath + "/saves");
@@ -48,9 +50,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerData LoadPlayerData(string saveName)
     {
         string path = Application.persistentDataPath + "/saves/" + saveName + ".sav";
-        if (!Directory.Exists(path)) {
-            return null;
-        }
+        if (!File.Exists(path)) return null;
         BinaryFormatter formatter = GetBinaryFormatter();
         FileStream file = File.Open(path, FileMode.Open);
         try
@@ -60,8 +60,9 @@ public class PlayerManager : MonoBehaviour
             file.Close();
             return playerData;
         }
-        catch
+        catch (Exception ex)
         {
+            Debug.LogException(ex);
             Debug.LogErrorFormat("Failed to load file at {0}", path);
             file.Close();
             return null;
@@ -91,19 +92,15 @@ public class PlayerData
                 inventory.Add(i, 20);
             }
         }
-        lastEnergyFill = DateTime.Now;//.Subtract(TimeSpan.FromSeconds(127));
-        // Load Test
-        // DateTime test = DateTime.Now - TimeSpan.FromMinutes(12);
-        // RefillEnergyFrom(test.Ticks);
-        Debug.Log("player inventory size: " + inventory.items.Count);
+        lastEnergyFill = DateTime.Now;
     }
 
     public PlayerData(PlayerSave save) {
-        DatabaseItem databaseItem = Resources.Load<DatabaseItem>("DatabaseItem");
         vehicleGrades = save.vehicleGrades;
         inventory = new Inventory(20, 50, 99999, 5);
         inventory.Add(save.itemInventoryId, save.itemInventoryQuantity);
-        lastEnergyFill = new DateTime(save.lastEnergyFill);
+        battleInventory = new Inventory(3, 5, 2000);
+        RefillEnergyFrom(save.lastEnergyFill);
     }
 
     void RefillEnergyFrom(long time) {
@@ -112,7 +109,7 @@ public class PlayerData
         int passedCycle = diff.Minutes / 5;
         while(!isEnergyMax() && passedCycle > 0) {
             passedCycle -= 1;
-            IncreaseEnergy();
+            IncreaseEnergy(false);
         }
         if(!isEnergyMax()) {
             lastEnergyFill = DateTime.Now - TimeSpan.FromTicks(diff.Ticks % PlayerManager.energyFillTime.Ticks);
@@ -196,11 +193,13 @@ public class PlayerData
     //     return visible;
     // }
 
-    public bool IncreaseEnergy() {
+    public bool IncreaseEnergy(bool save) {
         if(!isEnergyMax()) {
             inventory.Add(10, 1);
             lastEnergyFill = DateTime.Now;
-            Debug.Log("Increased to "+inventory.GetEntry(10).quantity);
+            if (save) {
+                PlayerManager.SavePlayerData(this);
+            }
             return true;
         }
         return false;
@@ -209,7 +208,7 @@ public class PlayerData
     public bool DecreaseEnergy() {
         if(isEnergyEnough()) {
             inventory.Remove(10, 1);
-            Debug.Log("Decreased to "+inventory.GetEntry(10).quantity);
+            PlayerManager.SavePlayerData(this);
             return true;
         }
         return false;
@@ -233,20 +232,24 @@ public class PlayerSave
     public List<int> itemInventoryQuantity;
     public long lastEnergyFill;
     public PlayerSave(PlayerData playerData) {
-        ClearSaveData();
+        InitializeSaveData();
         vehicleGrades = playerData.vehicleGrades;
         Tuple<List<int>, List<int>> itemTuple = playerData.inventory.makeTuple();
         itemInventoryId = itemTuple.Item1;
-        itemInventoryId = itemTuple.Item2;
+        itemInventoryQuantity = itemTuple.Item2;
         // foreach(KeyValuePair<int, InventoryEntry> entry in playerData.inventory.items) {
         //     itemInventoryId.Add(entry.Key);
         //     itemInventoryQuantity.Add(entry.Value.quantity);
         // }
         lastEnergyFill = playerData.lastEnergyFill.Ticks;
     }
-    void ClearSaveData() {
+    void InitializeSaveData() {
+        vehicleGrades = new List<int>();
+        itemInventoryId = new List<int>();
+        itemInventoryQuantity = new List<int>();
         vehicleGrades.Clear();
         itemInventoryId.Clear();
         itemInventoryQuantity.Clear();
+        lastEnergyFill = -1;
     }
 }
