@@ -1094,6 +1094,7 @@ MonoBehaviour:
   maxPos: 0
   elasticTolerance: 0
   characters: []
+  cameraRig: {fileID: 1358086408}
 --- !u!1 &192890311
 GameObject:
   m_ObjectHideFlags: 0
@@ -3567,7 +3568,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1859143827}
   m_Direction: 0
   m_Value: -0.00000008932681
-  m_Size: 0.34840176
+  m_Size: 0.3409009
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -79,7 +79,7 @@ public class PlayerData
 
     public PlayerData()
     {
-        vehicleGrades = new List<int>(new int[] {0, 0, 0});
+        vehicleGrades = new List<int>(new int[] {0, -1, -1});
         inventory = new Inventory(20, 50, 99999, 5);
         battleInventory = new Inventory(3, 5, 2000);
         // Debug Inventory

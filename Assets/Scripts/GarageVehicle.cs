@@ -19,7 +19,13 @@ public class GarageVehicle : MonoBehaviour
         DatabaseVehicle databaseVehicle = Database.database.databaseVehicle;
         int id = SceneLoader.sceneLoader.selectedCharacterIndex;
         int grade = PlayerManager.playerManager.playerData.GetVehicleGrade(id);
-        VehicleData vehicleData = databaseVehicle.GetVehicleByIdGrade(id, grade);
+        VehicleData vehicleData;
+        if (grade != -1) {
+            vehicleData = databaseVehicle.GetVehicleByIdGrade(id, grade);
+        } else {
+            vehicleData = databaseVehicle.GetVehicleByIdGrade(id, 0);
+        }
+
         vehicleName.text = vehicleData.vehicleName;
     }
 

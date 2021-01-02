@@ -36,7 +36,12 @@ public class GarageStats : MonoBehaviour
         int nextGrade = PlayerManager.playerManager.playerData.GetVehicleUpgradeGrade(id);
         DatabaseVehicle databaseVehicle = Database.database.databaseVehicle;
         vehicleInfo = databaseVehicle.GetVehicleInfoById(id);
-        current = vehicleInfo.grade[grade];
+        if(grade != -1) {
+            current = vehicleInfo.grade[grade];
+        } else {
+            current = databaseVehicle.vehicleNotFound;
+            Debug.Log(grade);
+        }
         upgrade = vehicleInfo.grade[nextGrade];
     }
 
@@ -49,32 +54,34 @@ public class GarageStats : MonoBehaviour
         }
 
         details[0][0] = "Max HP";
-        details[0][1] = current.maxHp.ToString();
-        details[0][2] = upgrade.maxHp.ToString();
-
         details[1][0] = "Max Ammo";
-        details[1][1] = current.maxAmmo.ToString();
-        details[1][2] = upgrade.maxAmmo.ToString();
-
         details[2][0] = "Damage";
-        details[2][1] = current.damage.ToString();
-        details[2][2] = upgrade.damage.ToString();
-
         details[3][0] = "Move Speed";
-        details[3][1] = current.moveSpeed.ToString();
-        details[3][2] = upgrade.moveSpeed.ToString();
-
         details[4][0] = "Bullet Speed";
-        details[4][1] = current.bulletSpeed.ToString();
-        details[4][2] = upgrade.bulletSpeed.ToString();
-
         details[5][0] = "Reload Rate";
-        details[5][1] = current.reloadRate.ToString();
-        details[5][2] = upgrade.reloadRate.ToString();
-
         details[6][0] = "Fire Rate";
-        details[6][1] = current.fireRate.ToString();
+
+        details[0][2] = upgrade.maxHp.ToString();
+        details[1][2] = upgrade.maxAmmo.ToString();
+        details[2][2] = upgrade.damage.ToString();
+        details[3][2] = upgrade.moveSpeed.ToString();
+        details[4][2] = upgrade.bulletSpeed.ToString();
+        details[5][2] = upgrade.reloadRate.ToString();
         details[6][2] = upgrade.fireRate.ToString();
+
+        if(current.vehicleName == "VehicleNotFound") {
+            for(int i = 0; i < 7; i++) {
+                details[i][1] = "-";
+            }
+        } else {
+            details[0][1] = current.maxHp.ToString();
+            details[1][1] = current.maxAmmo.ToString();
+            details[2][1] = current.damage.ToString();
+            details[3][1] = current.moveSpeed.ToString();
+            details[4][1] = current.bulletSpeed.ToString();
+            details[5][1] = current.reloadRate.ToString();
+            details[6][1] = current.fireRate.ToString();
+        }
     }
 
     void OnDestroy()

@@ -16,6 +16,9 @@ public class CharacterScrollScript : MonoBehaviour
     private int selectedIndex;
     private float inverseRotation;
     private DragHandler dragHandler;
+    public GameObject cameraRig;
+    private Light[] cameraLights;
+    private bool characterObtained;
 
     private void Awake()
     {
@@ -24,10 +27,12 @@ public class CharacterScrollScript : MonoBehaviour
             scrollbar.onValueChanged.AddListener(onScrollbar);
         }
         dragHandler = scrollRect.GetComponent<DragHandler>();
+        cameraLights = cameraRig.GetComponentsInChildren<Light>();
     }
 
     private void Start()
     {
+        MainMenu.mainMenu.onUpgradeVehicle += VehicleUpgraded;
         characters = new List<Transform>();
         foreach (Transform child in transform)
         {
@@ -40,6 +45,10 @@ public class CharacterScrollScript : MonoBehaviour
         maxPos = (characters.Count - 1) * 40;
         inverseRotation = 0;
         elasticTolerance = 20;
+        foreach(Light light in cameraLights) {
+            light.enabled = true;
+        }
+        characterObtained = true;
     }
 
     private void onScrollbar(float value)
@@ -66,6 +75,7 @@ public class CharacterScrollScript : MonoBehaviour
             selectedIndex = targetAlignment;
             selectedCharacter = characters[selectedIndex];
             selectedCharacter.localScale = new Vector3(7,7,7);
+            characterObtained = PlayerManager.playerManager.playerData.GetVehicleGrade(selectedIndex) != -1;
         }
         // if(this.transform.position.x % 40 != 0)
         // {
@@ -102,9 +112,25 @@ public class CharacterScrollScript : MonoBehaviour
 
     private void LateUpdate()
     {
-        inverseRotation += 20*Time.deltaTime;
-        selectedCharacter.Rotate(0, 20*Time.deltaTime, 0, Space.World);
+        if(characterObtained) {
+            inverseRotation += 20*Time.deltaTime;
+            selectedCharacter.Rotate(0, 20*Time.deltaTime, 0, Space.World);
+            SetLights(true);
+        } else {
+            SetLights(false);
+        }
+    }
 
+    void SetLights(bool state)
+    {
+        foreach (Light light in cameraLights) {
+            light.enabled = state;
+        }
+    }
+
+    void VehicleUpgraded()
+    {
+        characterObtained = true;
     }
 
     void OnDestroy()
@@ -113,5 +139,6 @@ public class CharacterScrollScript : MonoBehaviour
         {
             scrollbar.onValueChanged.RemoveListener(onScrollbar);
         }
+        MainMenu.mainMenu.onUpgradeVehicle -= VehicleUpgraded;
     }
 }

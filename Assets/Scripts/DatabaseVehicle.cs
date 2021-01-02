@@ -8,7 +8,7 @@ public class DatabaseVehicle : ScriptableObject
     [SerializeField]
     private List<VehicleScriptableObject> vehicleDB;
     [SerializeField]
-    private VehicleData vehicleNotFound = null;
+    public VehicleData vehicleNotFound = null;
 
     public VehicleScriptableObject GetVehicleInfoById(int id) {
         for(int i = 0; i < vehicleDB.Count; i++) {
