@@ -5270,14 +5270,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 10
-  maxAmmo: 0
+  maxAmmo: 3
   currentHp: 0
   currentAmmo: 0
   moveSpeed: 0
   bulletSpeed: 10
   damage: 10
   fireRate: 0.5
-  reloadRate: 0.06
+  reloadRate: 0.05
   damageBuffer: 0
   moveDirection: {x: 0, y: 0, z: 0}
   isAlive: 1

@@ -77,6 +77,7 @@ public class PlayerScript : Character {
             }
 
             // Check Reload and Damage
+            isReloadAble = currentAmmo < maxAmmo;
             base.Update();
         } else {
             moveDirection = new Vector3(0,0,0);

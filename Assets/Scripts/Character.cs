@@ -20,6 +20,7 @@ public class Character : MonoBehaviour {
     protected bool isCooldown = false;
     protected bool isReloading = false;
     protected bool isShooting = false;
+    protected bool isReloadAble = false;
     protected Rigidbody rb;
     protected BoxCollider boxcol;
 
@@ -28,7 +29,7 @@ public class Character : MonoBehaviour {
     }
     public virtual void Update() {
         //Auto reload bullet
-        if (currentAmmo < maxAmmo && !isReloading) { //&& !isShooting) {
+        if (isReloadAble && !isReloading) { //&& !isShooting) {
             StartCoroutine(ReloadAmmo());
         }
 
@@ -72,7 +73,7 @@ public class Character : MonoBehaviour {
     }
 
     IEnumerator ReloadAmmo() {
-        float reloadRate = 0.06f;
+        //float reloadRate = 0.06f;
         if (currentAmmo + reloadRate > maxAmmo) {
             currentAmmo = maxAmmo;
         } else {

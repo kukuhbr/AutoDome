@@ -4,16 +4,27 @@ using UnityEngine;
 
 public class ShooterEnemy : EnemyScript
 {
-    [SerializeField]
-    private int maxBarrage;
-    private int barrage;
-    private bool coroutineStarted;
+    private bool barrageStart;
     new void Update() {
         if(target && isAlive)
         {
             transform.LookAt(target);
-            if(!coroutineStarted) {
-                StartCoroutine(Barrage());
+            if (barrageStart) {
+                //Fire
+                if(!isCooldown && currentAmmo >= 1f) {
+                    StartCoroutine(Fire((target.position - transform.position).normalized));
+                    currentAmmo -= 1;
+                }
+                if(currentAmmo <= 0f) {
+                    barrageStart = false;
+                    isReloadAble = true;
+                }
+            } else {
+                //Reload
+                if(currentAmmo == maxAmmo) {
+                    barrageStart = true;
+                    isReloadAble = false;
+                }
             }
         }
         base.Update();
@@ -21,8 +32,8 @@ public class ShooterEnemy : EnemyScript
 
     public override void Spawn() {
         base.Spawn();
-        coroutineStarted = false;
-        barrage = maxBarrage;
+        currentAmmo = maxAmmo;
+        barrageStart = true;
     }
 
     IEnumerator Fire(Vector3 input) {
@@ -38,25 +49,5 @@ public class ShooterEnemy : EnemyScript
         isCooldown = true;
         yield return new WaitForSeconds(0.5f);
         isCooldown = false;
-    }
-
-    IEnumerator Barrage() {
-        coroutineStarted = true;
-        while(isAlive) {
-            if (barrage > 0) {
-                if (!isCooldown) {
-                    StartCoroutine(Fire((target.position - transform.position).normalized));
-                    barrage -= 1;
-                }
-            } else {
-                if(!isReloading) {
-                    isReloading = true;
-                    yield return new WaitForSeconds(3f);
-                    isReloading = false;
-                    barrage = maxBarrage;
-                }
-            }
-            yield return null;
-        }
     }
 }
