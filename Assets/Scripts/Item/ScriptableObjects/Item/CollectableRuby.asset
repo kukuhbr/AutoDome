@@ -15,8 +15,7 @@ MonoBehaviour:
   id: 1
   itemName: Ruby
   description: 
-  icon: {fileID: 21300000, guid: 6a013077e6917744dbd908d5e26f5191, type: 3}
+  icon: {fileID: 21300000, guid: 04c7b4f4733958d49b46c1773c2e16dd, type: 3}
   model: {fileID: 1267523150952455504, guid: 53c93099120f5524d86beface7edfe35, type: 3}
-  maxQuantity: 50
   inInventory: 1
   dropQuantity: 1

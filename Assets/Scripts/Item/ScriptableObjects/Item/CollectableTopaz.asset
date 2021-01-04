@@ -15,8 +15,7 @@ MonoBehaviour:
   id: 3
   itemName: Topaz
   description: 
-  icon: {fileID: 21300000, guid: 6a013077e6917744dbd908d5e26f5191, type: 3}
+  icon: {fileID: 21300000, guid: be8994a719882b24ebf53c174b420bcf, type: 3}
   model: {fileID: 3894956911784830127, guid: f609ee2451c947449b8b8c97242da1f9, type: 3}
-  maxQuantity: 50
   inInventory: 1
   dropQuantity: 1

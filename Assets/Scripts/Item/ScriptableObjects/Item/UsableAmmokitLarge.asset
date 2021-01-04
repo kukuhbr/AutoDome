@@ -15,9 +15,8 @@ MonoBehaviour:
   id: 4
   itemName: Ammokit Large
   description: 
-  icon: {fileID: 21300000, guid: b86a2a9b88919bc408597f2c02dbbec1, type: 3}
+  icon: {fileID: 21300000, guid: 0fd6bdf777f7b184eafd46a7c35b2929, type: 3}
   model: {fileID: 2572139142777300377, guid: c83dcc0371df28148843de68da240d78, type: 3}
-  maxQuantity: 5
   inInventory: 1
   usableType: 1
   strength: 4

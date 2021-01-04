@@ -15,8 +15,7 @@ MonoBehaviour:
   id: 9
   itemName: Parts
   description: 
-  icon: {fileID: 21300000, guid: 6a013077e6917744dbd908d5e26f5191, type: 3}
+  icon: {fileID: 21300000, guid: bb198f1fe97c4ca49b3245aaa6830e11, type: 3}
   model: {fileID: 7542308843826100610, guid: 5dc1d5fbe63c0ca49bddc0cf58ca1509, type: 3}
-  maxQuantity: 99999
   inInventory: 0
   dropQuantity: 150

@@ -15,9 +15,8 @@ MonoBehaviour:
   id: 6
   itemName: Medkit Large
   description: 
-  icon: {fileID: 21300000, guid: b86a2a9b88919bc408597f2c02dbbec1, type: 3}
+  icon: {fileID: 21300000, guid: 8e63f650407bd2e409fc30478508a478, type: 3}
   model: {fileID: 8738994680247340165, guid: 603e4f6b6d0a7fb4e88fa90c63487395, type: 3}
-  maxQuantity: 5
   inInventory: 1
   usableType: 0
   strength: 30

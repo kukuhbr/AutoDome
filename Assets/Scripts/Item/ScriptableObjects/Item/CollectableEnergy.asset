@@ -15,8 +15,7 @@ MonoBehaviour:
   id: 10
   itemName: Energy
   description: 
-  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: 53c7d59ee4580734d92a932f8001f57d, type: 3}
   model: {fileID: 7542308843826100610, guid: 5dc1d5fbe63c0ca49bddc0cf58ca1509, type: 3}
-  maxQuantity: 5
   inInventory: 0
   dropQuantity: 0
