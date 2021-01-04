@@ -17,12 +17,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 763e78500055c2149add7d7fa3b57516, type: 2}
   - {fileID: 11400000, guid: 3fc255f9af63f1940956eaab9cffb20f, type: 2}
   vehicleNotFound:
-    vehicleName: 
+    vehicleName: VehicleNotFound
     maxHp: 0
     maxAmmo: 0
     damage: 0
-    moveSpeed: 10
-    bulletSpeed: 0.1
-    reloadRate: 0.06
-    fireRate: 0.5
+    moveSpeed: 0
+    bulletSpeed: 0
+    reloadRate: 0
+    fireRate: 0
     model: {fileID: 0}
