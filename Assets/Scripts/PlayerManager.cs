@@ -89,7 +89,7 @@ public class PlayerData
             } else if (i == 10) {
                 inventory.Add(i, 1);
             } else {
-                inventory.Add(i, 20);
+                inventory.Add(i, 8);
             }
         }
         lastEnergyFill = DateTime.Now;
