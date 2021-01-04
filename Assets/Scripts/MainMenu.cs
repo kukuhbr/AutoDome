@@ -57,7 +57,12 @@ public class MainMenu : MonoBehaviour
     public void Deploy()
     {
         if(isMenuInFocus) return;
-        //bool energyEnough = PlayerManager.playerManager.playerData.inventory.Remove(10, 1);
+        int selectedIndex = SceneLoader.sceneLoader.selectedCharacterIndex;
+        bool characterObtained = PlayerManager.playerManager.playerData.GetVehicleGrade(selectedIndex) != -1;
+        if(!characterObtained) {
+            Notifier.NotifyInstant("You don't have this vehicle");
+            return;
+        }
         if (player.DecreaseEnergy()) {
             PlayerManager.playerManager.playerData.SetupBattleInventory();
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
