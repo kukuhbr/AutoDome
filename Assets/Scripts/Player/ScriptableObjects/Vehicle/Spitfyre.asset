@@ -22,8 +22,7 @@ MonoBehaviour:
     bulletSpeed: 10
     reloadRate: 0.06
     fireRate: 0.5
-    model: {fileID: -2253911629886400664, guid: c5c56adcc9216e049b216db9abf8b402,
-      type: 3}
+    model: {fileID: 2820615367406649314, guid: 9eafe0127e475b84b8e5f1d52379db54, type: 3}
   - vehicleName: 'Spitfyre
 
       Mk. II'
@@ -34,8 +33,7 @@ MonoBehaviour:
     bulletSpeed: 10
     reloadRate: 0.06
     fireRate: 0.5
-    model: {fileID: -2253911629886400664, guid: c5c56adcc9216e049b216db9abf8b402,
-      type: 3}
+    model: {fileID: 2820615367406649314, guid: 9eafe0127e475b84b8e5f1d52379db54, type: 3}
   - vehicleName: Molotov
     maxHp: 100
     maxAmmo: 6
@@ -44,8 +42,7 @@ MonoBehaviour:
     bulletSpeed: 10
     reloadRate: 0.06
     fireRate: 0.45
-    model: {fileID: -2253911629886400664, guid: c5c56adcc9216e049b216db9abf8b402,
-      type: 3}
+    model: {fileID: 2820615367406649314, guid: 9eafe0127e475b84b8e5f1d52379db54, type: 3}
   - vehicleName: 'Flammen
 
       werfer'
@@ -56,5 +53,4 @@ MonoBehaviour:
     bulletSpeed: 12
     reloadRate: 0.06
     fireRate: 0.45
-    model: {fileID: -2253911629886400664, guid: c5c56adcc9216e049b216db9abf8b402,
-      type: 3}
+    model: {fileID: 2820615367406649314, guid: 9eafe0127e475b84b8e5f1d52379db54, type: 3}
