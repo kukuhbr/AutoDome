@@ -28,6 +28,7 @@ public class Notification : MonoBehaviour
     public void Close()
     {
         Destroy(gameObject);
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
     }
 
     void OnDestroy()

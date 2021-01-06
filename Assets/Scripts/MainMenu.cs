@@ -61,13 +61,16 @@ public class MainMenu : MonoBehaviour
         bool characterObtained = PlayerManager.playerManager.playerData.GetVehicleGrade(selectedIndex) != -1;
         if(!characterObtained) {
             Notifier.NotifyInstant("You don't have this vehicle");
+            SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
             return;
         }
         if (player.DecreaseEnergy()) {
+            SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_start);
             PlayerManager.playerManager.playerData.SetupBattleInventory();
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
         } else {
             //Notifier.NotifyInstant("You don't have enough energy");
+            SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
             Notifier.Notify("You don't have enough energy", "Watch Ad", WatchAd);
         }
     }
@@ -102,6 +105,7 @@ public class MainMenu : MonoBehaviour
         isMenuInFocus = true;
         garage.SetActive(true);
         LockScroll();
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
     }
 
     public void GarageClose()
@@ -109,6 +113,7 @@ public class MainMenu : MonoBehaviour
         isMenuInFocus = false;
         garage.SetActive(false);
         UnlockScroll();
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
     }
 
     public void GarageUpgrade()
@@ -122,12 +127,15 @@ public class MainMenu : MonoBehaviour
                 player.UpgradeVehicleGrade(id);
                 TriggerUpgradeVehicle();
                 PlayerManager.SavePlayerData(player);
+                SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_start);
             } else {
                 Notifier.NotifyInstant("Not Enough Materials");
+                SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
             }
         } else {
             //Notifier.NotifyInstant("Vehicle Max Upgrade");
             Notifier.NotifyInstant("Cannot Upgrade Further");
+            SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
         }
 
     }
@@ -140,6 +148,7 @@ public class MainMenu : MonoBehaviour
         ItemUICollection coll = inventory.GetComponentInChildren<ItemUICollection>();
         coll.AdjustItemCollectionUI(player.inventory);
         LockScroll();
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
     }
 
     public void InventoryClose()
@@ -147,6 +156,7 @@ public class MainMenu : MonoBehaviour
         isMenuInFocus = false;
         inventory.SetActive(false);
         UnlockScroll();
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
     }
 
     public event Action<int> onItemFocusChange;

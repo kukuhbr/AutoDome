@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CharacterScrollScript : MonoBehaviour
@@ -19,6 +18,7 @@ public class CharacterScrollScript : MonoBehaviour
     public GameObject cameraRig;
     private Light[] cameraLights;
     private bool characterObtained;
+    private bool shouldStopLoopSound;
 
     private void Awake()
     {
@@ -33,6 +33,8 @@ public class CharacterScrollScript : MonoBehaviour
     private void Start()
     {
         MainMenu.mainMenu.onUpgradeVehicle += VehicleUpgraded;
+        dragHandler.DragBegin += SelectingHandler;
+        dragHandler.DragEnd += StopSelectingHandler;
         characters = new List<Transform>();
         foreach (Transform child in transform)
         {
@@ -76,6 +78,7 @@ public class CharacterScrollScript : MonoBehaviour
             selectedCharacter = characters[selectedIndex];
             selectedCharacter.localScale = new Vector3(7,7,7);
             characterObtained = PlayerManager.playerManager.playerData.GetVehicleGrade(selectedIndex) != -1;
+            SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.sfx_vehicle_select);
         }
         // if(this.transform.position.x % 40 != 0)
         // {
@@ -97,6 +100,16 @@ public class CharacterScrollScript : MonoBehaviour
                 {
                     float direction = scrollbar.value < targetValue ? 1 : -1;
                     scrollbar.value += 0.005f * direction;
+                } else {
+                    if (shouldStopLoopSound) {
+                        shouldStopLoopSound = false;
+                        Debug.Log("stop looping music");
+                        //SoundsManager.soundsManager.StopLoop("vehicle_select");
+                        if (characterObtained) {
+                            Debug.Log("start revvvvving!");
+                            //SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.vehicle_select_confirm);
+                        }
+                    }
                 }
             }
             // else {
@@ -108,6 +121,19 @@ public class CharacterScrollScript : MonoBehaviour
             // }
 
         }
+    }
+
+    void SelectingHandler()
+    {
+        Debug.Log("Start looping music");
+        //Play loop music
+        //SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.loop_vehicle_select, "vehicle_select");
+        shouldStopLoopSound = false;
+    }
+
+    void StopSelectingHandler()
+    {
+        shouldStopLoopSound = true;
     }
 
     private void LateUpdate()
@@ -140,5 +166,7 @@ public class CharacterScrollScript : MonoBehaviour
             scrollbar.onValueChanged.RemoveListener(onScrollbar);
         }
         MainMenu.mainMenu.onUpgradeVehicle -= VehicleUpgraded;
+        dragHandler.DragBegin -= SelectingHandler;
+        dragHandler.DragEnd -= StopSelectingHandler;
     }
 }
