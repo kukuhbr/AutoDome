@@ -65,7 +65,8 @@ public class RewardScreen : MonoBehaviour
                 choice[i] = items[UnityEngine.Random.Range(0, items.Length)];
                 ItemBase itemData = Database.database.databaseItem.GetItemById(choice[i]);
                 inventoryItem = itemData.inInventory;
-                if(i < repetition - 1 && inventoryItem) {
+                if(!inventoryItem) continue;
+                if(i < repetition - 1) {
                     notificationText += itemData.itemName + ", ";
                 } else {
                     notificationText += itemData.itemName + ".";
