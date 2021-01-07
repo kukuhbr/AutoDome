@@ -9,9 +9,13 @@ public class SoundsManager : MonoBehaviour
         ui_select,
         ui_back,
         ui_start,
-        sfx_vehicle_select,
-        vehicle_select_confirm,
-        vehicle_engine_revv
+        ui_vehicle_select,
+        ui_vehicle_select_confirm,
+        vehicle_engine_revv,
+        character_died,
+        character_hit,
+        character_buff,
+        character_shoot
     }
     [System.Serializable]
     public class Sound {
@@ -19,6 +23,7 @@ public class SoundsManager : MonoBehaviour
         public AudioClip clip;
     }
     [SerializeField]
+    public bool isGlobal;
     public static SoundsManager soundsManager;
     public List<Sound> SFXList;
     public List<Sound> LoopableList;
@@ -27,11 +32,13 @@ public class SoundsManager : MonoBehaviour
     private Dictionary<string, GameObject> playingAudio;
     void Awake()
     {
-        soundsManager = this;
+        if(isGlobal) {
+            soundsManager = this;
+        }
         playingAudio = new Dictionary<string, GameObject>();
     }
 
-    private AudioClip SelectAudioClip(SoundsEnum choice, List<Sound> collection)
+    public static AudioClip SelectAudioClip(SoundsEnum choice, List<Sound> collection)
     {
         foreach (Sound sound in collection) {
             if (sound.type == choice) {
@@ -40,12 +47,15 @@ public class SoundsManager : MonoBehaviour
         }
         return null;
     }
-    public void PlaySFX(SoundsEnum choice)
+    public void PlaySFX(SoundsEnum choice, float volume = -1f)
     {
         AudioClip audioClip = SelectAudioClip(choice, SFXList);
         if(audioClip == null) return;
-        GameObject sfxObject = Instantiate(oneshotPrefab);
+        GameObject sfxObject = Instantiate(oneshotPrefab, transform);
         AudioSource source = sfxObject.GetComponent<AudioSource>();
+        if(volume != -1f) {
+            source.volume = volume;
+        }
         source.PlayOneShot(audioClip);
         StartCoroutine(DeleteSFXSource(sfxObject));
     }

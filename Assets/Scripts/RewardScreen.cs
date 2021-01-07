@@ -39,10 +39,12 @@ public class RewardScreen : MonoBehaviour
         playerItemHandler.battleInventory.Clear();
         PlayerManager.SavePlayerData(PlayerManager.playerManager.playerData);
         SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
     }
 
     public void WatchAd()
     {
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
         string battleAdId = GoogleMobileAdsScript.adUnitTest;
         RewardedAd battleRewardedAd = GoogleMobileAdsScript.instance.CreateAndLoadRewardedAd(battleAdId);
         if (battleRewardedAd.IsLoaded()) {

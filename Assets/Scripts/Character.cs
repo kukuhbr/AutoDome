@@ -44,6 +44,7 @@ public class Character : MonoBehaviour {
     }
 
     void TakeDamage() {
+        GetComponent<SoundsManager>().PlaySFX(SoundsManager.SoundsEnum.character_hit, .4f);
         currentHp -= damageBuffer;
         if (currentHp <= 0) {
             DamageKill();
@@ -53,7 +54,7 @@ public class Character : MonoBehaviour {
     }
 
     public virtual void DamageKill() {
-
+        GetComponent<SoundsManager>().PlaySFX(SoundsManager.SoundsEnum.character_died, .6f);
     }
 
     public float GetHp(int i)

@@ -137,6 +137,7 @@ public class PlayerScript : Character {
     }
 
     public override void DamageKill() {
+        base.DamageKill();
         isAlive = false;
     }
 
@@ -175,6 +176,7 @@ public class PlayerScript : Character {
             bullet.transform.rotation = Quaternion.LookRotation(input + new Vector3(0, 90, 0));
             bullet.SetActive(true);
             bullet.GetComponent<BulletScript>().Shoot(input, bulletSpeed, damage);
+            GetComponent<SoundsManager>().PlaySFX(SoundsManager.SoundsEnum.character_shoot, .4f);
         }
         //ApplyCooldown
         isCooldown = true;

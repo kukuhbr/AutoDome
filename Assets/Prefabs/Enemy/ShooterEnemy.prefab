@@ -5204,6 +5204,7 @@ GameObject:
   - component: {fileID: 6504668657206487741}
   - component: {fileID: 4042760803316576730}
   - component: {fileID: 1651563363077399736}
+  - component: {fileID: -4092103613448658037}
   m_Layer: 0
   m_Name: ShooterEnemy
   m_TagString: Enemy
@@ -5295,7 +5296,6 @@ MonoBehaviour:
     chance: 0.5
   - lootObject: {fileID: 11400000, guid: c0b5786985cd46d49bf50999fe8d3b2e, type: 2}
     chance: 1
-  maxBarrage: 3
 --- !u!95 &1651563363077399736
 Animator:
   serializedVersion: 3
@@ -5315,6 +5315,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-4092103613448658037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504668657206487712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f44eba18cae3244a8dead7844a8e95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 0
+  SFXList:
+  - type: 7
+    clip: {fileID: 8300000, guid: 7e097a52e4cc537479742fd18770844e, type: 3}
+  - type: 6
+    clip: {fileID: 8300000, guid: 0acc0c7888fa5c348b5cebf6d466d560, type: 3}
+  LoopableList: []
+  oneshotPrefab: {fileID: 2135432951433040266, guid: 7883988bf8655ae489d37db70a646950,
+    type: 3}
+  loopablePrefab: {fileID: 0}
 --- !u!1 &6504668657343387686
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,8 @@ public class CharacterScrollScript : MonoBehaviour
     private Light[] cameraLights;
     private bool characterObtained;
     private bool shouldStopLoopSound;
+    private bool characterChanged;
+    private float delayedConfirm;
 
     private void Awake()
     {
@@ -78,7 +80,9 @@ public class CharacterScrollScript : MonoBehaviour
             selectedCharacter = characters[selectedIndex];
             selectedCharacter.localScale = new Vector3(7,7,7);
             characterObtained = PlayerManager.playerManager.playerData.GetVehicleGrade(selectedIndex) != -1;
-            SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.sfx_vehicle_select);
+            characterChanged = true;
+            SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_vehicle_select, .4f);
+            delayedConfirm = 0.331f;
         }
         // if(this.transform.position.x % 40 != 0)
         // {
@@ -93,6 +97,10 @@ public class CharacterScrollScript : MonoBehaviour
         SceneLoader.sceneLoader.selectedCharacterIndex = selectedIndex;
         if(!dragHandler.isDrag)
         {
+            //Reduce delayed confirm
+            if (delayedConfirm > 0) {
+                delayedConfirm -= Time.deltaTime;
+            }
             //Snap
             float targetValue = (float)selectedIndex/(characters.Count-1);
             if(scrollbar.value >= 0 && scrollbar.value <= 1) {
@@ -101,13 +109,11 @@ public class CharacterScrollScript : MonoBehaviour
                     float direction = scrollbar.value < targetValue ? 1 : -1;
                     scrollbar.value += 0.005f * direction;
                 } else {
-                    if (shouldStopLoopSound) {
-                        shouldStopLoopSound = false;
-                        Debug.Log("stop looping music");
-                        //SoundsManager.soundsManager.StopLoop("vehicle_select");
+                    if (characterChanged) {
+                        characterChanged = false;
                         if (characterObtained) {
                             Debug.Log("start revvvvving!");
-                            //SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.vehicle_select_confirm);
+                            StartCoroutine(PlayConfirmSFX());
                         }
                     }
                 }
@@ -123,17 +129,24 @@ public class CharacterScrollScript : MonoBehaviour
         }
     }
 
+    IEnumerator PlayConfirmSFX() {
+        while (delayedConfirm > 0) {
+            Debug.Log("Delayed confirm is " + delayedConfirm);
+            yield return null;
+        }
+        Debug.Log("play!");
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_vehicle_select_confirm, .4f);
+    }
+
     void SelectingHandler()
     {
-        Debug.Log("Start looping music");
-        //Play loop music
-        //SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.loop_vehicle_select, "vehicle_select");
-        shouldStopLoopSound = false;
+        //Debug.Log("Start looping music");
+        //shouldStopLoopSound = false;
     }
 
     void StopSelectingHandler()
     {
-        shouldStopLoopSound = true;
+        //shouldStopLoopSound = true;
     }
 
     private void LateUpdate()

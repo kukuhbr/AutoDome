@@ -64,7 +64,7 @@ public class MainMenu : MonoBehaviour
             SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
             return;
         }
-        if (player.DecreaseEnergy()) {
+        if (true) {//player.DecreaseEnergy()) {
             SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_start);
             PlayerManager.playerManager.playerData.SetupBattleInventory();
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
@@ -127,7 +127,7 @@ public class MainMenu : MonoBehaviour
                 player.UpgradeVehicleGrade(id);
                 TriggerUpgradeVehicle();
                 PlayerManager.SavePlayerData(player);
-                SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_start);
+                SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
             } else {
                 Notifier.NotifyInstant("Not Enough Materials");
                 SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);

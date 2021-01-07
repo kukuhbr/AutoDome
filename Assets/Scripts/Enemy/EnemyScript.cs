@@ -41,6 +41,7 @@ public class EnemyScript : Character {
     }
 
     public override void DamageKill() {
+        base.DamageKill();
         isAlive = false;
         BattleEvents.battleEvents.TriggerScoreChange(100);
         rb.velocity = Vector3.zero;

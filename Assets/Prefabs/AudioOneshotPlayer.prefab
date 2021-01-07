@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5102123023222025235}
   - component: {fileID: 8570792355974747561}
   m_Layer: 0
-  m_Name: Audio Prefab
+  m_Name: AudioOneshotPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0

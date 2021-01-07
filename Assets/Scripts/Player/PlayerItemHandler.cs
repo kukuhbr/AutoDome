@@ -41,6 +41,7 @@ public class PlayerItemHandler : MonoBehaviour
         GetComponent<PlayerScript>().moveSpeed += buffAmount[1];
         GetComponent<PlayerScript>().fireRate -= buffAmount[2];
         StartCoroutine(BuffTimer(buff.duration, buffAmount, buffVisual));
+        GetComponent<SoundsManager>().PlaySFX(SoundsManager.SoundsEnum.character_buff);
     }
 
     IEnumerator BuffTimer(float seconds, float[] buffAmount, GameObject buffVisual) {

@@ -6539,6 +6539,7 @@ GameObject:
   - component: {fileID: 1553382578}
   - component: {fileID: 1553382579}
   - component: {fileID: 1553382580}
+  - component: {fileID: 1553382581}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -6642,6 +6643,33 @@ MonoBehaviour:
   - {fileID: 7089933186479389615, guid: 330882c6116bf8c49ae422caad7e9fc3, type: 3}
   - {fileID: 5850638486203651510, guid: dfaa1dac54de78247b9f9052a9686205, type: 3}
   bombEffector: {fileID: 379578511307898936, guid: ded84d13ba5607243a030ae93a81dd15,
+    type: 3}
+--- !u!114 &1553382581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553382575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f44eba18cae3244a8dead7844a8e95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 0
+  SFXList:
+  - type: 9
+    clip: {fileID: 8300000, guid: 9d95b9a9676951b46995d93450f26e0e, type: 3}
+  - type: 7
+    clip: {fileID: 8300000, guid: 7e097a52e4cc537479742fd18770844e, type: 3}
+  - type: 6
+    clip: {fileID: 8300000, guid: 9e50ebff042415b45817d90ecde0ad8a, type: 3}
+  - type: 8
+    clip: {fileID: 8300000, guid: 91394ffbe68b3ce4ca99b46a4a651e2a, type: 3}
+  LoopableList: []
+  oneshotPrefab: {fileID: 2135432951433040266, guid: 7883988bf8655ae489d37db70a646950,
+    type: 3}
+  loopablePrefab: {fileID: 4190058453185249551, guid: c73696d9c063819439542c0f39ed05be,
     type: 3}
 --- !u!1 &1557470376
 GameObject:

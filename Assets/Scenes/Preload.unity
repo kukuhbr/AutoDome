@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f44eba18cae3244a8dead7844a8e95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGlobal: 1
   SFXList:
   - type: 0
     clip: {fileID: 8300000, guid: 8f436cfd13caab249a2fc6487c119580, type: 3}
@@ -260,6 +261,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: fb29541a1a164f445b63b435289b4099, type: 3}
   - type: 3
     clip: {fileID: 8300000, guid: b38b9d82bf8a8334793eb9bd270a4b84, type: 3}
+  - type: 4
+    clip: {fileID: 8300000, guid: f1aaf8815e3e4744c81f156db5268282, type: 3}
   LoopableList: []
   oneshotPrefab: {fileID: 2135432951433040266, guid: 7883988bf8655ae489d37db70a646950,
     type: 3}
