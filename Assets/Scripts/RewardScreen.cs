@@ -40,6 +40,7 @@ public class RewardScreen : MonoBehaviour
         PlayerManager.SavePlayerData(PlayerManager.playerManager.playerData);
         SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
+        SoundsManager.soundsManager.StopLoop("music_battle");
     }
 
     public void WatchAd()

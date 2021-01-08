@@ -12,12 +12,15 @@ public class ItemDropManager : MonoBehaviour
     private float regularDropInterval;
     [SerializeField]
     private List<Loot> regularLootTable;
+    private bool gameOver;
     void Start()
     {
         if(!instance) {
             instance = this;
         }
         StartCoroutine(RegularDrop());
+        gameOver = false;
+        BattleEvents.battleEvents.onGameOver += GameOver;
     }
 
     public void CalculateDrop(Vector3 location, List<Loot> table) {
@@ -38,10 +41,16 @@ public class ItemDropManager : MonoBehaviour
         GameObject drop = itemHolder;
         drop.GetComponent<ItemHolder>().itemReference = item;
         Instantiate(drop, location, Quaternion.identity);
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.item_drop);
+    }
+
+    void GameOver()
+    {
+        gameOver = true;
     }
 
     IEnumerator RegularDrop() {
-        while(true) {
+        while(!gameOver) {
             float timeLeft = regularDropInterval;
             while(timeLeft >= 0) {
                 timeLeft -= Time.deltaTime;
@@ -51,5 +60,10 @@ public class ItemDropManager : MonoBehaviour
             CalculateDrop(randomPos, regularLootTable);
         }
 
+    }
+
+    void OnDestroy()
+    {
+        BattleEvents.battleEvents.onGameOver -= GameOver;
     }
 }

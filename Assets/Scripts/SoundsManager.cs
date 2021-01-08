@@ -15,7 +15,16 @@ public class SoundsManager : MonoBehaviour
         character_died,
         character_hit,
         character_buff,
-        character_shoot
+        character_shoot,
+
+        vehicle_engine_idle,
+        music_battle,
+        music_menu,
+        item_drop,
+        item_pickup,
+        use_medkit,
+        use_ammo,
+        use_bomb
     }
     [System.Serializable]
     public class Sound {
@@ -71,15 +80,26 @@ public class SoundsManager : MonoBehaviour
         }
     }
 
-    public void PlayLoop(SoundsEnum choice, string name)
+    public void PlayLoop(SoundsEnum choice, string name, float volume = -1f)
     {
         AudioClip audioClip = SelectAudioClip(choice, LoopableList);
         if(audioClip == null) return;
-        GameObject loopObject = Instantiate(loopablePrefab);
+        GameObject loopObject = Instantiate(loopablePrefab, transform);
         AudioSource source = loopObject.GetComponent<AudioSource>();
+        if(volume != -1f) {
+            source.volume = volume;
+        }
         source.clip = audioClip;
         source.Play();
         playingAudio.Add(name, loopObject);
+    }
+
+    public GameObject GetReference(string name)
+    {
+        if(playingAudio.ContainsKey(name)) {
+            return playingAudio[name];
+        }
+        return null;
     }
 
     public void StopLoop(string name)

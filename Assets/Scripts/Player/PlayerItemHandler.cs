@@ -63,6 +63,7 @@ public class PlayerItemHandler : MonoBehaviour
         Debug.Log("get " + item.name);
         bool isSuccessful = battleInventory.Add(item.id, quantity);
         BattleEvents.battleEvents.TriggerItemPickup();
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.item_pickup);
         return(isSuccessful);
     }
 
@@ -73,12 +74,15 @@ public class PlayerItemHandler : MonoBehaviour
                 switch(item.usableType) {
                     case (ItemUsable.UsableType.medkit) :
                     player.Heal(item.strength);
+                    SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.use_medkit);
                     break;
                     case (ItemUsable.UsableType.ammokit) :
                     player.Reload(item.strength);
+                    SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.use_ammo);
                     break;
                     case (ItemUsable.UsableType.bomb) :
                     player.SpawnBomb(bombEffector, item.strength);
+                    SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.use_bomb, .6f);
                     break;
                 }
                 if (fromInventory) {

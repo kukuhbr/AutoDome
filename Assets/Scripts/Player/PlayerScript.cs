@@ -15,6 +15,9 @@ public class PlayerScript : Character {
     private bool isGameOver=false;
     [SerializeField]
     private ParticleSystem deathParticle;
+    private AudioSource engineSound;
+    Vector3 modelBodyStartPos;
+    float shakeDistance;
 
     void Awake()
     {
@@ -43,10 +46,14 @@ public class PlayerScript : Character {
         }
         playerModel.transform.localScale = new Vector3(.5f, .5f, .5f);
         playerModel.transform.position = new Vector3(0, .3f, 0);
+        modelBodyStartPos = playerModelBody.transform.localPosition;
 
         cameraForward = Camera.main.transform.forward;
         cameraForward.y = 0;
         cameraRight = Camera.main.transform.right;
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.vehicle_engine_revv, .6f);
+        SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.vehicle_engine_idle, "engine", .05f);
+        engineSound = SoundsManager.soundsManager.GetReference("engine").GetComponent<AudioSource>();
         //Debug.Log("cam Forward" + cameraForward);
         //Debug.Log("cam Right" + cameraRight);
         BattleEvents.battleEvents.onGameOver += GameOver;
@@ -62,6 +69,12 @@ public class PlayerScript : Character {
             //Debug.Log(moveDirection);
             if (moveDirection.normalized != Vector3.zero) {
                 transform.rotation = Quaternion.LookRotation(moveDirection.normalized);
+                Debug.Log(moveDirection.magnitude);
+                engineSound.volume = Mathf.Lerp( .1f, .25f, moveDirection.magnitude);
+                shakeDistance = .1f;
+            } else {
+                engineSound.volume = .1f;
+                shakeDistance = .05f;
             }
 
             // Check for Shoot
@@ -80,6 +93,7 @@ public class PlayerScript : Character {
 
             // Check Reload and Damage
             isReloadAble = currentAmmo < maxAmmo;
+            EngineShake();
             base.Update();
         } else {
             moveDirection = new Vector3(0,0,0);
@@ -190,8 +204,16 @@ public class PlayerScript : Character {
         isCooldown = false;
     }
 
+    void EngineShake() {
+        //Vector3 modelBodyStartPos = playerModelBody.transform.position;
+        Vector3 randomShake = modelBodyStartPos + (Random.insideUnitSphere * shakeDistance);
+        playerModelBody.transform.localPosition = randomShake;
+        //yield return null;
+    }
+
     void GameOver()
     {
+        SoundsManager.soundsManager.StopLoop("engine");
         isGameOver = true;
     }
 
