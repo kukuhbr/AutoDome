@@ -21,7 +21,7 @@ public class ShooterEnemy : EnemyScript
                 }
             } else {
                 //Reload
-                if(currentAmmo == maxAmmo) {
+                if(currentAmmo >= maxAmmo) {
                     barrageStart = true;
                     isReloadAble = false;
                 }
