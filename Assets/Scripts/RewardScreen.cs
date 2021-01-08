@@ -20,6 +20,12 @@ public class RewardScreen : MonoBehaviour
         Debug.Log(itemCollectionHandler);
     }
 
+    void Start()
+    {
+        SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.music_gameover, "music_gameover");
+        SoundsManager.soundsManager.StopLoop("music_battle");
+    }
+
     public void Display()
     {
         rewardParts.text = playerItemHandler.battleInventory.GetEntry(9).quantity.ToString();
@@ -40,7 +46,7 @@ public class RewardScreen : MonoBehaviour
         PlayerManager.SavePlayerData(PlayerManager.playerManager.playerData);
         SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
-        SoundsManager.soundsManager.StopLoop("music_battle");
+        SoundsManager.soundsManager.StopLoop("music_gameover");
     }
 
     public void WatchAd()

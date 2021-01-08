@@ -16,7 +16,6 @@ public class SoundsManager : MonoBehaviour
         character_hit,
         character_buff,
         character_shoot,
-
         vehicle_engine_idle,
         music_battle,
         music_menu,
@@ -24,7 +23,9 @@ public class SoundsManager : MonoBehaviour
         item_pickup,
         use_medkit,
         use_ammo,
-        use_bomb
+        use_bomb,
+        game_over_sfx,
+        music_gameover
     }
     [System.Serializable]
     public class Sound {

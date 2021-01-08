@@ -112,6 +112,7 @@ public class BattleUIScript : MonoBehaviour
     IEnumerator ShowRewardScreen()
     {
         yield return new WaitForSecondsRealtime(3f);
+        SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.game_over_sfx);
         rewardScreen.SetActive(true);
         rewardScreen.GetComponent<RewardScreen>().AddBonusParts(score / 10);
         rewardScreen.GetComponent<RewardScreen>().Display();

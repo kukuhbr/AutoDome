@@ -275,6 +275,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9e50ebff042415b45817d90ecde0ad8a, type: 3}
   - type: 5
     clip: {fileID: 8300000, guid: af16c54ce90ac8644bf99f776f7d5530, type: 3}
+  - type: 18
+    clip: {fileID: 8300000, guid: 41cea2012c43ff845a585aaf392fcc64, type: 3}
   LoopableList:
   - type: 12
     clip: {fileID: 8300000, guid: 0baa2cd618d6bb74e92e7ece49e8828b, type: 3}
@@ -282,6 +284,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 668052e64852c16429491332676577f3, type: 3}
   - type: 10
     clip: {fileID: 8300000, guid: 1f1ac3cca8c8f9f48a9091039456fcf1, type: 3}
+  - type: 19
+    clip: {fileID: 8300000, guid: 0ba23402c6363594ab45bb764c92968d, type: 3}
   oneshotPrefab: {fileID: 2135432951433040266, guid: 7883988bf8655ae489d37db70a646950,
     type: 3}
   loopablePrefab: {fileID: 4190058453185249551, guid: c73696d9c063819439542c0f39ed05be,
