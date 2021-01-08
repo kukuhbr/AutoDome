@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2954097442411871127}
   - component: {fileID: 2954097442411871112}
   m_Layer: 0
-  m_Name: DamageBuff
+  m_Name: BuffDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

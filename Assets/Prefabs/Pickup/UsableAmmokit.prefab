@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2572139142777300376}
   - component: {fileID: 2572139142777300357}
   - component: {fileID: 2572139142777300378}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: UsableAmmokit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

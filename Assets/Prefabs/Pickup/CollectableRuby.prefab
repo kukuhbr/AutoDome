@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1267523150952455505}
   - component: {fileID: 1267523150952455500}
   - component: {fileID: 1267523150952455507}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: CollectableRuby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
