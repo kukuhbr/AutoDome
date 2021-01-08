@@ -13,6 +13,8 @@ public class PlayerScript : Character {
     private GameObject playerModel;
     private GameObject playerModelBody;
     private bool isGameOver=false;
+    [SerializeField]
+    private ParticleSystem deathParticle;
 
     void Awake()
     {
@@ -138,6 +140,9 @@ public class PlayerScript : Character {
 
     public override void DamageKill() {
         base.DamageKill();
+        if(deathParticle) {
+            deathParticle.Play();
+        }
         isAlive = false;
     }
 
