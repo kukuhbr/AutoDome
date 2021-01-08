@@ -67,10 +67,10 @@ public class PlayerScript : Character {
             //shootDirection = Vector3.forward * joystickShoot.Vertical + Vector3.right * joystickShoot.Horizontal;
             if (Mathf.Abs(shootDirection.x) > 0.6 || Mathf.Abs(shootDirection.z) > 0.6) {
                 isShooting = true;
+                playerModelBody.transform.rotation = Quaternion.LookRotation(shootDirection.normalized) * Quaternion.Euler(0,180,0);
                 if (!isCooldown && currentAmmo >= 1) {
                     StartCoroutine(Fire(shootDirection.normalized));
                 }
-            playerModelBody.transform.rotation = Quaternion.LookRotation(shootDirection.normalized) * Quaternion.Euler(0,180,0);
             } else {
                 isShooting = false;
                 playerModelBody.transform.localRotation = Quaternion.Euler(0,180,0);
@@ -172,7 +172,7 @@ public class PlayerScript : Character {
         //Logic
         GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject(ObjectPooler.Pooled.Bullet);
         if (bullet != null) {
-            bullet.transform.position = this.transform.position + new Vector3(0, 1, 0);
+            bullet.transform.position = this.transform.position + new Vector3(0, .5f, 0) + playerModelBody.transform.forward * -1f;
             bullet.transform.rotation = Quaternion.LookRotation(input + new Vector3(0, 90, 0));
             bullet.SetActive(true);
             bullet.GetComponent<BulletScript>().Shoot(input, bulletSpeed, damage);
