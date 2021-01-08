@@ -65,14 +65,13 @@ public class MainMenu : MonoBehaviour
             SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
             return;
         }
-        if (true) {//player.DecreaseEnergy()) {
+        if (player.DecreaseEnergy()) {
             SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_start);
             PlayerManager.playerManager.playerData.SetupBattleInventory();
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
             SoundsManager.soundsManager.StopLoop("menu");
             SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.music_battle, "music_battle");
         } else {
-            //Notifier.NotifyInstant("You don't have enough energy");
             SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
             Notifier.Notify("You don't have enough energy", "Watch Ad", WatchAd);
         }
@@ -136,7 +135,6 @@ public class MainMenu : MonoBehaviour
                 SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
             }
         } else {
-            //Notifier.NotifyInstant("Vehicle Max Upgrade");
             Notifier.NotifyInstant("Cannot Upgrade Further");
             SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
         }
@@ -179,14 +177,4 @@ public class MainMenu : MonoBehaviour
             onUpgradeVehicle();
         }
     }
-
-    // public event Action onUpgradeVehicleFail;
-    // public void TriggerUpgradeVehicleFail()
-    // {
-    //     if(onUpgradeVehicleFail != null)
-    //     {
-    //         onUpgradeVehicleFail();
-    //         Debug.Log("Upgrade vehicle fail!");
-    //     }
-    // }
 }
