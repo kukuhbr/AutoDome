@@ -23,4 +23,10 @@ public class ItemUIIcon : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public int GetEntryId()
+    {
+        if (inventoryEntry == null) return -1;
+        return inventoryEntry.id;
+    }
 }

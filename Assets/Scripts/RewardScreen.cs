@@ -22,7 +22,7 @@ public class RewardScreen : MonoBehaviour
 
     void Start()
     {
-        SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.music_gameover, "music_gameover");
+        SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.music_gameover, "music_gameover", 1f);
         SoundsManager.soundsManager.StopLoop("music_battle");
     }
 

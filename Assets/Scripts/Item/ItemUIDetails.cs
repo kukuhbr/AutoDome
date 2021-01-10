@@ -9,7 +9,6 @@ public class ItemUIDetails : MonoBehaviour
     bool initialized = false;
     LayoutElement layoutElement;
     public float targetHeight;
-    Coroutine InitUI;
     void OnEnable() {
         MainMenu.mainMenu.onItemFocusChange += UpdateDetails;
         layoutElement = GetComponent<LayoutElement>();
@@ -43,7 +42,7 @@ public class ItemUIDetails : MonoBehaviour
     void UpdateDetails(int id) {
         if (!initialized) {
             initialized = true;
-            InitUI = StartCoroutine(InitUIDetails(id));
+            StartCoroutine(InitUIDetails(id));
         }
         SetDetailsValues(id);
     }
