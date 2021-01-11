@@ -13,7 +13,7 @@ public class ItemUICollection : MonoBehaviour
     public bool inInventoryOnly = false;
 
     void Awake() {
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 6; i++) {
             GameObject temp = Instantiate(itemIconPrefab, this.transform);
             temp.SetActive(false);
             itemIcons.Add(temp);

@@ -146,8 +146,6 @@ public class MainMenu : MonoBehaviour
         if(isMenuInFocus) return;
         isMenuInFocus = true;
         inventory.SetActive(true);
-        ItemUICollection coll = inventory.GetComponentInChildren<ItemUICollection>();
-        coll.AdjustItemCollectionUI(player.inventory);
         LockScroll();
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
     }
