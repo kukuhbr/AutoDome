@@ -5,6 +5,12 @@ using System;
 
 public class UIBattleInventory : MonoBehaviour
 {
+    SlotInventory battleSlot;
+    void Awake()
+    {
+        battleSlot = PlayerManager.playerManager.playerData.battleSlot;
+        battleSlot.Recalculate();
+    }
     void Start()
     {
         UpdateView();
@@ -13,7 +19,7 @@ public class UIBattleInventory : MonoBehaviour
     void UpdateView()
     {
         ItemUICollection coll = GetComponent<ItemUICollection>();
-        coll.AdjustItemCollectionUI(PlayerManager.playerManager.playerData.battleSlot);
+        coll.AdjustItemCollectionUI(battleSlot);
     }
 
     public event Action onBattleInventorySlotSelected;

@@ -204,6 +204,8 @@ public class SlotInventory {
             items[slot] = entry;
             return true;
         }
+        InventoryEntry empty = new InventoryEntry(-1, 0, maxQuantity);
+        items[slot] = empty;
         return false;
     }
 
@@ -216,6 +218,7 @@ public class SlotInventory {
     {
         if(items[slot].id == -1) return;
         if(items[slot].quantity == 0) return;
+        //inventory.Remove(items[slot].id, 1);
         items[slot].quantity -= 1;
     }
 
@@ -232,7 +235,41 @@ public class SlotInventory {
         return sum;
     }
 
+    public int FindAvailableSlot(int id)
+    {
+        // Find Item Of Same Type
+        for(int i = 0; i < items.Count; i++) {
+            InventoryEntry entry = items[i];
+            if (entry.id != id) continue;
+            if (entry.quantity < entry.maxQuantity) {
+                return i;
+            }
+        }
+        // Find First Empty Slot
+        for(int i = 0; i < items.Count; i++) {
+            InventoryEntry entry = items[i];
+            if (entry.quantity == 0) return i;
+        }
+        return -1;
+    }
 
+    public bool IsEmpty()
+    {
+        for (int i = 0; i < items.Count; i++) {
+            InventoryEntry entry = items[i];
+            if (entry.quantity != 0) return false;
+        }
+        return true;
+    }
+
+    public void Recalculate()
+    {
+        for (int i = 0; i < items.Count; i++) {
+            InventoryEntry entry = items[i];
+            if (entry.quantity == 0) continue;
+            SetSlot(entry.id, i);
+        }
+    }
 }
 
 public class InventoryEntry {

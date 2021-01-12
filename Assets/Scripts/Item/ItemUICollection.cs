@@ -44,7 +44,12 @@ public class ItemUICollection : MonoBehaviour
     public void AdjustItemCollectionUI(SlotInventory collection)
     {
         for(int i = 0; i < collection.items.Count; i++) {
-            itemIcons[i].GetComponent<ItemUIBattleInventory>().idSlot = i;
+            //itemIcons[i].GetComponent<ItemUIBattleInventory>().idSlot = i;
+            if (itemIcons[i].TryGetComponent<ItemUIBattleInventory>(out ItemUIBattleInventory script)) {
+                script.idSlot = i;
+            } else if (itemIcons[i].TryGetComponent<ItemUIUsable>(out ItemUIUsable usableScript)) {
+                usableScript.idSlot = i;
+            }
             if (collection.items[i].quantity != 0) {
                 itemIcons[i].GetComponentInChildren<ItemUIIcon>().AssignItem(collection.items[i]);
             } else {

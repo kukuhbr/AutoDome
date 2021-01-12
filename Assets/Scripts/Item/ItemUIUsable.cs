@@ -5,11 +5,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class ItemUIUsableScript : MonoBehaviour, IPointerClickHandler
+public class ItemUIUsable : MonoBehaviour, IPointerClickHandler
 {
     private bool isGameOver = false;
     [SerializeField]
     private RectTransform cooldownImage;
+    public int idSlot;
     void Start()
     {
         BattleEvents.battleEvents.onGameOver += GameOver;
@@ -25,7 +26,8 @@ public class ItemUIUsableScript : MonoBehaviour, IPointerClickHandler
     {
         InventoryEntry inventoryEntry = GetComponent<ItemUIIcon>().inventoryEntry;
         if(inventoryEntry != null) {
-            float height = Mathf.Lerp(0f, 100f, inventoryEntry.cooldown / 4f);
+            float cooldown = PlayerManager.playerManager.playerData.battleInventory.GetEntry(inventoryEntry.id).cooldown;
+            float height = Mathf.Lerp(0f, 100f, cooldown / 4f);
             cooldownImage.sizeDelta = new Vector2(0f, height);
         } else {
             cooldownImage.sizeDelta = new Vector2(0f, 0f);
@@ -38,8 +40,8 @@ public class ItemUIUsableScript : MonoBehaviour, IPointerClickHandler
         if(inventoryEntry != null) {
             if (!isGameOver && inventoryEntry.cooldown == 0f) {
                 DatabaseItem databaseItem = Database.database.databaseItem;
+                PlayerManager.playerManager.playerData.battleSlot.UseSlot(idSlot);
                 databaseItem.GetItemById(inventoryEntry.id).Use();
-                //inventoryEntry.item.Use();
             }
         }
     }

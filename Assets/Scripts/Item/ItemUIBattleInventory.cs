@@ -51,13 +51,14 @@ public class ItemUIBattleInventory : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
+        SlotInventory battleSlot = PlayerManager.playerManager.playerData.battleSlot;
         if (!isSelectPhase) {
-            PlayerManager.playerManager.playerData.battleSlot.UnsetSlot(idSlot);
+            battleSlot.UnsetSlot(idSlot);
             battleInventoryHandler.TriggerBattleInventorySlotSelected();
             return;
         }
         ItemBase item = Database.database.databaseItem.GetItemById(idFocused);
-        bool success = PlayerManager.playerManager.playerData.battleSlot.SetSlot(idFocused, idSlot);
+        bool success = battleSlot.SetSlot(idFocused, idSlot);
         if (!success) {
             Notifier.NotifyInstant("Not Enough Item");
         }

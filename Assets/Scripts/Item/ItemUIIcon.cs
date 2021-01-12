@@ -15,10 +15,12 @@ public class ItemUIIcon : MonoBehaviour
         if(entry != null) {
             DatabaseItem databaseItem = Database.database.databaseItem;
             GetComponent<Image>().sprite = databaseItem.GetItemById(entry.id).icon;
+            GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
             GetComponentInChildren<TextMeshProUGUI>().text = string.Format(displayFormat, entry.quantity, entry.maxQuantity);
             gameObject.SetActive(true);
         } else {
             GetComponent<Image>().sprite = null;
+            GetComponent<Image>().color = new Color(0, 0, 0, .05f);
             GetComponentInChildren<TextMeshProUGUI>().text = "Empty";
             gameObject.SetActive(false);
         }

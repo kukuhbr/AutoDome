@@ -26,7 +26,6 @@ public class PlayerItemHandler : MonoBehaviour
             int id = entry.Key;
             Database.database.databaseItem.GetItemById(id).SetHandler(this.gameObject);
         }
-        BattleEvents.battleEvents.TriggerItemPickup();
     }
     public void Buff(ItemBuff buff) {//ItemBuff.BuffType buffType, float strength, float duration) {
         //List<float> buff = new float {0f, 0f, 0f};
@@ -62,7 +61,7 @@ public class PlayerItemHandler : MonoBehaviour
         }
         Debug.Log("get " + item.name);
         bool isSuccessful = battleInventory.Add(item.id, quantity);
-        BattleEvents.battleEvents.TriggerItemPickup();
+        BattleEvents.battleEvents.TriggerItemPickup(item.id);
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.item_pickup);
         return(isSuccessful);
     }

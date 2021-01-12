@@ -35,12 +35,12 @@ public class BattleEvents : MonoBehaviour
         }
     }
 
-    public event Action onItemPickup;
-    public void TriggerItemPickup()
+    public event Action<int> onItemPickup;
+    public void TriggerItemPickup(int id)
     {
         if(onItemPickup != null)
         {
-            onItemPickup();
+            onItemPickup(id);
         }
     }
 

@@ -7,27 +7,42 @@ using TMPro;
 public class ItemUIBattle : MonoBehaviour
 {
     [SerializeField]
-    private PlayerItemHandler handler;
+    //private PlayerItemHandler handler;
     private ItemUICollection itemUICollection;
-    private Image backgroundImage;
+    //private Image backgroundImage;
+    private SlotInventory battleSlot;
 
     void Start() {
         itemUICollection = GetComponent<ItemUICollection>();
-        backgroundImage = GetComponent<Image>();
-        backgroundImage.enabled = false;
-        BattleEvents.battleEvents.onItemPickup += AdjustItemUI;
+        //backgroundImage = GetComponent<Image>();
+        //backgroundImage.enabled = false;
+        BattleEvents.battleEvents.onItemPickup += HandleItemPickup;
         BattleEvents.battleEvents.onItemUsed += AdjustItemUI;
+        battleSlot = PlayerManager.playerManager.playerData.battleSlot;
+        AdjustItemUI();
     }
 
     void AdjustItemUI()
     {
-        backgroundImage.enabled = true;
-        itemUICollection.AdjustItemCollectionUI(handler.battleInventory.GetItemOnlyType("usable"));
+        //backgroundImage.enabled = !battleSlot.IsEmpty();
+        itemUICollection.AdjustItemCollectionUI(battleSlot);
+    }
+
+    void HandleItemPickup(int id)
+    {
+        ItemBase pickup = Database.database.databaseItem.GetItemById(id);
+        if (pickup is ItemUsable) {
+            int availableSlot = battleSlot.FindAvailableSlot(id);
+            if (availableSlot != -1) {
+                battleSlot.SetSlot(id, availableSlot);
+            }
+            AdjustItemUI();
+        }
     }
 
     void OnDestroy()
     {
-        BattleEvents.battleEvents.onItemPickup -= AdjustItemUI;
+        BattleEvents.battleEvents.onItemPickup -= HandleItemPickup;
         BattleEvents.battleEvents.onItemUsed -= AdjustItemUI;
     }
 }
