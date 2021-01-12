@@ -40,4 +40,19 @@ public class ItemUICollection : MonoBehaviour
             itemIcons[i].GetComponent<ItemUIIcon>().AssignItem(null);
         }
     }
+
+    public void AdjustItemCollectionUI(SlotInventory collection)
+    {
+        for(int i = 0; i < collection.items.Count; i++) {
+            itemIcons[i].GetComponent<ItemUIBattleInventory>().idSlot = i;
+            if (collection.items[i].quantity != 0) {
+                itemIcons[i].GetComponentInChildren<ItemUIIcon>().AssignItem(collection.items[i]);
+            } else {
+                ItemUIIcon itemUIIcon = itemIcons[i].GetComponentInChildren<ItemUIIcon>();
+                itemUIIcon.AssignItem(null);
+                itemUIIcon.gameObject.SetActive(true);
+            }
+            itemIcons[i].SetActive(true);
+        }
+    }
 }

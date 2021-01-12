@@ -13,7 +13,7 @@ public class ShooterEnemy : EnemyScript
                 //Fire
                 if(!isCooldown && currentAmmo >= 1f) {
                     StartCoroutine(Fire((target.position - transform.position).normalized));
-                    currentAmmo -= 1;
+                    currentAmmo -= 1f;
                 }
                 if(currentAmmo <= 0f) {
                     barrageStart = false;

@@ -19,7 +19,7 @@ public class ItemUIIcon : MonoBehaviour
             gameObject.SetActive(true);
         } else {
             GetComponent<Image>().sprite = null;
-            GetComponentInChildren<TextMeshProUGUI>().text = null;
+            GetComponentInChildren<TextMeshProUGUI>().text = "Empty";
             gameObject.SetActive(false);
         }
     }

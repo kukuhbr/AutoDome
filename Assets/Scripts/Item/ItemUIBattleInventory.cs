@@ -9,7 +9,8 @@ public class ItemUIBattleInventory : MonoBehaviour, IPointerClickHandler
 {
     bool isUsableItemFocused;
     bool isSelectPhase;
-    int focusedId;
+    int idFocused;
+    public int idSlot;
     [SerializeField]
     private GameObject highlight;
     [SerializeField]
@@ -19,7 +20,6 @@ public class ItemUIBattleInventory : MonoBehaviour, IPointerClickHandler
     {
         MainMenu.mainMenu.onItemFocusChange += UpdateFocus;
         highlight.SetActive(false);
-        //text.SetActive(false);
         battleInventoryHandler = GetComponentInParent<UIBattleInventory>();
         battleInventoryHandler.onBattleInventorySlotSelected += EndSelectPhase;
     }
@@ -28,9 +28,11 @@ public class ItemUIBattleInventory : MonoBehaviour, IPointerClickHandler
     {
         ItemBase item = Database.database.databaseItem.GetItemById(id);
         isUsableItemFocused = item is ItemUsable;
-        focusedId = id;
+        idFocused = id;
         if (isUsableItemFocused) {
             StartSelectPhase();
+        } else {
+            EndSelectPhase();
         }
     }
 
@@ -48,19 +50,17 @@ public class ItemUIBattleInventory : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (!isSelectPhase) return;
-        battleInventoryHandler.TriggerBattleInventorySlotSelected();
-        ItemBase item = Database.database.databaseItem.GetItemById(focusedId);
-        int entryId = GetComponentInChildren<ItemUIIcon>().GetEntryId();
-        if (entryId != -1) {
-            // Something is here
-            Debug.Log("Something");
-        } else {
-            // Nothing is here
-            Debug.Log("Empty");
-            text.GetComponent<TextMeshProUGUI>().text = "Empty";
+        if (!isSelectPhase) {
+            PlayerManager.playerManager.playerData.battleSlot.UnsetSlot(idSlot);
+            battleInventoryHandler.TriggerBattleInventorySlotSelected();
+            return;
         }
-        text.GetComponent<TextMeshProUGUI>().text = item.itemName;
+        ItemBase item = Database.database.databaseItem.GetItemById(idFocused);
+        bool success = PlayerManager.playerManager.playerData.battleSlot.SetSlot(idFocused, idSlot);
+        if (!success) {
+            Notifier.NotifyInstant("Not Enough Item");
+        }
+        battleInventoryHandler.TriggerBattleInventorySlotSelected();
     }
 
     void OnDisable()

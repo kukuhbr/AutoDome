@@ -5,15 +5,21 @@ using System;
 
 public class UIBattleInventory : MonoBehaviour
 {
-    void OnEnable()
+    void Start()
+    {
+        UpdateView();
+    }
+
+    void UpdateView()
     {
         ItemUICollection coll = GetComponent<ItemUICollection>();
-        coll.AdjustItemCollectionUI(PlayerManager.playerManager.playerData.battleInventory);
+        coll.AdjustItemCollectionUI(PlayerManager.playerManager.playerData.battleSlot);
     }
 
     public event Action onBattleInventorySlotSelected;
     public void TriggerBattleInventorySlotSelected()
     {
+        UpdateView();
         if(onBattleInventorySlotSelected != null)
         {
             onBattleInventorySlotSelected();

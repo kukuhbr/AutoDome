@@ -175,6 +175,61 @@ public class Inventory {
     }
 }
 
+public class SlotInventory {
+    public List<InventoryEntry> items;
+    public Inventory inventory;
+    public int maxQuantity;
+
+    public SlotInventory(Inventory referenceInventory, int max = 3)
+    {
+        maxQuantity = max;
+        items = new List<InventoryEntry>(6);
+        for (int i = 0; i < 6; i++) {
+            items.Add(new InventoryEntry(-1, 0, max));
+        }
+        inventory = referenceInventory;
+        Debug.Log(items.Count);
+    }
+
+    public bool SetSlot(int id, int slot) {
+        int remaining = inventory.GetEntry(id).quantity - SlotQuantityItem(id, slot);
+        if (remaining > 0) {
+            int quantity = remaining > maxQuantity ? maxQuantity : remaining;
+            InventoryEntry entry = new InventoryEntry(id, quantity, maxQuantity);
+            items[slot] = entry;
+            return true;
+        }
+        return false;
+    }
+
+    public void UnsetSlot(int slot)
+    {
+        items[slot].quantity = 0;
+    }
+
+    public void UseSlot(int slot)
+    {
+        if(items[slot].id == -1) return;
+        if(items[slot].quantity == 0) return;
+        items[slot].quantity -= 1;
+    }
+
+    public int SlotQuantityItem(int id, int slot)
+    {
+        int sum = 0;
+        for(int i = 0; i < items.Count; i++) {
+            if (i == slot) continue;
+            InventoryEntry entry = items[i];
+            if (entry.id == id) {
+                sum += entry.quantity;
+            }
+        }
+        return sum;
+    }
+
+
+}
+
 public class InventoryEntry {
     public int id;
     public int quantity;

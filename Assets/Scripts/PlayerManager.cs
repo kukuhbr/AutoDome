@@ -74,6 +74,7 @@ public class PlayerData
 {
     public Inventory inventory;
     public Inventory battleInventory;
+    public SlotInventory battleSlot;
     public List<int> vehicleGrades;
     public DateTime lastEnergyFill;
 
@@ -81,7 +82,7 @@ public class PlayerData
     {
         vehicleGrades = new List<int>(new int[] {0, -1, -1});
         inventory = new Inventory(20, 50, 99999, 5);
-        battleInventory = new Inventory(3, 5, 2000);
+        battleInventory = new Inventory(18, 5, 2000);
         // Debug Inventory
         for(int i = 1; i < 11; i++) {
             if (i == 9) {
@@ -92,6 +93,14 @@ public class PlayerData
                 inventory.Add(i, 8);
             }
         }
+        // Debug Slot
+        battleSlot = new SlotInventory(inventory);
+        // battleSlot.SetSlot(4,0);
+        // battleSlot.SetSlot(5,1);
+        // battleSlot.SetSlot(6,2);
+        // battleSlot.SetSlot(7,3);
+        // battleSlot.SetSlot(8,4);
+        // battleSlot.SetSlot(6,5);
         lastEnergyFill = DateTime.Now;
     }
 
@@ -99,8 +108,17 @@ public class PlayerData
         vehicleGrades = save.vehicleGrades;
         inventory = new Inventory(20, 50, 99999, 5);
         inventory.Add(save.itemInventoryId, save.itemInventoryQuantity);
-        battleInventory = new Inventory(3, 5, 2000);
+        battleInventory = new Inventory(18, 5, 2000);
         RefillEnergyFrom(save.lastEnergyFill);
+
+        // Debug Slot
+        battleSlot = new SlotInventory(inventory);
+        // battleSlot.SetSlot(4,0);
+        // battleSlot.SetSlot(5,1);
+        // battleSlot.SetSlot(6,2);
+        // battleSlot.SetSlot(7,3);
+        // battleSlot.SetSlot(8,4);
+        // battleSlot.SetSlot(6,5);
     }
 
     void RefillEnergyFrom(long time) {
