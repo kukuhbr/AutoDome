@@ -83,24 +83,17 @@ public class PlayerData
         vehicleGrades = new List<int>(new int[] {0, -1, -1});
         inventory = new Inventory(20, 50, 99999, 5);
         battleInventory = new Inventory(18, 5, 2000);
+        battleSlot = new SlotInventory(inventory);
         // Debug Inventory
         for(int i = 1; i < 11; i++) {
             if (i == 9) {
                 inventory.Add(i, 15000);
             } else if (i == 10) {
-                inventory.Add(i, 1);
+                inventory.Add(i, 5);
             } else {
-                inventory.Add(i, 8);
+                inventory.Add(i, 3);
             }
         }
-        // Debug Slot
-        battleSlot = new SlotInventory(inventory);
-        // battleSlot.SetSlot(4,0);
-        // battleSlot.SetSlot(5,1);
-        // battleSlot.SetSlot(6,2);
-        // battleSlot.SetSlot(7,3);
-        // battleSlot.SetSlot(8,4);
-        // battleSlot.SetSlot(6,5);
         lastEnergyFill = DateTime.Now;
     }
 
@@ -109,16 +102,9 @@ public class PlayerData
         inventory = new Inventory(20, 50, 99999, 5);
         inventory.Add(save.itemInventoryId, save.itemInventoryQuantity);
         battleInventory = new Inventory(18, 5, 2000);
-        RefillEnergyFrom(save.lastEnergyFill);
-
-        // Debug Slot
         battleSlot = new SlotInventory(inventory);
-        // battleSlot.SetSlot(4,0);
-        // battleSlot.SetSlot(5,1);
-        // battleSlot.SetSlot(6,2);
-        // battleSlot.SetSlot(7,3);
-        // battleSlot.SetSlot(8,4);
-        // battleSlot.SetSlot(6,5);
+        battleSlot.SetAllSlot(save.slotInventoryId, save.slotInventoryQuantity);
+        RefillEnergyFrom(save.lastEnergyFill);
     }
 
     void RefillEnergyFrom(long time) {
@@ -242,6 +228,8 @@ public class PlayerSave
     public List<int> vehicleGrades;
     public List<int> itemInventoryId;
     public List<int> itemInventoryQuantity;
+    public List<int> slotInventoryId;
+    public List<int> slotInventoryQuantity;
     public long lastEnergyFill;
     public PlayerSave(PlayerData playerData) {
         InitializeSaveData();
@@ -249,10 +237,9 @@ public class PlayerSave
         Tuple<List<int>, List<int>> itemTuple = playerData.inventory.makeTuple();
         itemInventoryId = itemTuple.Item1;
         itemInventoryQuantity = itemTuple.Item2;
-        // foreach(KeyValuePair<int, InventoryEntry> entry in playerData.inventory.items) {
-        //     itemInventoryId.Add(entry.Key);
-        //     itemInventoryQuantity.Add(entry.Value.quantity);
-        // }
+        Tuple<List<int>, List<int>> slotTuple = playerData.battleSlot.makeTuple();
+        slotInventoryId = slotTuple.Item1;
+        slotInventoryQuantity = slotTuple.Item2;
         lastEnergyFill = playerData.lastEnergyFill.Ticks;
     }
     void InitializeSaveData() {

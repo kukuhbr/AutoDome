@@ -40,10 +40,12 @@ public class RewardScreen : MonoBehaviour
 
     public void LoadMenu()
     {
+        PlayerData playerData = PlayerManager.playerManager.playerData;
         Tuple<List<int>, List<int>> rewards = playerItemHandler.battleInventory.makeTuple();
-        PlayerManager.playerManager.playerData.inventory.Add(rewards.Item1, rewards.Item2);
+        playerData.inventory.Add(rewards.Item1, rewards.Item2);
         playerItemHandler.battleInventory.Clear();
-        PlayerManager.SavePlayerData(PlayerManager.playerManager.playerData);
+        playerData.battleSlot.ChangeReferenceInventory(playerData.inventory);
+        PlayerManager.SavePlayerData(playerData);
         SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
         SoundsManager.soundsManager.StopLoop("music_gameover");

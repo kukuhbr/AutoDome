@@ -270,6 +270,25 @@ public class SlotInventory {
             SetSlot(entry.id, i);
         }
     }
+
+    public Tuple<List<int>, List<int>> makeTuple() {
+        List<int> ids = new List<int>();
+        List<int> quantities = new List<int>();
+        foreach(InventoryEntry entry in items) {
+            ids.Add(entry.id);
+            quantities.Add(entry.quantity);
+        }
+        return new Tuple<List<int>, List<int>>(ids, quantities);
+    }
+
+    public void SetAllSlot(List<int> ids, List<int> quantities)
+    {
+        for (int i = 0; i < 6; i++) {
+            items[i].id = ids[i];
+            items[i].quantity = quantities[i];
+        }
+        Recalculate();
+    }
 }
 
 public class InventoryEntry {

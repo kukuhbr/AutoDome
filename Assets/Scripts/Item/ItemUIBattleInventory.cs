@@ -20,7 +20,6 @@ public class ItemUIBattleInventory : MonoBehaviour, IPointerClickHandler
     {
         highlight.SetActive(false);
         battleInventoryHandler = GetComponentInParent<UIBattleInventory>();
-        PlayerManager.playerManager.playerData.battleSlot.ChangeReferenceInventory(PlayerManager.playerManager.playerData.inventory);
         MainMenu.mainMenu.onItemFocusChange += UpdateFocus;
         battleInventoryHandler.onBattleInventorySlotSelected += EndSelectPhase;
     }

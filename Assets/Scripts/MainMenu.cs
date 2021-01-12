@@ -156,6 +156,7 @@ public class MainMenu : MonoBehaviour
         inventory.SetActive(false);
         UnlockScroll();
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_back);
+        PlayerManager.SavePlayerData(PlayerManager.playerManager.playerData);
     }
 
     public event Action<int> onItemFocusChange;
