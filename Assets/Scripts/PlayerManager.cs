@@ -135,19 +135,25 @@ public class PlayerData
     }
 
     public void SetupBattleInventory() {
-        int repetition = 0;
-        foreach(KeyValuePair<int, InventoryEntry> entry in inventory.items) {
-            if (repetition > 5) break;
-            int id = entry.Key;
-            //Get all itemusable, should be editable
-            if(Database.database.databaseItem.GetItemById(id) is ItemUsable) {
-                int quantity = Math.Min(entry.Value.quantity, battleInventory.maxUsable);
-                if(inventory.Remove(id, quantity)) {
-                    battleInventory.Add(id, quantity);
-                    repetition++;
-                }
+        // int repetition = 0;
+        // foreach(KeyValuePair<int, InventoryEntry> entry in inventory.items) {
+        //     if (repetition > 5) break;
+        //     int id = entry.Key;
+        //     //Get all itemusable, should be editable
+        //     if(Database.database.databaseItem.GetItemById(id) is ItemUsable) {
+        //         int quantity = Math.Min(entry.Value.quantity, battleInventory.maxUsable);
+        //         if(inventory.Remove(id, quantity)) {
+        //             battleInventory.Add(id, quantity);
+        //             repetition++;
+        //         }
+        //     }
+        // }
+        foreach (InventoryEntry entry in battleSlot.items) {
+            if(inventory.Remove(entry.id, entry.quantity)) {
+                battleInventory.Add(entry.id, entry.quantity);
             }
         }
+        battleSlot.ChangeReferenceInventory(battleInventory);
     }
 
     public int GetVehicleGrade(int id) {

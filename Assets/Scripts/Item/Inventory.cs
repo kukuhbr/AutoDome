@@ -191,6 +191,11 @@ public class SlotInventory {
         Debug.Log(items.Count);
     }
 
+    public void ChangeReferenceInventory(Inventory referenceInventory)
+    {
+        inventory = referenceInventory;
+    }
+
     public bool SetSlot(int id, int slot) {
         int remaining = inventory.GetEntry(id).quantity - SlotQuantityItem(id, slot);
         if (remaining > 0) {

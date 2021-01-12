@@ -68,20 +68,34 @@ public class RewardScreen : MonoBehaviour
         int[] choice = new int[repetition];
         int[] quantity = new int[repetition];
         string notificationText = "You have gained bonus ";
+        ItemBase itemData;
         for(int i = 0; i < repetition; i++) {
-            bool inventoryItem = false;
-            while(!inventoryItem) {
+            bool validReward = false;
+            int rollTries = 0;
+            while(!validReward) {
+                rollTries += 1;
+                if (rollTries > 10) break;
                 choice[i] = items[UnityEngine.Random.Range(0, items.Length)];
-                ItemBase itemData = Database.database.databaseItem.GetItemById(choice[i]);
-                inventoryItem = itemData.inInventory;
-                if(!inventoryItem) continue;
-                if(i < repetition - 1) {
-                    notificationText += itemData.itemName + ", ";
-                } else {
-                    notificationText += itemData.itemName + ".";
-                }
+                itemData = Database.database.databaseItem.GetItemById(choice[i]);
+                validReward = itemData.inInventory;
+                validReward = validReward && playerItemHandler.battleInventory.GetEntry(choice[i]).quantity > 0;
+                if(!validReward) continue;
             }
-            quantity[i] = playerItemHandler.battleInventory.GetEntry(choice[i]).quantity;
+            int ownedQuantity = playerItemHandler.battleInventory.GetEntry(choice[i]).quantity;
+            quantity[i] = ownedQuantity > 5 ? 5 : ownedQuantity;
+            if (rollTries > 10) {
+                choice[i] = 9;
+                quantity[i] = UnityEngine.Random.Range(10, 31);
+            }
+            itemData = Database.database.databaseItem.GetItemById(choice[i]);
+            if (i == 0) {
+                notificationText += quantity[i] + " " + itemData.itemName;
+            } else {
+                notificationText += ", " + quantity[i] + " " + itemData.itemName;
+            }
+            if (i == repetition - 1) {
+                notificationText += ".";
+            }
         }
         playerItemHandler.battleInventory.ForceAdd(new List<int>(choice), new List<int>(quantity));
         Display();

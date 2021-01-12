@@ -69,7 +69,7 @@ public class PlayerScript : Character {
             //Debug.Log(moveDirection);
             if (moveDirection.normalized != Vector3.zero) {
                 transform.rotation = Quaternion.LookRotation(moveDirection.normalized);
-                Debug.Log(moveDirection.magnitude);
+                //Debug.Log(moveDirection.magnitude);
                 engineSound.volume = Mathf.Lerp( .1f, .25f, moveDirection.magnitude);
                 shakeDistance = .1f;
             } else {

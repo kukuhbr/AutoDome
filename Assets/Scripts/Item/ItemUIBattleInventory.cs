@@ -18,9 +18,10 @@ public class ItemUIBattleInventory : MonoBehaviour, IPointerClickHandler
     private UIBattleInventory battleInventoryHandler;
     void OnEnable()
     {
-        MainMenu.mainMenu.onItemFocusChange += UpdateFocus;
         highlight.SetActive(false);
         battleInventoryHandler = GetComponentInParent<UIBattleInventory>();
+        PlayerManager.playerManager.playerData.battleSlot.ChangeReferenceInventory(PlayerManager.playerManager.playerData.inventory);
+        MainMenu.mainMenu.onItemFocusChange += UpdateFocus;
         battleInventoryHandler.onBattleInventorySlotSelected += EndSelectPhase;
     }
 
