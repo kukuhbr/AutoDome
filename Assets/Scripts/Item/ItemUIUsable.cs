@@ -11,6 +11,7 @@ public class ItemUIUsable : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private RectTransform cooldownImage;
     public int idSlot;
+    private float lastClick = 0f;
     void Start()
     {
         BattleEvents.battleEvents.onGameOver += GameOver;
@@ -26,7 +27,7 @@ public class ItemUIUsable : MonoBehaviour, IPointerClickHandler
     {
         InventoryEntry inventoryEntry = GetComponent<ItemUIIcon>().inventoryEntry;
         if(inventoryEntry != null) {
-            float cooldown = PlayerManager.playerManager.playerData.battleInventory.GetEntry(inventoryEntry.id).cooldown;
+            float cooldown = GetItemCooldown(inventoryEntry.id);
             float height = Mathf.Lerp(0f, 100f, cooldown / 4f);
             cooldownImage.sizeDelta = new Vector2(0f, height);
         } else {
@@ -38,12 +39,17 @@ public class ItemUIUsable : MonoBehaviour, IPointerClickHandler
     {
         InventoryEntry inventoryEntry = GetComponent<ItemUIIcon>().inventoryEntry;
         if(inventoryEntry != null) {
-            if (!isGameOver && inventoryEntry.cooldown == 0f) {
+            if (!isGameOver && GetItemCooldown(inventoryEntry.id) == 0f) {
                 DatabaseItem databaseItem = Database.database.databaseItem;
                 PlayerManager.playerManager.playerData.battleSlot.UseSlot(idSlot);
                 databaseItem.GetItemById(inventoryEntry.id).Use();
             }
         }
+    }
+
+    private float GetItemCooldown(int id)
+    {
+        return PlayerManager.playerManager.playerData.battleInventory.GetEntry(id).cooldown;
     }
 
     void OnDestroy()
