@@ -15,7 +15,7 @@ public class ShooterEnemy : EnemyScript
                     StartCoroutine(Fire((target.position - transform.position).normalized));
                     currentAmmo -= 1f;
                 }
-                if(currentAmmo <= 0f || Mathf.Approximately(currentAmmo, 0f)) {
+                if(currentAmmo < 1f) {
                     barrageStart = false;
                     isReloadAble = true;
                 }
@@ -34,6 +34,7 @@ public class ShooterEnemy : EnemyScript
         base.Spawn();
         currentAmmo = maxAmmo;
         barrageStart = true;
+        isReloading = false;
     }
 
     IEnumerator Fire(Vector3 input) {
