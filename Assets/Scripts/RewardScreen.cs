@@ -13,6 +13,8 @@ public class RewardScreen : MonoBehaviour
     private ItemUICollection itemCollectionHandler;
     [SerializeField]
     private Button adButton;
+    private RewardedAd bonusDrop;
+    private bool isAdLoaded;
 
     void Awake()
     {
@@ -24,6 +26,15 @@ public class RewardScreen : MonoBehaviour
     {
         SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.music_gameover, "music_gameover", 1f);
         SoundsManager.soundsManager.StopLoop("music_battle");
+
+        bonusDrop = new RewardedAd(GoogleMobileAdsScript.itemsAdId);
+        //bonusDrop.OnAdLoaded += AdLoaded;
+        bonusDrop.OnAdFailedToLoad += FailToLoad;
+        bonusDrop.OnAdFailedToShow += HandleAdFailToShow;
+        bonusDrop.OnUserEarnedReward += AdReward;
+
+        AdRequest request =  new AdRequest.Builder().Build();
+        bonusDrop.LoadAd(request);
     }
 
     public void Display()
@@ -54,17 +65,34 @@ public class RewardScreen : MonoBehaviour
     public void WatchAd()
     {
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
-        string battleAdId = GoogleMobileAdsScript.adUnitTest;
-        RewardedAd battleRewardedAd = GoogleMobileAdsScript.instance.CreateAndLoadRewardedAd(battleAdId);
-        if (battleRewardedAd.IsLoaded()) {
-            battleRewardedAd.Show();
+        if (bonusDrop.IsLoaded()) {
+            bonusDrop.Show();
+        } else {
+            Notifier.NotifyBig("Ad is not yet Loaded", 2);
         }
-        battleRewardedAd.OnUserEarnedReward += AdReward;
-        //AdReward();
+    }
+
+    void FailToLoad(object sender, AdErrorEventArgs args)
+    {
+        Notifier.NotifyBig("Ad Failed to Load", 2);
+        Debug.Log("HandleFailedToReceiveAd event received with message: "
+                        + args.Message);
+    }
+
+    void HandleAdFailToShow(object sender, EventArgs args)
+    {
+        Notifier.NotifyBig("Ad Failed to Show", 2);
+        Debug.Log("ad failed to show");
     }
 
     void AdReward(object sender, EventArgs args)
     {
+        StartCoroutine(AdRewardCoroutine());
+    }
+
+    System.Collections.IEnumerator AdRewardCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
         int[] items = playerItemHandler.battleInventory.items.Keys.ToArray();
         int repetition = UnityEngine.Random.Range(1, 4);
         int[] choice = new int[repetition];
@@ -103,5 +131,14 @@ public class RewardScreen : MonoBehaviour
         Display();
         Destroy(adButton.gameObject);
         Notifier.NotifyBig(notificationText, 2);
+    }
+
+    void OnDestroy()
+    {
+        if (bonusDrop != null) {
+            bonusDrop.OnAdFailedToLoad -= FailToLoad;
+            bonusDrop.OnAdFailedToShow -= HandleAdFailToShow;
+            bonusDrop.OnUserEarnedReward -= AdReward;
+        }
     }
 }

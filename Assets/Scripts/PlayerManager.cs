@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager playerManager;
     public static TimeSpan energyFillTime = TimeSpan.FromMinutes(5);
     public PlayerData playerData;
+    public int playCount;
     string saveName = "save";
     void Awake()
     {
@@ -25,6 +26,7 @@ public class PlayerManager : MonoBehaviour
             playerData = new PlayerData();
             Debug.Log("Creating new profile");
         }
+        playCount = 0;
     }
 
     public static BinaryFormatter GetBinaryFormatter()

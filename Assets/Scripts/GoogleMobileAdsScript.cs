@@ -13,44 +13,24 @@ public class GoogleMobileAdsScript : MonoBehaviour
 
     //test ad
     private string appId = "ca-app-pub-8471432327502017~5389357621";
-    public static string adUnitTest = "ca-app-pub-3940256099942544/5224354917";
+    private List<string> deviceIds;
+    public static string rewardedAdTest = "ca-app-pub-3940256099942544/5224354917";
+    public static string interstitialAdTest = "ca-app-pub-3940256099942544/1033173712";
+    public static string energyAdId = "ca-app-pub-8471432327502017/5292907285";
+    public static string itemsAdId = "ca-app-pub-8471432327502017/8437945377";
+    public static string interstitialAd = "ca-app-pub-8471432327502017/3269404829";
     void Start()
     {
+        deviceIds = new List<string>();
+        deviceIds.Add(SystemInfo.deviceUniqueIdentifier);
+        Debug.Log(SystemInfo.deviceUniqueIdentifier);
+        RequestConfiguration requestConfiguration = new RequestConfiguration
+            .Builder()
+            .SetTestDeviceIds(deviceIds)
+            .build();
+        //deviceIds.Add();
         MobileAds.Initialize(initStatus => { });
+        MobileAds.SetRequestConfiguration(requestConfiguration);
         instance = this;
-    }
-
-    public RewardedAd CreateAndLoadRewardedAd(string adUnitId)
-    {
-        RewardedAd rewardedAd = new RewardedAd(adUnitId);
-
-        rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
-        rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
-        rewardedAd.OnAdClosed += HandleRewardedAdClosed;
-
-        AdRequest request =  new AdRequest.Builder().Build();
-        rewardedAd.LoadAd(request);
-        return rewardedAd;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void HandleRewardedAdLoaded(object sender, EventArgs args)
-    {
-
-    }
-
-    void HandleUserEarnedReward(object sender, EventArgs args)
-    {
-
-    }
-
-    void HandleRewardedAdClosed(object sender, EventArgs args)
-    {
-
     }
 }

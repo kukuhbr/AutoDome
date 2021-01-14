@@ -15,6 +15,8 @@ public class MainMenu : MonoBehaviour
     public GameObject garage;
     public GameObject inventory;
     private PlayerData player;
+    private RewardedAd energyRewardedAd;
+    private InterstitialAd interstitialAd;
     private bool isMenuInFocus;
     private void Awake()
     {
@@ -26,6 +28,24 @@ public class MainMenu : MonoBehaviour
     {
         Screen.orientation = ScreenOrientation.Portrait;
         SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.music_menu, "menu");
+
+        interstitialAd = new InterstitialAd(GoogleMobileAdsScript.interstitialAd);
+        interstitialAd.OnAdFailedToLoad += InterstitialAdFailedToLoad;
+        AdRequest request =  new AdRequest.Builder().Build();
+        interstitialAd.LoadAd(request);
+
+        energyRewardedAd = new RewardedAd(GoogleMobileAdsScript.energyAdId);
+        energyRewardedAd.OnAdFailedToLoad += EnergyAdFailedToLoad;
+        energyRewardedAd.OnUserEarnedReward += EnergyAdReward;
+        energyRewardedAd.OnAdClosed += EnergyAdReload;
+        AdRequest energyAdRequest =  new AdRequest.Builder().Build();
+        energyRewardedAd.LoadAd(energyAdRequest);
+
+        if (PlayerManager.playerManager.playCount != 0) {
+            if (PlayerManager.playerManager.playCount % 2 == 0) {
+                StartCoroutine(DisplayAdAfterSceneLoaded());
+            }
+        }
     }
 
     // Update is called once per frame
@@ -66,6 +86,7 @@ public class MainMenu : MonoBehaviour
             return;
         }
         if (player.DecreaseEnergy()) {
+            PlayerManager.playerManager.playCount += 1;
             SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_start);
             PlayerManager.playerManager.playerData.SetupBattleInventory();
             SceneLoader.sceneLoader.LoadScene(SceneIndex.BATTLE_SOLO);
@@ -79,18 +100,53 @@ public class MainMenu : MonoBehaviour
 
     void WatchAd()
     {
-        string energyAdId = GoogleMobileAdsScript.adUnitTest;
-        RewardedAd energyRewardedAd = GoogleMobileAdsScript.instance.CreateAndLoadRewardedAd(energyAdId);
         if (energyRewardedAd.IsLoaded()) {
             energyRewardedAd.Show();
+        } else {
+            Notifier.Notify("Ad is Loading");
         }
-        energyRewardedAd.OnUserEarnedReward += EnergyAdReward;
+    }
+
+    void EnergyAdReload(object sender, EventArgs args)
+    {
+        AdRequest energyAdRequest =  new AdRequest.Builder().Build();
+        energyRewardedAd.LoadAd(energyAdRequest);
+    }
+
+    void EnergyAdFailedToLoad(object sender, AdErrorEventArgs args)
+    {
+        Notifier.Notify("Ad Failed to Load");
+        Debug.Log("HandleFailedToReceiveAd event received with message: "
+                        + args.Message);
     }
 
     void EnergyAdReward(object sender, EventArgs args)
     {
+        StartCoroutine(EnergyRewardCoroutine());
+    }
+
+    IEnumerator EnergyRewardCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
         player.IncreaseEnergy(true);
         Notifier.Notify("Thank you for supporting!");
+    }
+
+    IEnumerator DisplayAdAfterSceneLoaded()
+    {
+        while (SceneLoader.sceneLoader.isLoaded != true) {
+            yield return null;
+        }
+        while (!interstitialAd.IsLoaded()) {
+            yield return null;
+        }
+        interstitialAd.Show();
+    }
+
+    void InterstitialAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        Debug.Log("HandleFailedToReceiveAd event received with message: "
+                        + args.Message);
     }
 
     void LockScroll() {
@@ -174,6 +230,19 @@ public class MainMenu : MonoBehaviour
         if(onUpgradeVehicle != null)
         {
             onUpgradeVehicle();
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (energyRewardedAd != null) {
+            energyRewardedAd.OnAdFailedToLoad -= EnergyAdFailedToLoad;
+            energyRewardedAd.OnUserEarnedReward -= EnergyAdReward;
+            energyRewardedAd.OnAdClosed -= EnergyAdReload;
+        }
+
+        if (interstitialAd != null) {
+            interstitialAd.OnAdFailedToLoad -= InterstitialAdFailedToLoad;
         }
     }
 }
