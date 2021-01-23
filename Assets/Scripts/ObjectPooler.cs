@@ -44,25 +44,6 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    // public GameObject GetPooledObject(string tag) {
-    //     for(int i = 0; i < pooledObjects.Count; i++) {
-    //         if(!pooledObjects[i].activeInHierarchy && pooledObjects[i].tag == tag) {
-    //             return pooledObjects[i];
-    //         }
-    //     }
-    //     foreach (ObjectPoolItem item in itemsToPool) {
-    //         if (item.objectToPool.tag == tag) {
-    //             if (item.shouldExpand) {
-    //                 GameObject obj = (GameObject)Instantiate(item.objectToPool);
-    //                 obj.SetActive(false);
-    //                 pooledObjects.Add(obj);
-    //                 return obj;
-    //             }
-    //         }
-    //     }
-    //     Debug.Log("No pooled object available");
-    //     return null;
-    // }
     public GameObject GetPooledObject(Pooled type) {
         List<GameObject> pool = pooledObjects[type];
         for(int i = 0; i < pool.Count; i++) {
@@ -80,7 +61,6 @@ public class ObjectPooler : MonoBehaviour
                 }
             }
         }
-        Debug.Log("No pooled object available");
         return null;
     }
 }

@@ -19,14 +19,6 @@ public class BattleManager : MonoBehaviour {
     private int waveNumber;
     private bool isGameStarted = false;
 
-    // Use this for initialization
-
-    void Awake() {
-        //Assign selected Vehicle Scriptable Object to character
-        // if(SceneLoader.sceneLoader) {
-        //     player.GetComponent<PlayerScript>().vehicleData = vehicleList[SceneLoader.sceneLoader.selectedCharacterIndex].grade[0];
-        // }
-    }
     void Start() {
         Screen.orientation = ScreenOrientation.Landscape;
 
@@ -46,7 +38,8 @@ public class BattleManager : MonoBehaviour {
     }
 
     void SpawnRandom(GameObject obj) {
-        /*//Determine Spawn Boundary; xB == xBounds
+        //Determine Spawn Boundary;
+        /*xB == xBounds
         float xB = arenaSize.x - 1.4f;
         float zB = arenaSize.z - 1.4f;
         obj.transform.position = new Vector3(Random.Range(-xB, xB), 0, Random.Range(-zB, zB));*/
@@ -63,7 +56,6 @@ public class BattleManager : MonoBehaviour {
         return random;
     }
 
-    // Update is called once per frame
     void Update() {
         if(isGameStarted)
         {
@@ -75,15 +67,6 @@ public class BattleManager : MonoBehaviour {
                 BattleEvents.battleEvents.TriggerGameOver();
             }
         }
-        // if(isGameOver)
-        // {
-        //     if (Time.timeScale > 0.2) {
-        //         Time.timeScale -= 0.1f;
-        //         Time.fixedDeltaTime = 0.02f * Time.timeScale;
-        //     } else {
-        //         StartCoroutine(LoadMenu());
-        //     }
-        // }
     }
 
     IEnumerator SpawnEnemy(int n) {
@@ -139,7 +122,6 @@ public class BattleManager : MonoBehaviour {
         yield return new WaitForSecondsRealtime(3f);
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
-        //SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
     }
 
     void OnDestroy()

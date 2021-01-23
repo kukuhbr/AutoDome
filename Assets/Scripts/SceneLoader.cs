@@ -38,7 +38,6 @@ public class SceneLoader : MonoBehaviour
         {
             currentScene = targetScene;
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)currentScene));
-            //Debug.Log("The current active scene is: " + SceneManager.GetActiveScene().buildIndex);
         };
 
 

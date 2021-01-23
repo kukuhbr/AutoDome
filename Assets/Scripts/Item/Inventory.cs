@@ -188,7 +188,6 @@ public class SlotInventory {
             items.Add(new InventoryEntry(-1, 0, max));
         }
         inventory = referenceInventory;
-        Debug.Log(items.Count);
     }
 
     public void ChangeReferenceInventory(Inventory referenceInventory)

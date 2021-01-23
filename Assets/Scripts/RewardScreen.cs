@@ -19,7 +19,6 @@ public class RewardScreen : MonoBehaviour
     void Awake()
     {
         itemCollectionHandler = GetComponentInChildren<ItemUICollection>(true);
-        Debug.Log(itemCollectionHandler);
     }
 
     void Start()

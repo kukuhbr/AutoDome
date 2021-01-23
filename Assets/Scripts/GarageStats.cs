@@ -40,7 +40,6 @@ public class GarageStats : MonoBehaviour
             current = vehicleInfo.grade[grade];
         } else {
             current = databaseVehicle.vehicleNotFound;
-            Debug.Log(grade);
         }
         upgrade = vehicleInfo.grade[nextGrade];
     }

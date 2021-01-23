@@ -54,8 +54,6 @@ public class PlayerScript : Character {
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.vehicle_engine_revv, .6f);
         SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.vehicle_engine_idle, "engine", .05f);
         engineSound = SoundsManager.soundsManager.GetReference("engine").GetComponent<AudioSource>();
-        //Debug.Log("cam Forward" + cameraForward);
-        //Debug.Log("cam Right" + cameraRight);
         BattleEvents.battleEvents.onGameOver += GameOver;
     }
 
@@ -63,13 +61,8 @@ public class PlayerScript : Character {
         if (isAlive && !isGameOver) {
             // Check Movement and Rotation
             moveDirection = cameraForward * joystickMove.Vertical + cameraRight * joystickMove.Horizontal;
-            //moveDirection = Vector3.forward * joystickMove.Vertical + Vector3.right * joystickMove.Horizontal;
-            //moveDirection = Quaternion.AngleAxis(-35, Vector3.up) * (Vector3.forward * joystickMove.Vertical + Vector3.right * joystickMove.Horizontal);
-
-            //Debug.Log(moveDirection);
             if (moveDirection.normalized != Vector3.zero) {
                 transform.rotation = Quaternion.LookRotation(moveDirection.normalized);
-                //Debug.Log(moveDirection.magnitude);
                 engineSound.volume = Mathf.Lerp( .1f, .25f, moveDirection.magnitude);
                 shakeDistance = .1f;
             } else {
@@ -79,7 +72,6 @@ public class PlayerScript : Character {
 
             // Check for Shoot
             shootDirection = cameraForward * joystickShoot.Vertical + cameraRight * joystickShoot.Horizontal;
-            //shootDirection = Vector3.forward * joystickShoot.Vertical + Vector3.right * joystickShoot.Horizontal;
             if (Mathf.Abs(shootDirection.x) > 0.6 || Mathf.Abs(shootDirection.z) > 0.6) {
                 isShooting = true;
                 playerModelBody.transform.rotation = Quaternion.LookRotation(shootDirection.normalized) * Quaternion.Euler(0,180,0);
@@ -105,7 +97,6 @@ public class PlayerScript : Character {
     }
 
     void FixedUpdate() {
-        //this.transform.LookAt(direction * speed);
         LimitMovement(moveDirection);
         rb.velocity = moveDirection * moveSpeed;
     }
@@ -161,23 +152,19 @@ public class PlayerScript : Character {
     }
 
     public void Heal(int n) {
-        Debug.Log("Heal before " + currentHp + " " + n);
         if (currentHp + n < maxHp) {
             currentHp += n;
         } else {
             currentHp = maxHp;
         }
-        Debug.Log("Heal after " + currentHp);
     }
 
     public void Reload(int n) {
-        Debug.Log("Reload before " + currentAmmo + " " + n);
         if (currentAmmo + n < maxAmmo) {
             currentAmmo += n;
         } else {
             currentAmmo = maxAmmo;
         }
-        Debug.Log("Reload after " + currentAmmo);
     }
 
     public void SpawnBomb(GameObject effector, int strength) {
@@ -188,7 +175,6 @@ public class PlayerScript : Character {
     }
 
     IEnumerator Fire(Vector3 input) {
-        //Logic
         GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject(ObjectPooler.Pooled.Bullet);
         if (bullet != null) {
             bullet.transform.position = this.transform.position + new Vector3(0, .5f, 0) + playerModelBody.transform.forward * -1f;
@@ -205,10 +191,8 @@ public class PlayerScript : Character {
     }
 
     void EngineShake() {
-        //Vector3 modelBodyStartPos = playerModelBody.transform.position;
         Vector3 randomShake = modelBodyStartPos + (Random.insideUnitSphere * shakeDistance);
         playerModelBody.transform.localPosition = randomShake;
-        //yield return null;
     }
 
     void GameOver()

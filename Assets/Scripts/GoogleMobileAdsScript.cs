@@ -23,7 +23,6 @@ public class GoogleMobileAdsScript : MonoBehaviour
     {
         deviceIds = new List<string>();
         deviceIds.Add(SystemInfo.deviceUniqueIdentifier);
-        Debug.Log(SystemInfo.deviceUniqueIdentifier);
         RequestConfiguration requestConfiguration = new RequestConfiguration
             .Builder()
             .SetTestDeviceIds(deviceIds)

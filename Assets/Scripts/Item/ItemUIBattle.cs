@@ -7,15 +7,11 @@ using TMPro;
 public class ItemUIBattle : MonoBehaviour
 {
     [SerializeField]
-    //private PlayerItemHandler handler;
     private ItemUICollection itemUICollection;
-    //private Image backgroundImage;
     private SlotInventory battleSlot;
 
     void Start() {
         itemUICollection = GetComponent<ItemUICollection>();
-        //backgroundImage = GetComponent<Image>();
-        //backgroundImage.enabled = false;
         BattleEvents.battleEvents.onItemPickup += HandleItemPickup;
         BattleEvents.battleEvents.onItemUsed += AdjustItemUI;
         battleSlot = PlayerManager.playerManager.playerData.battleSlot;
@@ -24,7 +20,6 @@ public class ItemUIBattle : MonoBehaviour
 
     void AdjustItemUI()
     {
-        //backgroundImage.enabled = !battleSlot.IsEmpty();
         itemUICollection.AdjustItemCollectionUI(battleSlot);
     }
 

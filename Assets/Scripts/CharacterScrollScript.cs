@@ -84,12 +84,6 @@ public class CharacterScrollScript : MonoBehaviour
             SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_vehicle_select, .4f);
             delayedConfirm = 0.331f;
         }
-        // if(this.transform.position.x % 40 != 0)
-        // {
-        //     transform.position = new Vector3(-targetAlignment * 40f, transform.position.y, transform.position.z);
-        //     Debug.Log("Pos Alignment: " + posAlignment);
-        //     Debug.Log("Target Position: " + targetAlignment);
-        // }
     }
 
     private void Update()
@@ -112,7 +106,6 @@ public class CharacterScrollScript : MonoBehaviour
                     if (characterChanged) {
                         characterChanged = false;
                         if (characterObtained) {
-                            Debug.Log("start revvvvving!");
                             StartCoroutine(PlayConfirmSFX());
                         }
                     }
@@ -131,10 +124,8 @@ public class CharacterScrollScript : MonoBehaviour
 
     IEnumerator PlayConfirmSFX() {
         while (delayedConfirm > 0) {
-            Debug.Log("Delayed confirm is " + delayedConfirm);
             yield return null;
         }
-        Debug.Log("play!");
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_vehicle_select_confirm, .4f);
     }
 

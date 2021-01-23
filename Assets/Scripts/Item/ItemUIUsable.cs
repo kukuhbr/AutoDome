@@ -11,7 +11,6 @@ public class ItemUIUsable : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private RectTransform cooldownImage;
     public int idSlot;
-    private float lastClick = 0f;
     void Start()
     {
         BattleEvents.battleEvents.onGameOver += GameOver;

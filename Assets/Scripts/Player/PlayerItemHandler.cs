@@ -10,30 +10,17 @@ public class PlayerItemHandler : MonoBehaviour
     [SerializeField]
     private GameObject bombEffector;
     void Start() {
-        // battleInventory = new Inventory(3, 5, 2000);
-        // //Debug
-        // for(int i = 1; i < 9; i++) {
-        //     if (i == 9) {
-        //         battleInventory.Add(i, 15000);
-        //     } else if (i == 10) {
-        //         battleInventory.Add(i, 0);
-        //     } else {
-        //         battleInventory.Add(i, 3);
-        //     }
-        // }
         battleInventory = PlayerManager.playerManager.playerData.battleInventory;
         foreach(KeyValuePair<int, InventoryEntry> entry in battleInventory.items) {
             int id = entry.Key;
             Database.database.databaseItem.GetItemById(id).SetHandler(this.gameObject);
         }
     }
-    public void Buff(ItemBuff buff) {//ItemBuff.BuffType buffType, float strength, float duration) {
-        //List<float> buff = new float {0f, 0f, 0f};
+    public void Buff(ItemBuff buff) {
         float[] buffAmount = {0f, 0f, 0f};
         buffAmount[(int)buff.buffType] += buff.strength;
         GameObject buffVisual = null;
         if(buffVisualPrefab[(int)buff.buffType]) {
-            //Debug.Log("Call Buff " + buff.buffType + " " + (int)buff.buffType);
             buffVisual = Instantiate(buffVisualPrefab[(int)buff.buffType], this.transform);
         }
         GetComponent<PlayerScript>().damage += buffAmount[0];
@@ -59,7 +46,6 @@ public class PlayerItemHandler : MonoBehaviour
             ItemCollectable collectable = (ItemCollectable)item;
             quantity = collectable.dropQuantity;
         }
-        Debug.Log("get " + item.name);
         bool isSuccessful = battleInventory.Add(item.id, quantity);
         BattleEvents.battleEvents.TriggerItemPickup(item.id);
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.item_pickup);
@@ -101,6 +87,5 @@ public class PlayerItemHandler : MonoBehaviour
             yield return null;
         }
         entry.cooldown = 0f;
-        Debug.Log("Cooldown is done!");
     }
 }
