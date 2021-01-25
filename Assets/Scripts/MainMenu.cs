@@ -26,7 +26,7 @@ public class MainMenu : MonoBehaviour
     }
     void Start()
     {
-        Screen.orientation = ScreenOrientation.Portrait;
+        Screen.orientation = ScreenOrientation.Landscape;
         SoundsManager.soundsManager.PlayLoop(SoundsManager.SoundsEnum.music_menu, "menu");
 
         interstitialAd = new InterstitialAd(GoogleMobileAdsScript.interstitialAd);

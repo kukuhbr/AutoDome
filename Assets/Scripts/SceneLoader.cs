@@ -21,10 +21,10 @@ public class SceneLoader : MonoBehaviour
     {
         loadingScreen.gameObject.SetActive(true);
         isLoaded = false;
-        SceneManager.LoadScene((int)SceneIndex.MAIN_MENU, LoadSceneMode.Additive);
+        SceneManager.LoadScene((int)SceneIndex.MAIN_MENU_LANDSCAPE, LoadSceneMode.Additive);
         loadingScreen.gameObject.SetActive(false);
         isLoaded = true;
-        currentScene = SceneIndex.MAIN_MENU;
+        currentScene = SceneIndex.MAIN_MENU_LANDSCAPE;
     }
 
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
@@ -84,4 +84,5 @@ public enum SceneIndex
     PRELOAD = 0,
     MAIN_MENU = 1,
     BATTLE_SOLO = 2,
+    MAIN_MENU_LANDSCAPE = 3,
 }

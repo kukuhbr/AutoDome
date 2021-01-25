@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleSolo.unity
     guid: 72e3ffc965d503541bce2e16ee64da09
+  - enabled: 1
+    path: Assets/Scenes/MainMenuLandscape.unity
+    guid: 455bb8f0571c6f44b95b2d22762f687d
   m_configObjects: {}
