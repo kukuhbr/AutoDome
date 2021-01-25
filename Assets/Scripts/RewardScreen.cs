@@ -56,7 +56,7 @@ public class RewardScreen : MonoBehaviour
         playerItemHandler.battleInventory.Clear();
         playerData.battleSlot.ChangeReferenceInventory(playerData.inventory);
         PlayerManager.SavePlayerData(playerData);
-        SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU);
+        SceneLoader.sceneLoader.LoadScene(SceneIndex.MAIN_MENU_LANDSCAPE);
         SoundsManager.soundsManager.PlaySFX(SoundsManager.SoundsEnum.ui_select);
         SoundsManager.soundsManager.StopLoop("music_gameover");
     }
